@@ -24,6 +24,13 @@
     	<scope>system</scope>
     	<systemPath>${project.basedir}/lib/spigot-1.12.1.jar</systemPath>
     </dependency>
+    <dependency>
+    	<groupId>org.spigotmc</groupId>
+    	<artifactId>Spigot-Server-13</artifactId>
+    	<version>LATEST-1.13</version>
+    	<scope>system</scope>
+    	<systemPath>${project.basedir}/lib/spigot-1.13.1.jar</systemPath>
+    </dependency>
     <!-- Factions -->
     <dependency>
       <groupId>com.massivecraft</groupId>
