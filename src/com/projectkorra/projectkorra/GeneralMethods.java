@@ -31,10 +31,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.bekvon.bukkit.residence.Residence;
-import com.bekvon.bukkit.residence.api.ResidenceInterface;
-import com.bekvon.bukkit.residence.protection.ClaimedResidence;
-import com.bekvon.bukkit.residence.protection.ResidencePermissions;
 import com.google.common.reflect.ClassPath;
 import com.griefcraft.lwc.LWC;
 import com.griefcraft.lwc.LWCPlugin;
@@ -45,19 +41,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.perms.PermissibleAction;
-import com.palmergames.bukkit.towny.Towny;
-import com.palmergames.bukkit.towny.TownyMessaging;
-import com.palmergames.bukkit.towny.TownySettings;
-import com.palmergames.bukkit.towny.object.Coord;
-import com.palmergames.bukkit.towny.object.PlayerCache;
-import com.palmergames.bukkit.towny.object.PlayerCache.TownBlockStatus;
-import com.palmergames.bukkit.towny.object.TownyPermission;
-import com.palmergames.bukkit.towny.object.TownyUniverse;
-import com.palmergames.bukkit.towny.object.TownyWorld;
-import com.palmergames.bukkit.towny.object.WorldCoord;
-import com.palmergames.bukkit.towny.utils.PlayerCacheUtil;
-import com.palmergames.bukkit.towny.war.flagwar.TownyWar;
-import com.palmergames.bukkit.towny.war.flagwar.TownyWarConfig;
+
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -89,10 +73,13 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.kingdoms.adapters.AdapterKingdom;
 import org.kingdoms.constants.kingdom.Kingdom;
+import org.kingdoms.constants.kingdom.KingdomRelation;
 import org.kingdoms.constants.kingdom.Nation;
 import org.kingdoms.constants.land.Land;
 import org.kingdoms.constants.land.location.SimpleChunkLocation;
+import org.kingdoms.constants.land.location.SimpleLocation;
 import org.kingdoms.constants.player.KingdomPermission;
 import org.kingdoms.constants.player.KingdomPlayer;
 
@@ -141,11 +128,6 @@ import com.projectkorra.projectkorra.util.TempBlock;
 import com.projectkorra.projectkorra.waterbending.WaterManipulation;
 import com.projectkorra.projectkorra.waterbending.WaterSpout;
 
-import br.net.fabiozumbi12.RedProtect.Bukkit.RedProtect;
-import br.net.fabiozumbi12.RedProtect.Bukkit.Region;
-import br.net.fabiozumbi12.RedProtect.Bukkit.API.RedProtectAPI;
-import me.ryanhamshire.GriefPrevention.Claim;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -1547,7 +1529,7 @@ public class GeneralMethods {
 				}
 			}
 
-			if (twnp != null && respectTowny) {
+			/*if (twnp != null && respectTowny) {
 				final Towny twn = (Towny) twnp;
 
 				WorldCoord worldCoord;
@@ -1606,35 +1588,19 @@ public class GeneralMethods {
 						return true;
 					}
 				}
-			}
+			}*/
 
 			if (kingdoms != null && respectKingdoms) {
 				final KingdomPlayer kPlayer = KingdomPlayer.getKingdomPlayer(player);
-				
-					final SimpleChunkLocation chunkLocation = new SimpleChunkLocation(player.getLocation());
-					final Land land = chunkLocation.getLand();
-					
-					if (land != null) {
-						
-						final UUID owner = land.getKingdomId(); 
-						
-						if (owner != null) {
-							
-							if (!kPlayer.hasPermission(KingdomPermission.BUILD)) {
-								return true;
-							} 
-						
+				if (kPlayer != null) {
+					final Land land = SimpleChunkLocation.of(player.getLocation()).getLand();
+					if (land != null && land.isClaimed()) {
+						if (kPlayer.getKingdom() == null) return true;
+						if (!((land.getKingdom().getKing().getId() == kPlayer.getKingdom().getKing().getId() && kPlayer.hasPermission(KingdomPermission.BUILD)) //If it's their land and they have permission
+								|| kPlayer.getKingdom().hasAttribute(land.getKingdom(), KingdomRelation.Attribute.BUILD))) { //Or if they have perm to build in the land - if they dont have any of those, deny them
+							return true;
+						}
 					}
-					
-				}
-
-			}
-
-			if (redprotect != null && respectRedProtect) {
-				final RedProtectAPI api = RedProtect.get().getAPI();
-				final Region region = api.getRegion(location);
-				if (!(region != null && region.canBuild(player))) {
-					return true;
 				}
 			}
 		}

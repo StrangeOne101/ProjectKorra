@@ -5,17 +5,23 @@
   <artifactId>projectkorra</artifactId>
   <version>1.8.9</version>
   <name>ProjectKorra</name>
+  <profiles>
+    <profile>
+      <id>ProjectKorra</id>
+    </profile>
+  </profiles>
   <repositories>
-    <repository>
-      <id>ender-zone-repo</id>
-      <url>https://ci.ender.zone/plugin/repository/everything/</url>
-    </repository>
-    <!-- local jar files, add more using: mvn install:install-file -Dfile=aaa.jar -DgroupId=aaa -DartifactId=aaa -Dversion=aaa -Dpackaging=jar -DlocalRepositoryPath=path/to/ProjectKorra/localrepo/ -->
     <repository>
       <id>project.local</id>
       <name>project</name>
       <url>file://${project.basedir}/localrepo/</url>
     </repository>
+    <repository>
+      <id>ender-zone-repo</id>
+      <url>https://ci.ender.zone/plugin/repository/everything/</url>
+    </repository>
+    <!-- local jar files, add more using: mvn install:install-file -Dfile=aaa.jar -DgroupId=aaa -DartifactId=aaa -Dversion=aaa -Dpackaging=jar -DlocalRepositoryPath=path/to/ProjectKorra/localrepo/ -->
+
     <!-- WorldGuard and WorldEdit Repo -->
     <repository>
       <id>sk89q-repo</id>
@@ -116,20 +122,7 @@
   <systemPath>${project.basedir}/lib/PreciousStones 10.6.1.jar</systemPath>
 </dependency>
 -->
-    <!-- Residence -->
-    <dependency>
-      <groupId>com.bekvon.bukkit</groupId>
-      <artifactId>residence</artifactId>
-      <version>4.8.3.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- Towny -->
-    <dependency>
-      <groupId>com.palmergames</groupId>
-      <artifactId>Towny</artifactId>
-      <version>0.93.0.0</version>
-      <scope>provided</scope>
-    </dependency>
+
     <!-- WorldEdit / WorldGuard -->
     <dependency>
       <groupId>com.sk89q.worldedit</groupId>
@@ -156,24 +149,12 @@
       <scope>provided</scope>
     </dependency>
     <!-- RedProtect -->
-    <dependency>
-      <groupId>br.net.fabiozumbi12</groupId>
-      <artifactId>RedProtect</artifactId>
-      <version>7.5.5</version>
-      <scope>provided</scope>
-    </dependency>
     <!-- Kingdoms -->
 <dependency>
     <groupId>org.kingdoms</groupId>
     <artifactId>kingdoms</artifactId>
     <version>1.0.0</version>
     <scope>provided</scope>
-    <exclusions>
-        <exclusion>
-            <groupId>*</groupId>
-            <artifactId>*</artifactId>
-        </exclusion>
-    </exclusions>
 </dependency>
     <!-- PlaceholderAPI -->
     <dependency>

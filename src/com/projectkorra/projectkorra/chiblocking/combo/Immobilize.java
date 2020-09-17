@@ -95,9 +95,9 @@ public class Immobilize extends ChiAbility implements ComboAbility {
 	@Override
 	public ArrayList<AbilityInformation> getCombination() {
 		final ArrayList<AbilityInformation> immobilize = new ArrayList<>();
-		immobilize.add(new AbilityInformation("QuickStrike", ClickType.LEFT_CLICK_ENTITY));
-		immobilize.add(new AbilityInformation("SwiftKick", ClickType.LEFT_CLICK_ENTITY));
-		immobilize.add(new AbilityInformation("QuickStrike", ClickType.LEFT_CLICK_ENTITY));
+		immobilize.add(new AbilityInformation("QuickStrike", ClickType.LEFT_CLICK));
+		immobilize.add(new AbilityInformation("SwiftKick", ClickType.LEFT_CLICK));
+		immobilize.add(new AbilityInformation("QuickStrike", ClickType.LEFT_CLICK));
 		immobilize.add(new AbilityInformation("QuickStrike", ClickType.LEFT_CLICK_ENTITY));
 		return immobilize;
 	}

@@ -3,8 +3,6 @@ package com.projectkorra.projectkorra;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import com.bekvon.bukkit.residence.protection.FlagPermissions;
-
 import co.aikar.timings.lib.MCTiming;
 import co.aikar.timings.lib.TimingManager;
 
@@ -141,9 +139,9 @@ public class ProjectKorra extends JavaPlugin {
 		});
 
 		final double cacheTime = ConfigManager.getConfig().getDouble("Properties.RegionProtection.CacheBlockTime");
-		if (Bukkit.getPluginManager().getPlugin("Residence") != null) {
+		/*if (Bukkit.getPluginManager().getPlugin("Residence") != null) {
 			FlagPermissions.addFlag(ConfigManager.defaultConfig.get().getString("Properties.RegionProtection.Residence.Flag"));
-		}
+		}*/
 
 		GeneralMethods.deserializeFile();
 		GeneralMethods.startCacheCleaner(cacheTime);

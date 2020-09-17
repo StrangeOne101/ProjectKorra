@@ -64,6 +64,7 @@ public class ActionBar {
 		for (final Player p : player) {
 			final Object entityplayer = getHandle.invoke(p);
 			final Object PlayerConnection = playerConnection.get(entityplayer);
+			if (PlayerConnection != null)
 			sendPacket.invoke(PlayerConnection, packet);
 		}
 	}
