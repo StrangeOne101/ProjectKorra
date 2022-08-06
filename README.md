@@ -22,6 +22,8 @@ For screenshots, [go here](https://imgur.com/a/U5Jav9h
 - The \[ProjectKorra\] prefix in front of commands is completely configurable
 - Commands can affect offline players
 - The combinations used to trigger combos is configurable
+- Reimplemented day/night factors
+- Better EarthArmor colors
 - Removed autoannouncer
 
 ## Compatibility
@@ -44,6 +46,7 @@ Some plugins break due to hex color codes being supported. This can easily be fi
 ## Developer Changes
 These are changes that benefit developers of side plugins and addon abilities
 
+- Added FastMath
 - Added TempFallingBlock class
 - Added PlayerSwingEvent for addon developers (better than the interact or animation event as it contains all the checks PK does to make sure users aren't interacting with anything)
 - Added OfflineBendingPlayer class for offline player data
@@ -52,7 +55,7 @@ These are changes that benefit developers of side plugins and addon abilities
 - Added BendingRegionProtection class so 3rd parties can add bending support
 - Added MultiSubElement class - a class for subelements that have more than 1 parent element (e.g. mudbending for water and earth)
 
-### Fixes
+## Fixes
 - Fixed the server crashing when an ability's range is 0
 - Fixed addons registering their listeners twice on /b reload
 - Fixed addon ability jars being locked so they couldn't be deleted while the server was on (excluding Linux, which doesn't care if it SHOULD delete it or not)
@@ -76,3 +79,7 @@ These are changes that benefit developers of side plugins and addon abilities
 - Fixed memory leak where BendingPlayer objects are never unloaded from memory
 - Fixed toggled bending not persisting over relogs
 - Fixed `/b choose avatar` not giving all 4 elements but instead giving the internal "Avatar" element that is useless
+- Fixed Night and Day factors not existing for 90% of abilities
+- Fixed the blue fire factor not being used for a lot of abilities
+- Fixed earth abilities not using the Metal power factor for damage when using a metal source
+- Fixed combos being triggered from block placing

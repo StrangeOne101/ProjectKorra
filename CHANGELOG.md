@@ -1,6 +1,25 @@
 # Changelog
 A list of changes made to ForkRoku over time
 
+## v1.15
+- Implemented FastMath
+    - ProjectKorra now uses a FastMath implementation to speed up sin, cosine, power and square root calculations used in abilities
+    - Can be used by addons as well
+- Updated EarthArmor colors
+    - Has better colors overall and supports 1.19 blocks too
+    - Now supports 246 block colors
+- Fixed not setting up the bending board and prefixes for newly joined players
+- Fixed loading BendingPlayers on the main thread instead of a parallel thread
+- Fixed errors not canceling the CompletableFuture for getting OfflineBendingPlayers
+- Fixed BendingPlayer#getOrLoadOffline causing server stall
+- Fixed Night and Day factors not existing for 90% of abilities
+- Fixed the blue fire factor not being used for a lot of abilities
+- Made the blue fire factor not affect lightning or combustion abilities
+- Fixed earth abilities not using the Metal power factor for damage when using a metal source
+- Fixed outdated combo addons causing all other combos to fail to load
+- Changed cached fixes in PK listener to use Sets instead of Lists (faster)
+- Fixed combos being triggered from block placing
+
 ## v1.14
 - Made the combination to trigger combos completely configurable
 
@@ -9,7 +28,7 @@ A list of changes made to ForkRoku over time
     - Allows commands to be run on offline players
     - Players who log off will now have their data converted to an offline version of BendingPlayer, so if they log back in before the data is uncached, the data won't have to be fetched from the database again.
     - Accessible with `BendingPlayer.getOrLoadOffline(offlinePlayer)` (the main thread will wait till this returns)
-    - Accessible with `BendingPlayer.getOrLoadOfflineAsync(offlinePlayer)` which returns a CompletedFuture<OfflineBendingPlayer>, allowing you to chain your functions that need to be run
+    - Accessible with `BendingPlayer.getOrLoadOfflineAsync(offlinePlayer)` which returns a CompletedFuture\<OfflineBendingPlayer\>, allowing you to chain your functions that need to be run
 - Added TempFallingBlock class
 - Adjusted PhaseChange config slightly
 - Fixed bending not remaining toggled when relogging
