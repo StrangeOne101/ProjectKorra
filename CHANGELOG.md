@@ -1,6 +1,9 @@
 # Changelog
 A list of changes made to ForkRoku over time
 
+## v1.15.1
+- Fixed a debug log being left in the game
+
 ## v1.15
 - Implemented FastMath
     - ProjectKorra now uses a FastMath implementation to speed up sin, cosine, power and square root calculations used in abilities
