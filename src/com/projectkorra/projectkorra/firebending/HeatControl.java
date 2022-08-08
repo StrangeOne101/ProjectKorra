@@ -130,21 +130,21 @@ public class HeatControl extends FireAbility {
 	public void setFields() {
 		if (this.heatControlType == HeatControlType.COOK) {
 			this.cookTime = System.currentTimeMillis();
-			this.cookInterval = (long) applyInverseModifiers(getConfig().getLong("Abilities.Fire.HeatControl.Cook.Interval"));
+			this.cookInterval = (long) applyInverseModifiers(getConfigSection().getLong("Cook.Interval"));
 		} else if (this.heatControlType == HeatControlType.EXTINGUISH) {
-			this.extinguishCooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.HeatControl.Extinguish.Cooldown"));
-			this.extinguishRadius = applyModifiers(getConfig().getLong("Abilities.Fire.HeatControl.Extinguish.Radius"));
+			this.extinguishCooldown = applyModifiersCooldown(getConfigSection().getLong("Extinguish.Cooldown"));
+			this.extinguishRadius = applyModifiers(getConfigSection().getLong("Extinguish.Radius"));
 		} else if (this.heatControlType == HeatControlType.MELT) {
-			this.meltRange = applyModifiersRange(getConfig().getDouble("Abilities.Fire.HeatControl.Melt.Range"));
-			this.meltRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.HeatControl.Melt.Radius"));
+			this.meltRange = applyModifiersRange(getConfigSection().getDouble("Melt.Range"));
+			this.meltRadius = applyModifiers(getConfigSection().getDouble("Melt.Radius"));
 		} else if (this.heatControlType == HeatControlType.SOLIDIFY) {
 			this.solidifyRadius = 1;
 			this.solidifyDelay = 50;
 			this.solidifyLastBlockTime = 0;
-			this.solidifyMaxRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.HeatControl.Solidify.MaxRadius"));
-			this.solidifyRange = applyModifiersRange(getConfig().getDouble("Abilities.Fire.HeatControl.Solidify.Range"));
-			this.solidifyRevert = getConfig().getBoolean("Abilities.Fire.HeatControl.Solidify.Revert");
-			this.solidifyRevertTime = getConfig().getLong("Abilities.Fire.HeatControl.Solidify.RevertTime");
+			this.solidifyMaxRadius = applyModifiers(getConfigSection().getDouble("Solidify.MaxRadius"));
+			this.solidifyRange = applyModifiersRange(getConfigSection().getDouble("Solidify.Range"));
+			this.solidifyRevert = getConfigSection().getBoolean("Solidify.Revert");
+			this.solidifyRevertTime = getConfigSection().getLong("Solidify.RevertTime");
 			this.randy = new Random();
 		}
 	}

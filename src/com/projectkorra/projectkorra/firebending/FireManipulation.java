@@ -61,17 +61,17 @@ public class FireManipulation extends FireAbility {
 
 	public void setFields() {
 		if (this.fireManipulationType == FireManipulationType.SHIFT) {
-			this.streamCooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireManipulation.Stream.Cooldown"));
-			this.streamRange = applyModifiersRange(getConfig().getDouble("Abilities.Fire.FireManipulation.Stream.Range"));
-			this.streamDamage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.FireManipulation.Stream.Damage"));
-			this.streamSpeed = getConfig().getDouble("Abilities.Fire.FireManipulation.Stream.Speed");
-			this.streamParticles = getConfig().getInt("Abilities.Fire.FireManipulation.Stream.Particles");
+			this.streamCooldown = applyModifiersCooldown(getConfigSection().getLong("Stream.Cooldown"));
+			this.streamRange = applyModifiersRange(getConfigSection().getDouble("Stream.Range"));
+			this.streamDamage = applyModifiersDamage(getConfigSection().getDouble("Stream.Damage"));
+			this.streamSpeed = getConfigSection().getDouble("Stream.Speed");
+			this.streamParticles = getConfigSection().getInt("Stream.Particles");
 
-			this.shieldCooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireManipulation.Shield.Cooldown"));
-			this.shieldRange = applyModifiersRange(getConfig().getDouble("Abilities.Fire.FireManipulation.Shield.Range"));
-			this.shieldDamage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.FireManipulation.Shield.Damage"));
-			this.shieldParticles = getConfig().getInt("Abilities.Fire.FireManipulation.Shield.Particles");
-			this.maxDuration = (long) applyModifiers(getConfig().getLong("Abilities.Fire.FireManipulation.Shield.MaxDuration"));
+			this.shieldCooldown = applyModifiersCooldown(getConfigSection().getLong("Shield.Cooldown"));
+			this.shieldRange = applyModifiersRange(getConfigSection().getDouble("Shield.Range"));
+			this.shieldDamage = applyModifiersDamage(getConfigSection().getDouble("Shield.Damage"));
+			this.shieldParticles = getConfigSection().getInt("Shield.Particles");
+			this.maxDuration = (long) applyModifiers(getConfigSection().getLong("Shield.MaxDuration"));
 			this.points = new ConcurrentHashMap<>();
 		} else if (this.fireManipulationType == FireManipulationType.CLICK) {
 

@@ -50,16 +50,16 @@ public class WallOfFire extends FireAbility {
 	public WallOfFire(final Player player) {
 		super(player);
 
-		this.maxAngle = getConfig().getDouble("Abilities.Fire.WallOfFire.MaxAngle");
-		this.interval = getConfig().getLong("Abilities.Fire.WallOfFire.Interval");
-		this.range = applyModifiersRange(getConfig().getDouble("Abilities.Fire.WallOfFire.Range"));
-		this.height = applyModifiers(getConfig().getDouble("Abilities.Fire.WallOfFire.Height"));
-		this.width = applyModifiers(getConfig().getDouble("Abilities.Fire.WallOfFire.Width"));
-		this.damage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.WallOfFire.Damage"));
-		this.cooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.WallOfFire.Cooldown"));
-		this.damageInterval = getConfig().getLong("Abilities.Fire.WallOfFire.DamageInterval");
-		this.duration = getConfig().getLong("Abilities.Fire.WallOfFire.Duration");
-		this.fireTicks = getConfig().getDouble("Abilities.Fire.WallOfFire.FireTicks");
+		this.maxAngle = getConfigSection().getDouble("MaxAngle");
+		this.interval = getConfigSection().getLong("Interval");
+		this.range = applyModifiersRange(getConfigSection().getDouble("Range"));
+		this.height = applyModifiers(getConfigSection().getDouble("Height"));
+		this.width = applyModifiers(getConfigSection().getDouble("Width"));
+		this.damage = applyModifiersDamage(getConfigSection().getDouble("Damage"));
+		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Cooldown"));
+		this.damageInterval = getConfigSection().getLong("DamageInterval");
+		this.duration = getConfigSection().getLong("Duration");
+		this.fireTicks = getConfigSection().getDouble("FireTicks");
 		this.random = new Random();
 		this.blocks = new ArrayList<>();
 

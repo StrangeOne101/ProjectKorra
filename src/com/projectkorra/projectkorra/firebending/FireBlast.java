@@ -109,16 +109,16 @@ public class FireBlast extends FireAbility {
 		this.isFireBurst = true;
 		this.powerFurnace = true;
 		this.showParticles = true;
-		this.fireBurstIgnite = getConfig().getBoolean("Abilities.Fire.FireBurst.Ignite");
-		this.dissipate = getConfig().getBoolean("Abilities.Fire.FireBlast.Dissipate");
-		this.cooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireBlast.Cooldown"));
-		this.range = applyModifiersRange(getConfig().getDouble("Abilities.Fire.FireBlast.Range"));
-		this.speed = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.Speed"));
-		this.collisionRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.CollisionRadius"));
-		this.fireTicks = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.FireTicks"));
-		this.knockback = getConfig().getDouble("Abilities.Fire.FireBlast.Knockback");
-		this.flameRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.FlameParticleRadius"));
-		this.damage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.FireBlast.Damage"));
+		this.fireBurstIgnite = getConfigSection().getBoolean("Ignite");
+		this.dissipate = getConfigSection().getBoolean("Dissipate");
+		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Cooldown"));
+		this.range = applyModifiersRange(getConfigSection().getDouble("Range"));
+		this.speed = applyModifiers(getConfigSection().getDouble("Speed"));
+		this.collisionRadius = applyModifiers(getConfigSection().getDouble("CollisionRadius"));
+		this.fireTicks = applyModifiers(getConfigSection().getDouble("FireTicks"));
+		this.knockback = getConfigSection().getDouble("Knockback");
+		this.flameRadius = applyModifiers(getConfigSection().getDouble("FlameParticleRadius"));
+		this.damage = applyModifiersDamage(getConfigSection().getDouble("Damage"));
 		this.random = new Random();
 	}
 

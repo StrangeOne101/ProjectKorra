@@ -53,12 +53,12 @@ public class FireWheel extends FireAbility implements ComboAbility {
 			return;
 		}
 
-		this.damage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.FireWheel.Damage"));
-		this.range = applyModifiersRange(getConfig().getDouble("Abilities.Fire.FireWheel.Range"));
-		this.speed = getConfig().getDouble("Abilities.Fire.FireWheel.Speed");
-		this.cooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireWheel.Cooldown"));
-		this.fireTicks = getConfig().getDouble("Abilities.Fire.FireWheel.FireTicks");
-		this.height = applyModifiers(getConfig().getInt("Abilities.Fire.FireWheel.Height"));
+		this.damage = applyModifiersDamage(getConfigSection().getDouble("Damage"));
+		this.range = applyModifiersRange(getConfigSection().getDouble("Range"));
+		this.speed = getConfigSection().getDouble("Speed");
+		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Cooldown"));
+		this.fireTicks = getConfigSection().getDouble("FireTicks");
+		this.height = applyModifiers(getConfigSection().getInt("Height"));
 
 		this.bPlayer.addCooldown(this);
 		this.affectedEntities = new ArrayList<LivingEntity>();

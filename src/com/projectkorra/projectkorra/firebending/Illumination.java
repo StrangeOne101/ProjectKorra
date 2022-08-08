@@ -34,9 +34,9 @@ public class Illumination extends FireAbility {
 
 		//Don't apply modifiers here, as this is active at all times and therefore needs
 		//to have the fields updated
-		this.range = getConfig().getDouble("Abilities.Fire.Illumination.Range");
-		this.cooldown = getConfig().getLong("Abilities.Fire.Illumination.Cooldown");
-		this.lightThreshold = getConfig().getInt("Abilities.Fire.Illumination.LightThreshold");
+		this.range = getConfigSection().getDouble("Range");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.lightThreshold = getConfigSection().getInt("LightThreshold");
 
 		final Illumination oldIllumination = getAbility(player, Illumination.class);
 		if (oldIllumination != null) {

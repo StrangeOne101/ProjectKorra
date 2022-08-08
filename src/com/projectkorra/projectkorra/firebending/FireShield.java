@@ -50,14 +50,14 @@ public class FireShield extends FireAbility {
 
 		this.shield = shield;
 		this.ignite = true;
-		this.discCooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireShield.Disc.Cooldown"));
-		this.discDuration = getConfig().getLong("Abilities.Fire.FireShield.Disc.Duration");
-		this.discRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireShield.Disc.Radius"));
-		this.discFireTicks = getConfig().getDouble("Abilities.Fire.FireShield.Disc.FireTicks");
-		this.shieldCooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireShield.Shield.Cooldown"));
-		this.shieldDuration = getConfig().getLong("Abilities.Fire.FireShield.Shield.Duration");
-		this.shieldRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireShield.Shield.Radius"));
-		this.shieldFireTicks = getConfig().getDouble("Abilities.Fire.FireShield.Shield.FireTicks");
+		this.discCooldown = applyModifiersCooldown(getConfigSection().getLong("Disc.Cooldown"));
+		this.discDuration = getConfigSection().getLong("Disc.Duration");
+		this.discRadius = applyModifiers(getConfigSection().getDouble("Disc.Radius"));
+		this.discFireTicks = getConfigSection().getDouble("Disc.FireTicks");
+		this.shieldCooldown = applyModifiersCooldown(getConfigSection().getLong("Shield.Cooldown"));
+		this.shieldDuration = getConfigSection().getLong("Shield.Duration");
+		this.shieldRadius = applyModifiers(getConfigSection().getDouble("Shield.Radius"));
+		this.shieldFireTicks = getConfigSection().getDouble("Shield.FireTicks");
 		this.random = new Random();
 
 		if (hasAbility(player, FireShield.class) || this.bPlayer.isOnCooldown("FireShield")) {

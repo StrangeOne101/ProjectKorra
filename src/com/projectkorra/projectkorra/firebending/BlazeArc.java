@@ -30,7 +30,7 @@ public class BlazeArc extends FireAbility {
 	public BlazeArc(final Player player, final Location location, final Vector direction, final double range) {
 		super(player);
 		this.range = applyModifiersRange(range);
-		this.speed = getConfig().getLong("Abilities.Fire.Blaze.Speed");
+		this.speed = getConfigSection().getLong("Speed");
 		this.interval = (long) (1000.0 / this.speed);
 
 		/*if(bPlayer.canUseSubElement(SubElement.BLUE_FIRE)) {

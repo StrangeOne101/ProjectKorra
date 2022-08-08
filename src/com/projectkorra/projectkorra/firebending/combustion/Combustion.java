@@ -51,13 +51,13 @@ public class Combustion extends CombustionAbility {
 		}
 
 		this.ticks = 0;
-		this.breakBlocks = getConfig().getBoolean("Abilities.Fire.Combustion.BreakBlocks");
-		this.explosivePower = (float) applyModifiers(getConfig().getDouble("Abilities.Fire.Combustion.ExplosivePower"));
-		this.cooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.Combustion.Cooldown"));
-		this.damage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.Combustion.Damage"));
-		this.radius = applyModifiers(getConfig().getDouble("Abilities.Fire.Combustion.Radius"));
-		this.speed = getConfig().getDouble("Abilities.Fire.Combustion.Speed");
-		this.range = applyModifiersRange(getConfig().getDouble("Abilities.Fire.Combustion.Range"));
+		this.breakBlocks = getConfigSection().getBoolean("BreakBlocks");
+		this.explosivePower = (float) applyModifiers(getConfigSection().getDouble("ExplosivePower"));
+		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Cooldown"));
+		this.damage = applyModifiersDamage(getConfigSection().getDouble("Damage"));
+		this.radius = applyModifiers(getConfigSection().getDouble("Radius"));
+		this.speed = getConfigSection().getDouble("Speed");
+		this.range = applyModifiersRange(getConfigSection().getDouble("Range"));
 		this.origin = player.getEyeLocation();
 		this.direction = player.getEyeLocation().getDirection().normalize();
 		this.location = this.origin.clone();

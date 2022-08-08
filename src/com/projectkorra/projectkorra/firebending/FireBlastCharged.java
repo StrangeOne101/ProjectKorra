@@ -67,19 +67,19 @@ public class FireBlastCharged extends FireAbility {
 
 		this.charged = false;
 		this.launched = false;
-		this.canDamageBlocks = getConfig().getBoolean("Abilities.Fire.FireBlast.Charged.DamageBlocks");
-		this.dissipate = getConfig().getBoolean("Abilities.Fire.FireBlast.Dissipate");
-		this.chargeTime = (long) applyInverseModifiers(getConfig().getLong("Abilities.Fire.FireBlast.Charged.ChargeTime"));
-		this.cooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.FireBlast.Charged.Cooldown"));
+		this.canDamageBlocks = getConfigSection().getBoolean("Charged.DamageBlocks");
+		this.dissipate = getConfigSection().getBoolean("Dissipate");
+		this.chargeTime = (long) applyInverseModifiers(getConfigSection().getLong("Charged.ChargeTime"));
+		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Charged.Cooldown"));
 		this.time = System.currentTimeMillis();
 		this.interval = 25;
-		this.collisionRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.CollisionRadius"));
-		this.minDamage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.MinimumDamage"));
-		this.maxDamage = applyModifiersDamage(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.MaximumDamage"));
-		this.range = applyModifiersRange(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.Range"));
-		this.damageRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.DamageRadius"));
-		this.explosionRadius = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.ExplosionRadius"));
-		this.fireTicks = applyModifiers(getConfig().getDouble("Abilities.Fire.FireBlast.Charged.FireTicks"));
+		this.collisionRadius = applyModifiers(getConfigSection().getDouble("Charged.CollisionRadius"));
+		this.minDamage = applyModifiersDamage(getConfigSection().getDouble("Charged.MinimumDamage"));
+		this.maxDamage = applyModifiersDamage(getConfigSection().getDouble("Charged.MaximumDamage"));
+		this.range = applyModifiersRange(getConfigSection().getDouble("Charged.Range"));
+		this.damageRadius = applyModifiers(getConfigSection().getDouble("Charged.DamageRadius"));
+		this.explosionRadius = applyModifiers(getConfigSection().getDouble("Charged.ExplosionRadius"));
+		this.fireTicks = applyModifiers(getConfigSection().getDouble("Charged.FireTicks"));
 		this.innerRadius = this.damageRadius / 2;
 
 

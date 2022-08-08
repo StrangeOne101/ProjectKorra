@@ -20,9 +20,9 @@ public class BlazeRing extends FireAbility {
 	public BlazeRing(final Player player) {
 		super(player);
 
-		this.range = applyModifiersRange(getConfig().getDouble("Abilities.Fire.Blaze.Ring.Range"));
-		this.angleIncrement = getConfig().getDouble("Abilities.Fire.Blaze.Ring.Angle");
-		this.cooldown = applyModifiersCooldown(getConfig().getLong("Abilities.Fire.Blaze.Ring.Cooldown"));
+		this.range = applyModifiersRange(getConfigSection().getDouble("Ring.Range"));
+		this.angleIncrement = getConfigSection().getDouble("Ring.Angle");
+		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Ring.Cooldown"));
 		this.location = player.getLocation();
 
 		if (this.bPlayer.isAvatarState()) {
