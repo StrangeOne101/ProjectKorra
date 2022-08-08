@@ -1,6 +1,10 @@
 # Changelog
 A list of changes made to ForkRoku over time
 
+## v1.15.2
+- Fixed newly joined players unable to have their bending chosen for them via the console/admins
+- Fixed `/b choose` always making people avatars
+
 ## v1.15.1
 - Fixed a debug log being left in the game
 
