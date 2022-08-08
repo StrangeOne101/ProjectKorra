@@ -30,12 +30,12 @@ public class AcrobatStance extends ChiAbility {
 		if (!this.bPlayer.canBend(this)) {
 			return;
 		}
-		this.cooldown = getConfig().getLong("Abilities.Chi.AcrobatStance.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Chi.AcrobatStance.Duration");
-		this.speed = getConfig().getInt("Abilities.Chi.AcrobatStance.Speed") - 1;
-		this.jump = getConfig().getInt("Abilities.Chi.AcrobatStance.Jump") - 1;
-		this.chiBlockBoost = getConfig().getDouble("Abilities.Chi.AcrobatStance.ChiBlockBoost");
-		this.paralyzeDodgeBoost = getConfig().getDouble("Abilities.Chi.AcrobatStance.ParalyzeChanceDecrease");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
+		this.speed = getConfigSection().getInt("Speed") - 1;
+		this.jump = getConfigSection().getInt("Jump") - 1;
+		this.chiBlockBoost = getConfigSection().getDouble("ChiBlockBoost");
+		this.paralyzeDodgeBoost = getConfigSection().getDouble("ParalyzeChanceDecrease");
 
 		final ChiAbility stance = this.bPlayer.getStance();
 		if (stance != null) {

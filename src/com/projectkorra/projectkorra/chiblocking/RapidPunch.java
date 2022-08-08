@@ -30,10 +30,10 @@ public class RapidPunch extends ChiAbility {
 			return;
 		}
 
-		this.damage = getConfig().getDouble("Abilities.Chi.RapidPunch.Damage");
-		this.punches = getConfig().getInt("Abilities.Chi.RapidPunch.Punches");
-		this.cooldown = getConfig().getLong("Abilities.Chi.RapidPunch.Cooldown");
-		this.interval = getConfig().getLong("Abilities.Chi.RapidPunch.Interval");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.punches = getConfigSection().getInt("Punches");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.interval = getConfigSection().getLong("Interval");
 		this.target = targetentity;
 		this.start();
 		if (!isRemoved()) {

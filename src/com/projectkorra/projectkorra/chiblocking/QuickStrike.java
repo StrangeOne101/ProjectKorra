@@ -24,9 +24,9 @@ public class QuickStrike extends ChiAbility {
 		if (!this.bPlayer.canBend(this)) {
 			return;
 		}
-		this.damage = getConfig().getDouble("Abilities.Chi.QuickStrike.Damage");
-		this.cooldown = getConfig().getLong("Abilities.Chi.QuickStrike.Cooldown");
-		this.blockChance = getConfig().getInt("Abilities.Chi.QuickStrike.ChiBlockChance");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.blockChance = getConfigSection().getInt("ChiBlockChance");
 		this.target = targetentity;
 		if (this.target == null) {
 			return;

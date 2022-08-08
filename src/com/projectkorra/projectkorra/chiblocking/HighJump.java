@@ -23,8 +23,8 @@ public class HighJump extends ChiAbility {
 		if (!this.bPlayer.canBend(this)) {
 			return;
 		}
-		this.height = ProjectKorra.plugin.getConfig().getInt("Abilities.Chi.HighJump.Height");
-		this.cooldown = ProjectKorra.plugin.getConfig().getInt("Abilities.Chi.HighJump.Cooldown");
+		this.height = getConfigSection().getInt("Height");
+		this.cooldown = getConfigSection().getInt("Cooldown");
 		this.start();
 	}
 

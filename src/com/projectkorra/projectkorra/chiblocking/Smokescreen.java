@@ -34,9 +34,9 @@ public class Smokescreen extends ChiAbility {
 		if (!this.bPlayer.canBend(this)) {
 			return;
 		}
-		this.cooldown = getConfig().getLong("Abilities.Chi.Smokescreen.Cooldown");
-		this.duration = getConfig().getInt("Abilities.Chi.Smokescreen.Duration");
-		this.radius = getConfig().getDouble("Abilities.Chi.Smokescreen.Radius");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getInt("Duration");
+		this.radius = getConfigSection().getDouble("Radius");
 		this.start();
 	}
 

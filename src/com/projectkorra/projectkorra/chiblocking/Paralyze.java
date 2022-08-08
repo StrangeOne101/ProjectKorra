@@ -32,8 +32,8 @@ public class Paralyze extends ChiAbility {
 		if (!(this.target instanceof LivingEntity)) {
 			return;
 		}
-		this.cooldown = getConfig().getLong("Abilities.Chi.Paralyze.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Chi.Paralyze.Duration");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
 		this.start();
 	}
 

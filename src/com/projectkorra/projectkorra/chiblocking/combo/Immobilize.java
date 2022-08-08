@@ -31,8 +31,8 @@ public class Immobilize extends ChiAbility implements ComboAbility {
 	public Immobilize(final Player player) {
 		super(player);
 
-		this.cooldown = getConfig().getLong("Abilities.Chi.Immobilize.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Chi.Immobilize.ParalyzeDuration");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("ParalyzeDuration");
 		this.target = GeneralMethods.getTargetedEntity(player, 5);
 		if (!this.bPlayer.canBendIgnoreBinds(this)) {
 			return;

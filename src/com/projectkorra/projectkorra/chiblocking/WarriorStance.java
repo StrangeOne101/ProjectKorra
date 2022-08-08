@@ -26,10 +26,10 @@ public class WarriorStance extends ChiAbility {
 		if (!this.bPlayer.canBend(this)) {
 			return;
 		}
-		this.cooldown = getConfig().getLong("Abilities.Chi.WarriorStance.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Chi.WarriorStance.Duration");
-		this.strength = getConfig().getInt("Abilities.Chi.WarriorStance.Strength") - 1;
-		this.resistance = getConfig().getInt("Abilities.Chi.WarriorStance.Resistance"); //intended to be negative
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
+		this.strength = getConfigSection().getInt("Strength") - 1;
+		this.resistance = getConfigSection().getInt("Resistance"); //intended to be negative
 
 		final ChiAbility stance = this.bPlayer.getStance();
 		if (stance != null) {
