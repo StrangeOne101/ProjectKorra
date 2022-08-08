@@ -46,24 +46,9 @@ public class PerWorldConfig extends Config {
                     ConfigurationSection clonedConfig = clone(get());
                     ConfigurationSection newSection = merge(clonedConfig, (ConfigurationSection) config);
                     worldConfigs.put(world.toLowerCase(), newSection);
-
-                    if (newSection instanceof YamlConfiguration) {
-                        try {
-                            ((YamlConfiguration) newSection).save(new File(ProjectKorra.plugin.getDataFolder(), world + ".yml"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        ProjectKorra.log.severe("Cant debug");
-
-                    }
                 }
             }
         }
-
-
-
-
     }
 
     /**
@@ -84,7 +69,11 @@ public class PerWorldConfig extends Config {
     protected ConfigurationSection merge(ConfigurationSection base, ConfigurationSection other) {
         for (String key : other.getKeys(true)) {
             if (key.toLowerCase().startsWith("perworldconfig")) continue;
-            base.set(key, other.get(key));
+
+            Object object = other.get(key);
+            if (object instanceof ConfigurationSection) continue; //Skip sections; we are only merging values as sections will delete existing things
+
+            base.set(key, object);
         }
         return base;
     }
