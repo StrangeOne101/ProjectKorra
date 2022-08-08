@@ -17,7 +17,9 @@ import com.projectkorra.projectkorra.configuration.ConfigManager;
 public class Element {
 
 	public enum ElementType {
-		BENDING("bending", "bender", "bend"), BLOCKING("blocking", "blocker", "block"), NO_SUFFIX("", "", "");
+		BENDING("bending", "bender", "bend"),
+		BLOCKING("blocking", "blocker", "block"),
+		NO_SUFFIX("", "", "");
 
 		private String bending;
 		private String bender;
@@ -182,6 +184,18 @@ public class Element {
 			return ElementType.NO_SUFFIX;
 		}
 		return this.type;
+	}
+
+	/**
+	 * Gets the top-level element. If this element is a subelement, it will return
+	 * the parent element. Else, it will return itself
+	 * @return The top-level element
+	 */
+	public Element getTopElement() {
+		if (this instanceof SubElement && !(this instanceof MultiSubElement)) {
+			return ((SubElement) this).parentElement;
+		}
+		return this;
 	}
 
 	@Override

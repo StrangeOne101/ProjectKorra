@@ -24,6 +24,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -157,7 +158,7 @@ public class BendingPlayer extends OfflineBendingPlayer {
 		}
 
 		if (!ignoreCooldowns && this.cooldowns.containsKey(ability.getName())) {
-			if (this.cooldowns.get(ability.getName()).getCooldown() + getConfig().getLong("Properties.GlobalCooldown") >= System.currentTimeMillis()) {
+			if (this.cooldowns.get(ability.getName()).getCooldown() + ConfigManager.defaultConfig().get(player.getWorld()).getLong("Properties.GlobalCooldown") >= System.currentTimeMillis()) {
 				return false;
 			}
 
@@ -229,19 +230,23 @@ public class BendingPlayer extends OfflineBendingPlayer {
 	}
 
 	public boolean canCurrentlyBendWithWeapons() {
-		if (this.getBoundAbility() != null && this.player.getInventory().getItemInMainHand() != null) {
-			final boolean hasWeapon = GeneralMethods.isWeapon(this.player.getInventory().getItemInMainHand().getType());
-			final boolean noWeaponElement = GeneralMethods.getElementsWithNoWeaponBending().contains(this.getBoundAbility().getElement());
+		if (this.getBoundAbility() != null) {
+			this.player.getInventory().getItemInMainHand();
+			if (this.player.getInventory().getItemInMainHand().getType() != Material.AIR) {
+				final boolean hasWeapon = GeneralMethods.isWeapon(this.player.getInventory().getItemInMainHand().getType());
+				String path = "Properties." + this.getBoundAbility().getElement().getTopElement().getName() + ".CanBendWithWeapons";
+				final boolean noWeaponElement = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean(path);
 
-			if (hasWeapon) {
-				if (noWeaponElement) {
-					return false;
-				} else {
-					return true;
+				if (hasWeapon) {
+					if (noWeaponElement) {
+						return false;
+					} else {
+						return true;
+					}
 				}
-			}
 
-			return true;
+				return true;
+			}
 		}
 
 		return false;

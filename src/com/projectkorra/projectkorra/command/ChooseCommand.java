@@ -34,7 +34,6 @@ public class ChooseCommand extends PKCommand {
 	private final String chosenAE;
 	private final String chosenOtherCFW;
 	private final String chosenOtherAE;
-	private final long cooldown;
 
 	public ChooseCommand() {
 		super("choose", "/bending choose <Element> [Player]", ConfigManager.languageConfig.get().getString("Commands.Choose.Description"), new String[] { "choose", "ch" });
@@ -46,7 +45,6 @@ public class ChooseCommand extends PKCommand {
 		this.chosenAE = ConfigManager.languageConfig.get().getString("Commands.Choose.SuccessfullyChosenAE");
 		this.chosenOtherCFW = ConfigManager.languageConfig.get().getString("Commands.Choose.Other.SuccessfullyChosenCFW");
 		this.chosenOtherAE = ConfigManager.languageConfig.get().getString("Commands.Choose.Other.SuccessfullyChosenAE");
-		this.cooldown = ConfigManager.defaultConfig.get().getLong("Properties.ChooseCooldown");
 	}
 
 	@Override
@@ -54,6 +52,8 @@ public class ChooseCommand extends PKCommand {
 		if (!this.correctLength(sender, args.size(), 1, 2)) {
 			return;
 		}
+
+		long cooldown = ConfigManager.defaultConfig().get(sender instanceof Player ? ((Player) sender).getWorld() : null).getLong("Properties.ChooseCooldown");
 		if (args.size() == 1) {
 			if (!this.hasPermission(sender) || !this.isPlayer(sender)) {
 				return;
@@ -101,7 +101,7 @@ public class ChooseCommand extends PKCommand {
 					return;
 				}
 
-				bPlayer.addCooldown("ChooseElement", this.cooldown, true);
+				bPlayer.addCooldown("ChooseElement", cooldown, true);
 			} else {
 				GeneralMethods.sendBrandingMessage(sender, ChatColor.RED + this.invalidElement);
 			}
@@ -138,7 +138,7 @@ public class ChooseCommand extends PKCommand {
 				}
 
 				BendingPlayer.getOrLoadOfflineAsync(target).thenAccept(bPlayer -> {
-					bPlayer.addCooldown("ChooseElement", this.cooldown, true);
+					bPlayer.addCooldown("ChooseElement", cooldown, true);
 				});
 			} else {
 				GeneralMethods.sendBrandingMessage(sender, ChatColor.RED + this.invalidElement);

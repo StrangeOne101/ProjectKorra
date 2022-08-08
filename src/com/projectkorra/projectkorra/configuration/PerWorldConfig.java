@@ -97,6 +97,6 @@ public class PerWorldConfig extends Config {
      * @return The config for the specified world.
      */
     public ConfigurationSection get(World world) {
-        return get(world.getName());
+        return world == null ? get() : get(world.getName());
     }
 }

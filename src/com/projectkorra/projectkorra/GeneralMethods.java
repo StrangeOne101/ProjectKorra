@@ -412,7 +412,7 @@ public class GeneralMethods {
 	}
 
 	public static void displayMovePreview(final Player player, final int slot) {
-		if (!ConfigManager.defaultConfig.get().getBoolean("Properties.BendingPreview")) {
+		if (!ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.BendingPreview")) {
 			return;
 		}
 
@@ -1138,6 +1138,7 @@ public class GeneralMethods {
 		return blockHolder;
 	}
 
+	@Deprecated
 	public static ArrayList<Element> getElementsWithNoWeaponBending() {
 		final ArrayList<Element> elements = new ArrayList<Element>();
 
@@ -1318,17 +1319,17 @@ public class GeneralMethods {
 	}
 
 	public static boolean isRegionProtectedFromBuildPostCache(final Player player, final String ability, final Location loc) {
-		final boolean allowHarmless = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.AllowHarmlessAbilities");
-		final boolean respectWorldGuard = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectWorldGuard");
+		final boolean allowHarmless = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.AllowHarmlessAbilities");
+		final boolean respectWorldGuard = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectWorldGuard");
 		//final boolean respectPreciousStones = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectPreciousStones");
-		final boolean respectFactions = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectFactions");
-		final boolean respectTowny = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectTowny");
-		final boolean respectGriefPrevention = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectGriefPrevention");
-		final boolean respectLWC = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectLWC");
-		final boolean respectResidence = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.Residence.Respect");
-		final boolean respectKingdoms = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.Kingdoms.Respect");
-		final boolean respectRedProtect = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectRedProtect");
-		final boolean respectGriefDefender = ConfigManager.defaultConfig.get().getBoolean("Properties.RegionProtection.RespectGriefDefender");
+		final boolean respectFactions = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectFactions");
+		final boolean respectTowny = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectTowny");
+		final boolean respectGriefPrevention = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectGriefPrevention");
+		final boolean respectLWC = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectLWC");
+		final boolean respectResidence = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.Residence.Respect");
+		final boolean respectKingdoms = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.Kingdoms.Respect");
+		final boolean respectRedProtect = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectRedProtect");
+		final boolean respectGriefDefender = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.RespectGriefDefender");
 
 		boolean isIgnite = false;
 		boolean isExplosive = false;
@@ -1454,7 +1455,7 @@ public class GeneralMethods {
 				final ClaimedResidence claim = res.getByLoc(location);
 				if (claim != null) {
 					final ResidencePermissions perms = claim.getPermissions();
-					if (!perms.hasApplicableFlag(player.getName(), ConfigManager.getConfig().getString("Properties.RegionProtection.Residence.Flag"))) {
+					if (!perms.hasApplicableFlag(player.getName(), ConfigManager.defaultConfig().get(player.getWorld()).getString("Properties.RegionProtection.Residence.Flag"))) {
 						return true;
 					}
 				}
@@ -1463,7 +1464,7 @@ public class GeneralMethods {
 			if (kingdoms != null && respectKingdoms) {
 				final KingdomPlayer kPlayer = KingdomPlayer.getKingdomPlayer(player);
 				final Land land = Land.getLand(location);
-				final boolean protectDuringInvasions = ConfigManager.getConfig().getBoolean("Properties.RegionProtection.Kingdoms.ProtectDuringInvasions");
+				final boolean protectDuringInvasions = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean("Properties.RegionProtection.Kingdoms.ProtectDuringInvasions");
 				if (land != null && land.isClaimed()) {
 					final Kingdom kingdom = land.getKingdom();
 					if (kPlayer.isAdmin()
@@ -2207,12 +2208,12 @@ public class GeneralMethods {
 		    return;
 		
 		if (entity instanceof TNTPrimed) {
-			if (ConfigManager.defaultConfig.get().getBoolean("Properties.BendingAffectFallingSand.TNT")) {
-				velocity.multiply(ConfigManager.defaultConfig.get().getDouble("Properties.BendingAffectFallingSand.TNTStrengthMultiplier"));
+			if (ConfigManager.defaultConfig().get(entity.getWorld()).getBoolean("Properties.BendingAffectFallingSand.TNT")) {
+				velocity.multiply(ConfigManager.defaultConfig().get(entity.getWorld()).getDouble("Properties.BendingAffectFallingSand.TNTStrengthMultiplier"));
 			}
 		} else if (entity instanceof FallingBlock) {
-			if (ConfigManager.defaultConfig.get().getBoolean("Properties.BendingAffectFallingSand.Normal")) {
-				velocity.multiply(ConfigManager.defaultConfig.get().getDouble("Properties.BendingAffectFallingSand.NormalStrengthMultiplier"));
+			if (ConfigManager.defaultConfig().get(entity.getWorld()).getBoolean("Properties.BendingAffectFallingSand.Normal")) {
+				velocity.multiply(ConfigManager.defaultConfig().get(entity.getWorld()).getDouble("Properties.BendingAffectFallingSand.NormalStrengthMultiplier"));
 			}
 		}
 
