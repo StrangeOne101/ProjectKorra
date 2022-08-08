@@ -46,16 +46,16 @@ public class Tornado extends AirAbility {
 	public Tornado(final Player player) {
 		super(player);
 
-		this.cooldown = getConfig().getLong("Abilities.Air.Tornado.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Air.Tornado.Duration");
-		this.range = getConfig().getDouble("Abilities.Air.Tornado.Range");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
+		this.range = getConfigSection().getDouble("Range");
 		this.origin = player.getTargetBlock((HashSet<Material>) null, (int) this.range).getLocation();
 		this.origin.setY(this.origin.getY() - 1.0 / 10.0 * this.currentHeight);
-		this.maxHeight = getConfig().getDouble("Abilities.Air.Tornado.Height");
-		this.playerPushFactor = getConfig().getDouble("Abilities.Air.Tornado.PlayerPushFactor");
-		this.radius = getConfig().getDouble("Abilities.Air.Tornado.Radius");
-		this.npcPushFactor = getConfig().getDouble("Abilities.Air.Tornado.NpcPushFactor");
-		this.speed = getConfig().getDouble("Abilities.Air.Tornado.Speed");
+		this.maxHeight = getConfigSection().getDouble("Height");
+		this.playerPushFactor = getConfigSection().getDouble("PlayerPushFactor");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.npcPushFactor = getConfigSection().getDouble("NpcPushFactor");
+		this.speed = getConfigSection().getDouble("Speed");
 		this.numberOfStreams = (int) (.3 * this.maxHeight);
 		this.currentHeight = 2;
 		this.currentRadius = this.currentHeight / this.maxHeight * this.radius;

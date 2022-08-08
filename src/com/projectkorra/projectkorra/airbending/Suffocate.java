@@ -73,24 +73,24 @@ public class Suffocate extends AirAbility {
 		}
 
 		this.started = false;
-		this.requireConstantAim = getConfig().getBoolean("Abilities.Air.Suffocate.RequireConstantAim");
-		this.canSuffocateUndead = getConfig().getBoolean("Abilities.Air.Suffocate.CanBeUsedOnUndeadMobs");
-		this.particleCount = getConfig().getInt("Abilities.Air.Suffocate.AnimationParticleAmount");
-		this.animationSpeed = getConfig().getDouble("Abilities.Air.Suffocate.AnimationSpeed");
-		this.chargeTime = getConfig().getLong("Abilities.Air.Suffocate.ChargeTime");
-		this.cooldown = getConfig().getLong("Abilities.Air.Suffocate.Cooldown");
-		this.range = getConfig().getDouble("Abilities.Air.Suffocate.Range");
-		this.radius = getConfig().getDouble("Abilities.Air.Suffocate.AnimationRadius");
-		this.constantAimRadius = getConfig().getDouble("Abilities.Air.Suffocate.RequireConstantAimRadius");
-		this.damage = getConfig().getDouble("Abilities.Air.Suffocate.Damage");
-		this.damageDelay = getConfig().getDouble("Abilities.Air.Suffocate.DamageInitialDelay");
-		this.damageRepeat = getConfig().getDouble("Abilities.Air.Suffocate.DamageInterval");
-		this.slow = getConfig().getInt("Abilities.Air.Suffocate.SlowPotency");
-		this.slowRepeat = getConfig().getDouble("Abilities.Air.Suffocate.SlowInterval");
-		this.slowDelay = getConfig().getDouble("Abilities.Air.Suffocate.SlowDelay");
-		this.blind = getConfig().getInt("Abilities.Air.Suffocate.BlindPotentcy");
-		this.blindDelay = getConfig().getDouble("Abilities.Air.Suffocate.BlindDelay");
-		this.blindRepeat = getConfig().getDouble("Abilities.Air.Suffocate.BlindInterval");
+		this.requireConstantAim = getConfigSection().getBoolean("RequireConstantAim");
+		this.canSuffocateUndead = getConfigSection().getBoolean("CanBeUsedOnUndeadMobs");
+		this.particleCount = getConfigSection().getInt("AnimationParticleAmount");
+		this.animationSpeed = getConfigSection().getDouble("AnimationSpeed");
+		this.chargeTime = getConfigSection().getLong("ChargeTime");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.range = getConfigSection().getDouble("Range");
+		this.radius = getConfigSection().getDouble("AnimationRadius");
+		this.constantAimRadius = getConfigSection().getDouble("RequireConstantAimRadius");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.damageDelay = getConfigSection().getDouble("DamageInitialDelay");
+		this.damageRepeat = getConfigSection().getDouble("DamageInterval");
+		this.slow = getConfigSection().getInt("SlowPotency");
+		this.slowRepeat = getConfigSection().getDouble("SlowInterval");
+		this.slowDelay = getConfigSection().getDouble("SlowDelay");
+		this.blind = getConfigSection().getInt("BlindPotentcy");
+		this.blindDelay = getConfigSection().getDouble("BlindDelay");
+		this.blindRepeat = getConfigSection().getDouble("BlindInterval");
 		this.targets = new ArrayList<>();
 		this.tasks = new ArrayList<>();
 

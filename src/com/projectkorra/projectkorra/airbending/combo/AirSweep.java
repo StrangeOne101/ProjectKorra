@@ -61,12 +61,12 @@ public class AirSweep extends AirAbility implements ComboAbility {
 			return;
 		}
 
-		this.damage = getConfig().getDouble("Abilities.Air.AirSweep.Damage");
-		this.range = getConfig().getDouble("Abilities.Air.AirSweep.Range");
-		this.speed = getConfig().getDouble("Abilities.Air.AirSweep.Speed");
-		this.knockback = getConfig().getDouble("Abilities.Air.AirSweep.Knockback");
-		this.cooldown = getConfig().getLong("Abilities.Air.AirSweep.Cooldown");
-		this.radius = getConfig().getDouble("Abilities.Air.AirSweep.Radius");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.range = getConfigSection().getDouble("Range");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.knockback = getConfigSection().getDouble("Knockback");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.radius = getConfigSection().getDouble("Radius");
 
 		if (this.bPlayer.isAvatarState()) {
 			this.cooldown = 0;

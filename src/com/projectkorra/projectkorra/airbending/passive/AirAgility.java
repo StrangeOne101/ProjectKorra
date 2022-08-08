@@ -24,8 +24,8 @@ public class AirAgility extends AirAbility implements PassiveAbility {
 	}
 
 	public void setFields() {
-		this.jumpPower = ConfigManager.getConfig().getInt("Abilities.Air.Passive.AirAgility.JumpPower") - 1;
-		this.speedPower = ConfigManager.getConfig().getInt("Abilities.Air.Passive.AirAgility.SpeedPower") - 1;
+		this.jumpPower = getConfigSection().getInt("AirAgility.JumpPower") - 1;
+		this.speedPower = getConfigSection().getInt("AirAgility.SpeedPower") - 1;
 	}
 
 	@Override

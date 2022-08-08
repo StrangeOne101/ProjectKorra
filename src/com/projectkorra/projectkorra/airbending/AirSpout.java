@@ -44,11 +44,11 @@ public class AirSpout extends AirAbility {
 		}
 
 		this.angle = 0;
-		this.cooldown = getConfig().getLong("Abilities.Air.AirSpout.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Air.AirSpout.Duration");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
 		this.animTime = System.currentTimeMillis();
-		this.interval = getConfig().getLong("Abilities.Air.AirSpout.Interval");
-		this.height = getConfig().getDouble("Abilities.Air.AirSpout.Height");
+		this.interval = getConfigSection().getLong("Interval");
+		this.height = getConfigSection().getDouble("Height");
 
 		final double heightRemoveThreshold = 2;
 		if (!this.isWithinMaxSpoutHeight(heightRemoveThreshold)) {

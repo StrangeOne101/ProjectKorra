@@ -60,14 +60,14 @@ public class Twister extends AirAbility implements ComboAbility {
 			return;
 		}
 
-		this.range = getConfig().getDouble("Abilities.Air.Twister.Range");
-		this.speed = getConfig().getDouble("Abilities.Air.Twister.Speed");
-		this.cooldown = getConfig().getLong("Abilities.Air.Twister.Cooldown");
-		this.twisterHeight = getConfig().getDouble("Abilities.Air.Twister.Height");
-		this.twisterRadius = getConfig().getDouble("Abilities.Air.Twister.Radius");
-		this.twisterDegreeParticles = getConfig().getDouble("Abilities.Air.Twister.DegreesPerParticle");
-		this.twisterHeightParticles = getConfig().getDouble("Abilities.Air.Twister.HeightPerParticle");
-		this.twisterRemoveDelay = getConfig().getLong("Abilities.Air.Twister.RemoveDelay");
+		this.range = getConfigSection().getDouble("Range");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.twisterHeight = getConfigSection().getDouble("Height");
+		this.twisterRadius = getConfigSection().getDouble("Radius");
+		this.twisterDegreeParticles = getConfigSection().getDouble("DegreesPerParticle");
+		this.twisterHeightParticles = getConfigSection().getDouble("HeightPerParticle");
+		this.twisterRemoveDelay = getConfigSection().getLong("RemoveDelay");
 
 		if (this.bPlayer.isAvatarState()) {
 			this.cooldown = 0;

@@ -54,13 +54,13 @@ public class AirScooter extends AirAbility {
 			return;
 		}
 
-		this.speed = getConfig().getDouble("Abilities.Air.AirScooter.Speed");
-		this.interval = getConfig().getDouble("Abilities.Air.AirScooter.Interval");
-		this.radius = getConfig().getDouble("Abilities.Air.AirScooter.Radius");
-		this.cooldown = getConfig().getLong("Abilities.Air.AirScooter.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Air.AirScooter.Duration");
-		this.maxHeightFromGround = getConfig().getDouble("Abilities.Air.AirScooter.MaxHeightFromGround");
-		this.useslime = getConfig().getBoolean("Abilities.Air.AirScooter.ShowSitting");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.interval = getConfigSection().getDouble("Interval");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
+		this.maxHeightFromGround = getConfigSection().getDouble("MaxHeightFromGround");
+		this.useslime = getConfigSection().getBoolean("ShowSitting");
 		this.random = new Random();
 		this.angles = new ArrayList<>();
 

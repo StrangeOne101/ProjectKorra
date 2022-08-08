@@ -50,15 +50,15 @@ public class AirBurst extends AirAbility {
 		this.isFallBurst = isFallBurst;
 		this.isCharged = false;
 		this.playerFallDistance = player.getFallDistance();
-		this.chargeTime = getConfig().getLong("Abilities.Air.AirBurst.ChargeTime");
-		this.cooldown = getConfig().getLong("Abilities.Air.AirBurst.Cooldown");
-		this.fallThreshold = getConfig().getDouble("Abilities.Air.AirBurst.FallThreshold");
-		this.pushFactor = getConfig().getDouble("Abilities.Air.AirBurst.PushFactor");
-		this.damage = getConfig().getDouble("Abilities.Air.AirBurst.Damage");
-		this.blastAnglePhi = getConfig().getDouble("Abilities.Air.AirBurst.AnglePhi");
-		this.blastAngleTheta = getConfig().getDouble("Abilities.Air.AirBurst.AngleTheta");
-		this.sneakParticles = getConfig().getInt("Abilities.Air.AirBurst.SneakParticles");
-		this.particlePercentage = getConfig().getDouble("Abilities.Air.AirBurst.ParticlePercentage");
+		this.chargeTime = getConfigSection().getLong("ChargeTime");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.fallThreshold = getConfigSection().getDouble("FallThreshold");
+		this.pushFactor = getConfigSection().getDouble("PushFactor");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.blastAnglePhi = getConfigSection().getDouble("AnglePhi");
+		this.blastAngleTheta = getConfigSection().getDouble("AngleTheta");
+		this.sneakParticles = getConfigSection().getInt("SneakParticles");
+		this.particlePercentage = getConfigSection().getDouble("ParticlePercentage");
 		this.blasts = new ArrayList<>();
 		this.affectedEntities = new ArrayList<>();
 

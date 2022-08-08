@@ -117,9 +117,9 @@ public class FlightMultiAbility extends FlightAbility implements MultiAbility {
 		this.hadGlide = player.isGliding();
 		flying.add(player.getUniqueId());
 		this.prevDir = player.getEyeLocation().getDirection().clone();
-		this.duration = getConfig().getLong("Abilities.Air.Flight.Duration");
-		this.cooldown = getConfig().getLong("Abilities.Air.Flight.Cooldown");
-		this.baseSpeed = getConfig().getDouble("Abilities.Air.Flight.BaseSpeed");
+		this.duration = getConfigSection().getLong("Duration");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.baseSpeed = getConfigSection().getDouble("BaseSpeed");
 
 		this.speed = 1;
 		this.slowSpeed = this.baseSpeed / 2;

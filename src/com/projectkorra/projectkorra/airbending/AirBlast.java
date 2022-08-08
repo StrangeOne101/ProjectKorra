@@ -140,18 +140,18 @@ public class AirBlast extends AirAbility {
 	}
 
 	private void setFields() {
-		this.particles = getConfig().getInt("Abilities.Air.AirBlast.Particles");
-		this.cooldown = getConfig().getLong("Abilities.Air.AirBlast.Cooldown");
-		this.range = getConfig().getDouble("Abilities.Air.AirBlast.Range");
-		this.speed = getConfig().getDouble("Abilities.Air.AirBlast.Speed");
-		this.range = getConfig().getDouble("Abilities.Air.AirBlast.Range");
-		this.radius = getConfig().getDouble("Abilities.Air.AirBlast.Radius");
-		this.pushFactor = getConfig().getDouble("Abilities.Air.AirBlast.Push.Self");
-		this.pushFactorForOthers = getConfig().getDouble("Abilities.Air.AirBlast.Push.Entities");
-		this.canFlickLevers = getConfig().getBoolean("Abilities.Air.AirBlast.CanFlickLevers");
-		this.canOpenDoors = getConfig().getBoolean("Abilities.Air.AirBlast.CanOpenDoors");
-		this.canPressButtons = getConfig().getBoolean("Abilities.Air.AirBlast.CanPressButtons");
-		this.canCoolLava = getConfig().getBoolean("Abilities.Air.AirBlast.CanCoolLava");
+		this.particles = getConfigSection().getInt("Particles");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.range = getConfigSection().getDouble("Range");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.range = getConfigSection().getDouble("Range");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.pushFactor = getConfigSection().getDouble("Push.Self");
+		this.pushFactorForOthers = getConfigSection().getDouble("Push.Entities");
+		this.canFlickLevers = getConfigSection().getBoolean("CanFlickLevers");
+		this.canOpenDoors = getConfigSection().getBoolean("CanOpenDoors");
+		this.canPressButtons = getConfigSection().getBoolean("CanPressButtons");
+		this.canCoolLava = getConfigSection().getBoolean("CanCoolLava");
 
 		this.isFromOtherOrigin = false;
 		this.showParticles = true;

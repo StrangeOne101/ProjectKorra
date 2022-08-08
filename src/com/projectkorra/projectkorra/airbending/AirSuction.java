@@ -74,13 +74,13 @@ public class AirSuction extends AirAbility {
 		}
 
 		this.progressing = false;
-		this.particleCount = getConfig().getInt("Abilities.Air.AirSuction.Particles");
-		this.speed = getConfig().getDouble("Abilities.Air.AirSuction.Speed");
-		this.range = getConfig().getDouble("Abilities.Air.AirSuction.Range");
-		this.radius = getConfig().getDouble("Abilities.Air.AirSuction.Radius");
-		this.pushFactor = getConfig().getDouble("Abilities.Air.AirSuction.Push.Self");
-		this.pushFactorForOthers = getConfig().getDouble("Abilities.Air.AirSuction.Push.Others");
-		this.cooldown = getConfig().getLong("Abilities.Air.AirSuction.Cooldown");
+		this.particleCount = getConfigSection().getInt("Particles");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.range = getConfigSection().getDouble("Range");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.pushFactor = getConfigSection().getDouble("Push.Self");
+		this.pushFactorForOthers = getConfigSection().getDouble("Push.Others");
+		this.cooldown = getConfigSection().getLong("Cooldown");
 		this.random = new Random();
 		this.origin = this.getTargetLocation();
 		this.canAffectSelf = true;

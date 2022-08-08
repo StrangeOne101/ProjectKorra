@@ -109,16 +109,16 @@ public class FireBlast extends FireAbility {
 		this.isFireBurst = true;
 		this.powerFurnace = true;
 		this.showParticles = true;
-		this.fireBurstIgnite = getConfigSection().getBoolean("Ignite");
-		this.dissipate = getConfigSection().getBoolean("Dissipate");
-		this.cooldown = applyModifiersCooldown(getConfigSection().getLong("Cooldown"));
-		this.range = applyModifiersRange(getConfigSection().getDouble("Range"));
-		this.speed = applyModifiers(getConfigSection().getDouble("Speed"));
-		this.collisionRadius = applyModifiers(getConfigSection().getDouble("CollisionRadius"));
-		this.fireTicks = applyModifiers(getConfigSection().getDouble("FireTicks"));
-		this.knockback = getConfigSection().getDouble("Knockback");
-		this.flameRadius = applyModifiers(getConfigSection().getDouble("FlameParticleRadius"));
-		this.damage = applyModifiersDamage(getConfigSection().getDouble("Damage"));
+		this.fireBurstIgnite = getConfigSection("FireBlast").getBoolean("Ignite");
+		this.dissipate = getConfigSection("FireBlast").getBoolean("Dissipate");
+		this.cooldown = applyModifiersCooldown(getConfigSection("FireBlast").getLong("Cooldown"));
+		this.range = applyModifiersRange(getConfigSection("FireBlast").getDouble("Range"));
+		this.speed = applyModifiers(getConfigSection("FireBlast").getDouble("Speed"));
+		this.collisionRadius = applyModifiers(getConfigSection("FireBlast").getDouble("CollisionRadius"));
+		this.fireTicks = applyModifiers(getConfigSection("FireBlast").getDouble("FireTicks"));
+		this.knockback = getConfigSection("FireBlast").getDouble("Knockback");
+		this.flameRadius = applyModifiers(getConfigSection("FireBlast").getDouble("FlameParticleRadius"));
+		this.damage = applyModifiersDamage(getConfigSection("FireBlast").getDouble("Damage"));
 		this.random = new Random();
 	}
 

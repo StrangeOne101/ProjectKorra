@@ -53,11 +53,11 @@ public class AirStream extends AirAbility implements ComboAbility {
 			return;
 		}
 
-		this.range = getConfig().getDouble("Abilities.Air.AirStream.Range");
-		this.speed = getConfig().getDouble("Abilities.Air.AirStream.Speed");
-		this.cooldown = getConfig().getLong("Abilities.Air.AirStream.Cooldown");
-		this.airStreamMaxEntityHeight = getConfig().getDouble("Abilities.Air.AirStream.EntityCarry.Height");
-		this.airStreamEntityCarryDuration = getConfig().getLong("Abilities.Air.AirStream.EntityCarry.Duration");
+		this.range = getConfigSection().getDouble("Range");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.airStreamMaxEntityHeight = getConfigSection().getDouble("EntityCarry.Height");
+		this.airStreamEntityCarryDuration = getConfigSection().getLong("EntityCarry.Duration");
 
 		if (this.bPlayer.isAvatarState()) {
 			this.cooldown = 0;

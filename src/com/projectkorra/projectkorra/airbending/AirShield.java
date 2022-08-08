@@ -44,16 +44,16 @@ public class AirShield extends AirAbility {
 	public AirShield(final Player player) {
 		super(player);
 
-		this.maxRadius = getConfig().getDouble("Abilities.Air.AirShield.MaxRadius");
-		this.initialRadius = getConfig().getDouble("Abilities.Air.AirShield.InitialRadius");
+		this.maxRadius = getConfigSection().getDouble("MaxRadius");
+		this.initialRadius = getConfigSection().getDouble("InitialRadius");
 		this.isToggledByAvatarState = getConfig().getBoolean("Abilities.Avatar.AvatarState.Air.AirShield.IsAvatarStateToggle");
 		this.radius = this.initialRadius;
-		this.cooldown = getConfig().getLong("Abilities.Air.AirShield.Cooldown");
-		this.duration = getConfig().getLong("Abilities.Air.AirShield.Duration");
-		this.speed = getConfig().getDouble("Abilities.Air.AirShield.Speed");
-		this.streams = getConfig().getInt("Abilities.Air.AirShield.Streams");
-		this.particles = getConfig().getInt("Abilities.Air.AirShield.Particles");
-		this.dynamicCooldown = getConfig().getBoolean("Abilities.Air.AirShield.DynamicCooldown"); //any unused duration from shield is removed from the cooldown
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.duration = getConfigSection().getLong("Duration");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.streams = getConfigSection().getInt("Streams");
+		this.particles = getConfigSection().getInt("Particles");
+		this.dynamicCooldown = getConfigSection().getBoolean("DynamicCooldown"); //any unused duration from shield is removed from the cooldown
 		if (this.duration == 0) {
 			this.dynamicCooldown = false;
 		}
