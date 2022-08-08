@@ -76,34 +76,34 @@ public class WaterArmsWhip extends WaterAbility {
 		this.hasDamaged = false;
 		this.grappled = false;
 		this.grabbed = false;
-		this.grappleRespectRegions = getConfig().getBoolean("Abilities.Water.WaterArms.Whip.Grapple.RespectRegions");
-		this.usageCooldownEnabled = getConfig().getBoolean("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Enabled");
-		this.whipLength = getConfig().getInt("Abilities.Water.WaterArms.Whip.MaxLength");
-		this.whipLengthWeak = getConfig().getInt("Abilities.Water.WaterArms.Whip.MaxLengthWeak");
-		this.whipLengthNight = getConfig().getInt("Abilities.Water.WaterArms.Whip.NightAugments.MaxLength.Normal");
-		this.whipLengthFullMoon = getConfig().getInt("Abilities.Water.WaterArms.Whip.NightAugments.MaxLength.FullMoon");
-		this.initLength = getConfig().getInt("Abilities.Water.WaterArms.Arms.InitialLength");
-		this.punchLength = getConfig().getInt("Abilities.Water.WaterArms.Whip.Punch.MaxLength");
-		this.punchLengthNight = getConfig().getInt("Abilities.Water.WaterArms.Whip.Punch.NightAugments.MaxLength.Normal");
-		this.punchLengthFullMoon = getConfig().getInt("Abilities.Water.WaterArms.Whip.Punch.NightAugments.MaxLength.FullMoon");
+		this.grappleRespectRegions = getConfigSection().getBoolean("Whip.Grapple.RespectRegions");
+		this.usageCooldownEnabled = getConfigSection().getBoolean("Arms.Cooldowns.UsageCooldown.Enabled");
+		this.whipLength = getConfigSection().getInt("Whip.MaxLength");
+		this.whipLengthWeak = getConfigSection().getInt("Whip.MaxLengthWeak");
+		this.whipLengthNight = getConfigSection().getInt("Whip.NightAugments.MaxLength.Normal");
+		this.whipLengthFullMoon = getConfigSection().getInt("Whip.NightAugments.MaxLength.FullMoon");
+		this.initLength = getConfigSection().getInt("Arms.InitialLength");
+		this.punchLength = getConfigSection().getInt("Whip.Punch.MaxLength");
+		this.punchLengthNight = getConfigSection().getInt("Whip.Punch.NightAugments.MaxLength.Normal");
+		this.punchLengthFullMoon = getConfigSection().getInt("Whip.Punch.NightAugments.MaxLength.FullMoon");
 		this.activeLength = this.initLength;
 		this.whipSpeed = 1;
-		this.grabDuration = getConfig().getLong("Abilities.Water.WaterArms.Whip.Grab.Duration");
-		this.pullMultiplier = getConfig().getDouble("Abilities.Water.WaterArms.Whip.Pull.Multiplier");
-		this.punchDamage = applyModifiers(getConfig().getDouble("Abilities.Water.WaterArms.Whip.Punch.Damage"));
+		this.grabDuration = getConfigSection().getLong("Whip.Grab.Duration");
+		this.pullMultiplier = getConfigSection().getDouble("Whip.Pull.Multiplier");
+		this.punchDamage = applyModifiers(getConfigSection().getDouble("Whip.Punch.Damage"));
 
 		switch (ability) {
 			case PULL:
-				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Pull");
+				this.usageCooldown = getConfigSection().getLong("Arms.Cooldowns.UsageCooldown.Pull");
 				break;
 			case PUNCH:
-				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Punch");
+				this.usageCooldown = getConfigSection().getLong("Arms.Cooldowns.UsageCooldown.Punch");
 				break;
 			case GRAPPLE:
-				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Grapple");
+				this.usageCooldown = getConfigSection().getLong("Arms.Cooldowns.UsageCooldown.Grapple");
 				break;
 			case GRAB:
-				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Grab");
+				this.usageCooldown = getConfigSection().getLong("Arms.Cooldowns.UsageCooldown.Grab");
 				break;
 			default:
 				this.usageCooldown = 200;

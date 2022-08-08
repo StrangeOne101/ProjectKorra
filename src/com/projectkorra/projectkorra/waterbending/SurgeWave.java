@@ -80,17 +80,17 @@ public class SurgeWave extends WaterAbility {
 
 		this.canHitSelf = true;
 		this.currentRadius = 1;
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.Surge.Wave.Cooldown"));
-		this.interval = getConfig().getLong("Abilities.Water.Surge.Wave.Interval");
-		this.maxRadius = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wave.Radius"));
-		this.knockback = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wave.Knockback"));
-		this.knockup = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wave.Knockup"));
-		this.maxFreezeRadius = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wave.MaxFreezeRadius"));
-		this.iceRevertTime = getConfig().getLong("Abilities.Water.Surge.Wave.IceRevertTime");
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wave.Range"));
-		this.selectRange = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wave.SelectRange"));
-		this.solidifyLava = getConfig().getBoolean("Abilities.Water.Surge.Wave.SolidifyLava.Enabled");
-		this.obsidianDuration = getConfig().getLong("Abilities.Water.Surge.Wave.SolidifyLava.Duration");
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Wave.Cooldown"));
+		this.interval = getConfigSection().getLong("Wave.Interval");
+		this.maxRadius = applyModifiers(getConfigSection().getDouble("Wave.Radius"));
+		this.knockback = applyModifiers(getConfigSection().getDouble("Wave.Knockback"));
+		this.knockup = applyModifiers(getConfigSection().getDouble("Wave.Knockup"));
+		this.maxFreezeRadius = applyModifiers(getConfigSection().getDouble("Wave.MaxFreezeRadius"));
+		this.iceRevertTime = getConfigSection().getLong("Wave.IceRevertTime");
+		this.range = applyModifiers(getConfigSection().getDouble("Wave.Range"));
+		this.selectRange = applyModifiers(getConfigSection().getDouble("Wave.SelectRange"));
+		this.solidifyLava = getConfigSection().getBoolean("Wave.SolidifyLava.Enabled");
+		this.obsidianDuration = getConfigSection().getLong("Wave.SolidifyLava.Duration");
 		this.waveBlocks = new ConcurrentHashMap<>();
 		this.frozenBlocks = new ConcurrentHashMap<>();
 

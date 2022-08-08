@@ -80,14 +80,14 @@ public class IceBullet extends IceAbility implements ComboAbility {
 			return;
 		}
 
-		this.damage = applyModifiers(getConfig().getDouble("Abilities.Water.IceBullet.Damage"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.IceBullet.Range"));
-		this.radius = applyModifiers(getConfig().getDouble("Abilities.Water.IceBullet.Radius"));
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.IceBullet.Cooldown"));
-		this.shotcooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.IceBullet.ShotCooldown"));
-		this.shootTime = applyModifiers(getConfig().getLong("Abilities.Water.IceBullet.ShootTime"));
-		this.maxShots = applyModifiers(getConfig().getInt("Abilities.Water.IceBullet.MaxShots"));
-		this.animationSpeed = getConfig().getDouble("Abilities.Water.IceBullet.AnimationSpeed");
+		this.damage = applyModifiers(getConfigSection().getDouble("Damage"));
+		this.range = applyModifiers(getConfigSection().getDouble("Range"));
+		this.radius = applyModifiers(getConfigSection().getDouble("Radius"));
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Cooldown"));
+		this.shotcooldown = applyInverseModifiers(getConfigSection().getLong("ShotCooldown"));
+		this.shootTime = applyModifiers(getConfigSection().getLong("ShootTime"));
+		this.maxShots = applyModifiers(getConfigSection().getInt("MaxShots"));
+		this.animationSpeed = getConfigSection().getDouble("AnimationSpeed");
 		this.speed = 1;
 
 		if (this.bPlayer.isAvatarState()) {

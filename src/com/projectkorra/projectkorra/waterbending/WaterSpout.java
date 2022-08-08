@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.projectkorra.projectkorra.configuration.ConfigManager;
 import net.jafama.FastMath;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -54,13 +55,13 @@ public class WaterSpout extends WaterAbility {
 			return;
 		}
 
-		this.canBendOnPackedIce = getConfig().getStringList("Properties.Water.IceBlocks").contains(Material.PACKED_ICE.toString());
-		this.useParticles = getConfig().getBoolean("Abilities.Water.WaterSpout.Particles");
-		this.useBlockSpiral = getConfig().getBoolean("Abilities.Water.WaterSpout.BlockSpiral");
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.WaterSpout.Cooldown"));
-		this.height = applyModifiers(getConfig().getDouble("Abilities.Water.WaterSpout.Height"));
-		this.interval = getConfig().getLong("Abilities.Water.WaterSpout.Interval");
-		this.duration = getConfig().getLong("Abilities.Water.WaterSpout.Duration");
+		this.canBendOnPackedIce = ConfigManager.defaultConfig().get(player.getWorld()).getStringList("Properties.Water.IceBlocks").contains(Material.PACKED_ICE.toString());
+		this.useParticles = getConfigSection().getBoolean("Particles");
+		this.useBlockSpiral = getConfigSection().getBoolean("BlockSpiral");
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Cooldown"));
+		this.height = applyModifiers(getConfigSection().getDouble("Height"));
+		this.interval = getConfigSection().getLong("Interval");
+		this.duration = getConfigSection().getLong("Duration");
 		this.startTime = System.currentTimeMillis();
 
 		this.maxHeight = this.getNightFactor(this.height);

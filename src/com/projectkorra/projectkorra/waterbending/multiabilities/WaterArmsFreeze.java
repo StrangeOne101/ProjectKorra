@@ -40,10 +40,10 @@ public class WaterArmsFreeze extends IceAbility {
 	public WaterArmsFreeze(final Player player) {
 		super(player);
 
-		this.usageCooldownEnabled = getConfig().getBoolean("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Enabled");
-		this.iceRange = applyModifiers(getConfig().getDouble("Abilities.Water.WaterArms.Freeze.Range"));
-		this.iceDamage = applyModifiers(getConfig().getInt("Abilities.Water.WaterArms.Freeze.Damage"));
-		this.usageCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Freeze"));
+		this.usageCooldownEnabled = getConfigSection().getBoolean("Arms.Cooldowns.UsageCooldown.Enabled");
+		this.iceRange = applyModifiers(getConfigSection().getDouble("Freeze.Range"));
+		this.iceDamage = applyModifiers(getConfigSection().getInt("Freeze.Damage"));
+		this.usageCooldown = applyInverseModifiers(getConfigSection().getLong("Arms.Cooldowns.UsageCooldown.Freeze"));
 		this.direction = player.getEyeLocation().getDirection();
 
 		this.createInstance();

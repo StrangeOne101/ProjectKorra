@@ -132,15 +132,15 @@ public class IceSpikePillar extends IceAbility {
 
 	private void setFields() {
 		this.direction = new Vector(0, 1, 0);
-		this.speed = getConfig().getDouble("Abilities.Water.IceSpike.Speed");
-		this.slowCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.IceSpike.SlowCooldown"));
-		this.slowPower = getConfig().getInt("Abilities.Water.IceSpike.SlowPower");
-		this.slowDuration = getConfig().getInt("Abilities.Water.IceSpike.SlowDuration");
-		this.damage = applyModifiers(getConfig().getDouble("Abilities.Water.IceSpike.Damage"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.IceSpike.Range"));
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.IceSpike.Cooldown"));
-		this.height = (int) applyModifiers(getConfig().getInt("Abilities.Water.IceSpike.Height"));
-		this.thrownForce = new Vector(0, applyModifiers(getConfig().getDouble("Abilities.Water.IceSpike.Push")), 0);
+		this.speed = getConfigSection().getDouble("Speed");
+		this.slowCooldown = applyInverseModifiers(getConfigSection().getLong("SlowCooldown"));
+		this.slowPower = getConfigSection().getInt("SlowPower");
+		this.slowDuration = getConfigSection().getInt("SlowDuration");
+		this.damage = applyModifiers(getConfigSection().getDouble("Damage"));
+		this.range = applyModifiers(getConfigSection().getDouble("Range"));
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Cooldown"));
+		this.height = (int) applyModifiers(getConfigSection().getInt("Height"));
+		this.thrownForce = new Vector(0, applyModifiers(getConfigSection().getDouble("Push")), 0);
 		this.damaged = new ArrayList<>();
 
 		this.interval = (long) (1000. / this.speed);

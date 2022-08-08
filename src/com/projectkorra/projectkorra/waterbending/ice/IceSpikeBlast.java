@@ -62,15 +62,15 @@ public class IceSpikeBlast extends IceAbility {
 		}
 
 		this.data = 0;
-		this.interval = getConfig().getLong("Abilities.Water.IceSpike.Blast.Interval");
-		this.slowCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.IceSpike.Blast.SlowCooldown"));
-		this.collisionRadius = getConfig().getDouble("Abilities.Water.IceSpike.Blast.CollisionRadius");
-		this.deflectRange = applyModifiers(getConfig().getDouble("Abilities.Water.IceSpike.Blast.DeflectRange"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.IceSpike.Blast.Range"));
-		this.damage = applyModifiers(getConfig().getDouble("Abilities.Water.IceSpike.Blast.Damage"));
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.IceSpike.Blast.Cooldown"));
-		this.slowPotency = getConfig().getInt("Abilities.Water.IceSpike.Blast.SlowPotency");
-		this.slowDuration = getConfig().getInt("Abilities.Water.IceSpike.Blast.SlowDuration");
+		this.interval = getConfigSection().getLong("Blast.Interval");
+		this.slowCooldown = applyInverseModifiers(getConfigSection().getLong("Blast.SlowCooldown"));
+		this.collisionRadius = getConfigSection().getDouble("Blast.CollisionRadius");
+		this.deflectRange = applyModifiers(getConfigSection().getDouble("Blast.DeflectRange"));
+		this.range = applyModifiers(getConfigSection().getDouble("Blast.Range"));
+		this.damage = applyModifiers(getConfigSection().getDouble("Blast.Damage"));
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Blast.Cooldown"));
+		this.slowPotency = getConfigSection().getInt("Blast.SlowPotency");
+		this.slowDuration = getConfigSection().getInt("Blast.SlowDuration");
 
 		if (!this.bPlayer.canBend(this) || !this.bPlayer.canIcebend()) {
 			return;

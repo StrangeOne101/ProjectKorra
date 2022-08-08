@@ -161,35 +161,35 @@ public class PhaseChange extends IceAbility {
 
 	public void setFields(final PhaseChangeType type) {
 
-		this.sourceRange = applyModifiers(getConfig().getInt("Abilities.Water.PhaseChange.SourceRange"));
+		this.sourceRange = applyModifiers(getConfigSection().getInt("SourceRange"));
 
 		switch (type) {
 			case FREEZE:
-				this.depth = (int) applyModifiers(getConfig().getInt("Abilities.Water.PhaseChange.Freeze.Depth"));
-				this.controlRadius = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Freeze.ControlRadius"));
-				this.freezeCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.PhaseChange.Freeze.Cooldown"));
-				this.freezeRadius = applyModifiers(getConfig().getInt("Abilities.Water.PhaseChange.Freeze.Radius"));
+				this.depth = (int) applyModifiers(getConfigSection().getInt("Freeze.Depth"));
+				this.controlRadius = applyModifiers(getConfigSection().getDouble("Freeze.ControlRadius"));
+				this.freezeCooldown = applyInverseModifiers(getConfigSection().getLong("Freeze.Cooldown"));
+				this.freezeRadius = applyModifiers(getConfigSection().getInt("Freeze.Radius"));
 
 				this.freezeArea(GeneralMethods.getTargetedLocation(this.player, this.sourceRange));
 				return;
 			case MELT:
 				this.meltRadius = 1;
-				this.meltCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.PhaseChange.Melt.Cooldown"));
-				this.meltSpeed = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Melt.Speed"));
-				this.meltMaxRadius = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Melt.Radius"));
-				this.allowMeltFlow = getConfig().getBoolean("Abilities.Water.PhaseChange.Melt.AllowFlow");
+				this.meltCooldown = applyInverseModifiers(getConfigSection().getLong("Melt.Cooldown"));
+				this.meltSpeed = applyModifiers(getConfigSection().getDouble("Melt.Speed"));
+				this.meltMaxRadius = applyModifiers(getConfigSection().getDouble("Melt.Radius"));
+				this.allowMeltFlow = getConfigSection().getBoolean("Melt.AllowFlow");
 				return;
 			case CUSTOM:
-				this.depth = (int) applyModifiers(getConfig().getInt("Abilities.Water.PhaseChange.Freeze.Depth"));
-				this.controlRadius = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Freeze.ControlRadius"));
-				this.freezeCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.PhaseChange.Freeze.Cooldown"));
-				this.freezeRadius = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Freeze.Radius"));
+				this.depth = (int) applyModifiers(getConfigSection().getInt("Freeze.Depth"));
+				this.controlRadius = applyModifiers(getConfigSection().getDouble("Freeze.ControlRadius"));
+				this.freezeCooldown = applyInverseModifiers(getConfigSection().getLong("Freeze.Cooldown"));
+				this.freezeRadius = applyModifiers(getConfigSection().getDouble("Freeze.Radius"));
 
 				this.meltRadius = 1;
-				this.meltCooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.PhaseChange.Melt.Cooldown"));
-				this.meltSpeed = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Melt.Speed"));
-				this.meltMaxRadius = applyModifiers(getConfig().getDouble("Abilities.Water.PhaseChange.Melt.Radius"));
-				this.allowMeltFlow = getConfig().getBoolean("Abilities.Water.PhaseChange.Melt.AllowFlow");
+				this.meltCooldown = applyInverseModifiers(getConfigSection().getLong("Melt.Cooldown"));
+				this.meltSpeed = applyModifiers(getConfigSection().getDouble("Melt.Speed"));
+				this.meltMaxRadius = applyModifiers(getConfigSection().getDouble("Melt.Radius"));
+				this.allowMeltFlow = getConfigSection().getBoolean("Melt.AllowFlow");
 		}
 	}
 

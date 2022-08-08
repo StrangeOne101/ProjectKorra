@@ -22,7 +22,7 @@ public class PlantRegrowth extends PlantAbility {
 	public PlantRegrowth(final Player player, final Block block) {
 		super(player);
 
-		this.regrowTime = getConfig().getLong("Abilities.Water.Plantbending.RegrowTime");
+		this.regrowTime = getConfigSection().getLong("RegrowTime");
 		if (this.regrowTime != 0) {
 			this.block = block;
 			this.type = block.getType();

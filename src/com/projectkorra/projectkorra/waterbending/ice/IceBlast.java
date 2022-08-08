@@ -56,13 +56,13 @@ public class IceBlast extends IceAbility {
 		super(player);
 
 		this.data = 0;
-		this.interval = getConfig().getLong("Abilities.Water.IceBlast.Interval");
-		this.collisionRadius = getConfig().getDouble("Abilities.Water.IceBlast.CollisionRadius");
-		this.deflectRange = applyModifiers(getConfig().getDouble("Abilities.Water.IceBlast.DeflectRange"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.IceBlast.Range"));
-		this.damage = applyModifiers(getConfig().getInt("Abilities.Water.IceBlast.Damage"));
-		this.cooldown = applyInverseModifiers(getConfig().getInt("Abilities.Water.IceBlast.Cooldown"));
-		this.allowSnow = getConfig().getBoolean("Abilities.Water.IceBlast.AllowSnow");
+		this.interval = getConfigSection().getLong("Interval");
+		this.collisionRadius = getConfigSection().getDouble("CollisionRadius");
+		this.deflectRange = applyModifiers(getConfigSection().getDouble("DeflectRange"));
+		this.range = applyModifiers(getConfigSection().getDouble("Range"));
+		this.damage = applyModifiers(getConfigSection().getInt("Damage"));
+		this.cooldown = applyInverseModifiers(getConfigSection().getInt("Cooldown"));
+		this.allowSnow = getConfigSection().getBoolean("AllowSnow");
 
 		if (!this.bPlayer.canBend(this) || !this.bPlayer.canIcebend()) {
 			return;

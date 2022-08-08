@@ -88,19 +88,19 @@ public class WaterSpoutWave extends WaterAbility {
 		this.iceWave = false;
 		this.iceOnly = false;
 		this.collidable = false;
-		this.plant = getConfig().getBoolean("Abilities.Water.WaterSpout.Wave.AllowPlantSource");
-		this.radius = applyModifiers(getConfig().getDouble("Abilities.Water.WaterSpout.Wave.Radius"));
-		this.waveRadius = applyModifiers(getConfig().getDouble("Abilities.Water.WaterSpout.Wave.WaveRadius"));
-		this.thawRadius = applyModifiers(getConfig().getDouble("Abilities.Water.IceWave.ThawRadius"));
-		this.animationSpeed = getConfig().getDouble("Abilities.Water.WaterSpout.Wave.AnimationSpeed");
-		this.selectRange = applyModifiers(getConfig().getDouble("Abilities.Water.WaterSpout.Wave.SelectRange"));
-		this.speed = getConfig().getDouble("Abilities.Water.WaterSpout.Wave.Speed");
-		this.damage = applyModifiers(getConfig().getDouble("Abilities.Water.IceWave.Damage"));
-		this.chargeTime = applyInverseModifiers(getConfig().getLong("Abilities.Water.WaterSpout.Wave.ChargeTime"));
-		this.flightDuration = applyModifiers(getConfig().getLong("Abilities.Water.WaterSpout.Wave.FlightDuration"));
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.WaterSpout.Wave.Cooldown"));
-		this.revertSphereTime = getConfig().getLong("Abilities.Water.IceWave.RevertSphereTime");
-		this.revertIceSphere = getConfig().getBoolean("Abilities.Water.IceWave.RevertSphere");
+		this.plant = getConfigSection().getBoolean("Wave.AllowPlantSource");
+		this.radius = applyModifiers(getConfigSection().getDouble("Wave.Radius"));
+		this.waveRadius = applyModifiers(getConfigSection().getDouble("Wave.WaveRadius"));
+		this.thawRadius = applyModifiers(getConfigSection().getDouble("ThawRadius"));
+		this.animationSpeed = getConfigSection().getDouble("Wave.AnimationSpeed");
+		this.selectRange = applyModifiers(getConfigSection().getDouble("Wave.SelectRange"));
+		this.speed = getConfigSection().getDouble("Wave.Speed");
+		this.damage = applyModifiers(getConfigSection().getDouble("Damage"));
+		this.chargeTime = applyInverseModifiers(getConfigSection().getLong("Wave.ChargeTime"));
+		this.flightDuration = applyModifiers(getConfigSection().getLong("Wave.FlightDuration"));
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Wave.Cooldown"));
+		this.revertSphereTime = getConfigSection().getLong("RevertSphereTime");
+		this.revertIceSphere = getConfigSection().getBoolean("RevertSphere");
 		this.affectedBlocks = new ConcurrentHashMap<>();
 		this.affectedEntities = new ArrayList<>();
 		this.tasks = new ArrayList<>();
@@ -588,7 +588,7 @@ public class WaterSpoutWave extends WaterAbility {
 
 	@Override
 	public boolean isEnabled() {
-		return getConfig().getBoolean("Abilities.Water.WaterSpout.Wave.Enabled");
+		return getConfigSection().getBoolean("Wave.Enabled");
 	}
 
 	public boolean isMoving() {

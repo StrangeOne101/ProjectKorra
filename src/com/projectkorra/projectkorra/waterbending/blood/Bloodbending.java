@@ -57,14 +57,14 @@ public class Bloodbending extends BloodAbility {
 			return;
 		}
 
-		this.canOnlyBeUsedAtNight = getConfig().getBoolean("Abilities.Water.Bloodbending.CanOnlyBeUsedAtNight");
-		this.canBeUsedOnUndeadMobs = getConfig().getBoolean("Abilities.Water.Bloodbending.CanBeUsedOnUndeadMobs");
-		this.onlyUsableDuringMoon = getConfig().getBoolean("Abilities.Water.Bloodbending.CanOnlyBeUsedDuringFullMoon");
-		this.canBloodbendOtherBloodbenders = getConfig().getBoolean("Abilities.Water.Bloodbending.CanBloodbendOtherBloodbenders");
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.Bloodbending.Range"));
-		this.duration = getConfig().getInt("Abilities.Water.Bloodbending.Duration");
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.Bloodbending.Cooldown"));
-		this.knockback = applyModifiers(getConfig().getDouble("Abilities.Water.Bloodbending.Knockback"));
+		this.canOnlyBeUsedAtNight = getConfigSection().getBoolean("CanOnlyBeUsedAtNight");
+		this.canBeUsedOnUndeadMobs = getConfigSection().getBoolean("CanBeUsedOnUndeadMobs");
+		this.onlyUsableDuringMoon = getConfigSection().getBoolean("CanOnlyBeUsedDuringFullMoon");
+		this.canBloodbendOtherBloodbenders = getConfigSection().getBoolean("CanBloodbendOtherBloodbenders");
+		this.range = applyModifiers(getConfigSection().getDouble("Range"));
+		this.duration = getConfigSection().getInt("Duration");
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Cooldown"));
+		this.knockback = applyModifiers(getConfigSection().getDouble("Knockback"));
 		this.vector = new Vector(0, 0, 0);
 
 		if (this.canOnlyBeUsedAtNight && !isNight(player.getWorld()) && !this.bPlayer.canBloodbendAtAnytime()) {

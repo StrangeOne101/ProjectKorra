@@ -53,12 +53,12 @@ public class TorrentWave extends WaterAbility {
 		}
 
 		this.radius = radius;
-		this.interval = getConfig().getLong("Abilities.Water.Torrent.Wave.Interval");
-		this.maxHeight = applyModifiers(getConfig().getDouble("Abilities.Water.Torrent.Wave.Height"));
-		this.maxRadius = applyModifiers(getConfig().getDouble("Abilities.Water.Torrent.Wave.Radius"));
-		this.knockback = applyModifiers(getConfig().getDouble("Abilities.Water.Torrent.Wave.Knockback"));
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.Torrent.Wave.Cooldown"));
-		this.growSpeed = applyModifiers(getConfig().getDouble("Abilities.Water.Torrent.Wave.GrowSpeed"));
+		this.interval = getConfigSection().getLong("Wave.Interval");
+		this.maxHeight = applyModifiers(getConfigSection().getDouble("Wave.Height"));
+		this.maxRadius = applyModifiers(getConfigSection().getDouble("Wave.Radius"));
+		this.knockback = applyModifiers(getConfigSection().getDouble("Wave.Knockback"));
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Wave.Cooldown"));
+		this.growSpeed = applyModifiers(getConfigSection().getDouble("Wave.GrowSpeed"));
 		this.origin = location.clone();
 		this.time = System.currentTimeMillis();
 		this.heights = new ConcurrentHashMap<>();

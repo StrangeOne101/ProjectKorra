@@ -78,13 +78,13 @@ public class HealingWaters extends HealingAbility {
 
 	public void setFields() {
 
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.HealingWaters.Cooldown"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.HealingWaters.Range"));
-		this.interval = getConfig().getLong("Abilities.Water.HealingWaters.Interval");
-		this.chargeTime = applyInverseModifiers(getConfig().getLong("Abilities.Water.HealingWaters.ChargeTime"));
-		this.potionPotency = getConfig().getInt("Abilities.Water.HealingWaters.PotionPotency");
-		this.duration = getConfig().getLong("Abilities.Water.HealingWaters.Duration");
-		this.enableParticles = getConfig().getBoolean("Abilities.Water.HealingWaters.EnableParticles");
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Cooldown"));
+		this.range = applyModifiers(getConfigSection().getDouble("Range"));
+		this.interval = getConfigSection().getLong("Interval");
+		this.chargeTime = applyInverseModifiers(getConfigSection().getLong("ChargeTime"));
+		this.potionPotency = getConfigSection().getInt("PotionPotency");
+		this.duration = getConfigSection().getLong("Duration");
+		this.enableParticles = getConfigSection().getBoolean("EnableParticles");
 		this.hex = "00ffff";
 	}
 

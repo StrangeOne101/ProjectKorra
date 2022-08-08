@@ -77,14 +77,14 @@ public class WaterManipulation extends WaterAbility {
 		this.falling = false;
 		this.settingUp = false;
 		this.displacing = false;
-		this.collisionRadius = getConfig().getDouble("Abilities.Water.WaterManipulation.CollisionRadius");
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.WaterManipulation.Cooldown"));
-		this.selectRange = applyModifiers(getConfig().getDouble("Abilities.Water.WaterManipulation.SelectRange"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.WaterManipulation.Range"));
-		this.knockback = applyModifiers(getConfig().getDouble("Abilities.Water.WaterManipulation.Knockback"));
-		this.damage = applyModifiers(getConfig().getDouble("Abilities.Water.WaterManipulation.Damage"));
-		this.speed = getConfig().getDouble("Abilities.Water.WaterManipulation.Speed");
-		this.deflectRange = applyModifiers(getConfig().getDouble("Abilities.Water.WaterManipulation.DeflectRange"));
+		this.collisionRadius = getConfigSection().getDouble("CollisionRadius");
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Cooldown"));
+		this.selectRange = applyModifiers(getConfigSection().getDouble("SelectRange"));
+		this.range = applyModifiers(getConfigSection().getDouble("Range"));
+		this.knockback = applyModifiers(getConfigSection().getDouble("Knockback"));
+		this.damage = applyModifiers(getConfigSection().getDouble("Damage"));
+		this.speed = getConfigSection().getDouble("Speed");
+		this.deflectRange = applyModifiers(getConfigSection().getDouble("DeflectRange"));
 
 		this.interval = (long) (1000. / this.speed);
 
