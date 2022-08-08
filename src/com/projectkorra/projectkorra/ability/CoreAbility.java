@@ -991,7 +991,12 @@ public abstract class CoreAbility implements Ability {
 		return ConfigManager.getConfig();
 	}
 
-	public ConfigurationSection getConfigSection() {
+	/**
+	 * Gets the configuration section associated with this ability.
+	 * @param ability Provide a custom name to fetch from. Used if {@link #getName()} is not the correct path
+	 * @return The configuration section for this ability.
+	 */
+	public ConfigurationSection getConfigSection(String ability) {
 		if (this.pathCache != null) {
 			return player != null ? ConfigManager.defaultConfig().get(this.player.getWorld()).getConfigurationSection(this.pathCache)
 					: ConfigManager.defaultConfig().get().getConfigurationSection(this.pathCache);
@@ -1002,15 +1007,23 @@ public abstract class CoreAbility implements Ability {
 		}
 
 		if (this instanceof AddonAbility) {
-			this.pathCache = "ExtraAbilities." + ((AddonAbility) this).getAuthor() + "." + getName();
-			return getConfigSection();
+			this.pathCache = "ExtraAbilities." + ((AddonAbility) this).getAuthor() + "." + ability;
+			return getConfigSection(ability);
 		}
 
-		this.pathCache = "Abilities." + element + "." + getName();
+		this.pathCache = "Abilities." + element + "." + ability;
 		if (this instanceof PassiveAbility) {
-			this.pathCache = this.pathCache + ".Passive";
+			this.pathCache = "Abilities." + element + ".Passive." + ability;
 		}
-		return getConfigSection();
+		return getConfigSection(ability);
+	}
+
+	/**
+	 * Gets the configuration section associated with this ability.
+	 * @return The configuration section for this ability.
+	 */
+	public ConfigurationSection getConfigSection() {
+		return getConfigSection(getName());
 	}
 
 	/**

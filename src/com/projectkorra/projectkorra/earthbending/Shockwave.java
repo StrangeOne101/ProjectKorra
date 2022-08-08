@@ -24,11 +24,11 @@ public class Shockwave extends EarthAbility {
 	public Shockwave(final Player player, final boolean fall) {
 		super(player);
 
-		this.angle = Math.toRadians(getConfig().getDouble("Abilities.Earth.Shockwave.Angle"));
-		this.cooldown = getConfig().getLong("Abilities.Earth.Shockwave.Cooldown");
-		this.chargeTime = getConfig().getLong("Abilities.Earth.Shockwave.ChargeTime");
-		this.threshold = getConfig().getDouble("Abilities.Earth.Shockwave.FallThreshold");
-		this.range = getConfig().getDouble("Abilities.Earth.Shockwave.Range");
+		this.angle = Math.toRadians(getConfigSection().getDouble("Angle"));
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.chargeTime = getConfigSection().getLong("ChargeTime");
+		this.threshold = getConfigSection().getDouble("FallThreshold");
+		this.range = getConfigSection().getDouble("Range");
 
 		if (this.bPlayer.isAvatarState()) {
 			this.range = getConfig().getDouble("Abilities.Avatar.AvatarState.Earth.Shockwave.Range");

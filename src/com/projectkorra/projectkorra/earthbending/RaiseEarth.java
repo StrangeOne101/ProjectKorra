@@ -69,7 +69,7 @@ public class RaiseEarth extends EarthAbility {
 	}
 
 	public RaiseEarth(final Player player, final Location origin) {
-		this(player, origin, ConfigManager.getConfig().getInt("Abilities.Earth.RaiseEarth.Column.Height"));
+		this(player, origin, ConfigManager.defaultConfig().get(player.getWorld()).getInt("Abilities.Earth.RaiseEarth.Column.Height"));
 	}
 
 	public RaiseEarth(final Player player, final Location origin, final int height) {
@@ -91,10 +91,10 @@ public class RaiseEarth extends EarthAbility {
 	}
 
 	private void setFields() {
-		this.speed = getConfig().getDouble("Abilities.Earth.RaiseEarth.Speed");
-		this.height = getConfig().getInt("Abilities.Earth.RaiseEarth.Column.Height");
-		this.selectRange = getConfig().getDouble("Abilities.Earth.RaiseEarth.Column.SelectRange");
-		this.cooldown = getConfig().getLong("Abilities.Earth.RaiseEarth.Column.Cooldown");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.height = getConfigSection().getInt("Column.Height");
+		this.selectRange = getConfigSection().getDouble("Column.SelectRange");
+		this.cooldown = getConfigSection().getLong("Column.Cooldown");
 		this.direction = new Vector(0, 1, 0);
 		this.interval = (long) (1000.0 / this.speed);
 		this.affectedBlocks = new ConcurrentHashMap<>();

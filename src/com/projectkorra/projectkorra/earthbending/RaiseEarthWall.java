@@ -26,10 +26,10 @@ public class RaiseEarthWall extends EarthAbility {
 
 	public RaiseEarthWall(final Player player) {
 		super(player);
-		this.selectRange = getConfig().getInt("Abilities.Earth.RaiseEarth.Wall.SelectRange");
-		this.height = getConfig().getInt("Abilities.Earth.RaiseEarth.Wall.Height");
-		this.width = getConfig().getInt("Abilities.Earth.RaiseEarth.Wall.Width");
-		this.cooldown = getConfig().getLong("Abilities.Earth.RaiseEarth.Wall.Cooldown");
+		this.selectRange = getConfigSection().getInt("Wall.SelectRange");
+		this.height = getConfigSection().getInt("Wall.Height");
+		this.width = getConfigSection().getInt("Wall.Width");
+		this.cooldown = getConfigSection().getLong("Wall.Cooldown");
 
 		if (!this.bPlayer.canBend(this) || this.bPlayer.isOnCooldown("RaiseEarthWall")) {
 			return;

@@ -45,15 +45,15 @@ public class EarthTunnel extends EarthAbility {
 	public EarthTunnel(final Player player) {
 		super(player);
 
-		this.cooldown = getConfig().getLong("Abilities.Earth.EarthTunnel.Cooldown");
-		this.maxRadius = getConfig().getDouble("Abilities.Earth.EarthTunnel.MaxRadius");
-		this.range = getConfig().getDouble("Abilities.Earth.EarthTunnel.Range");
-		this.radius = getConfig().getDouble("Abilities.Earth.EarthTunnel.Radius");
-		this.interval = getConfig().getLong("Abilities.Earth.EarthTunnel.Interval");
-		this.blocksPerInterval = getConfig().getInt("Abilities.Earth.EarthTunnel.BlocksPerInterval");
-		this.revert = getConfig().getBoolean("Abilities.Earth.EarthTunnel.Revert");
-		this.dropLootIfNotRevert = getConfig().getBoolean("Abilities.Earth.EarthTunnel.DropLootIfNotRevert");
-		this.revertTime = getConfig().getLong("Abilities.Earth.EarthTunnel.RevertCheckTime");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.maxRadius = getConfigSection().getDouble("MaxRadius");
+		this.range = getConfigSection().getDouble("Range");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.interval = getConfigSection().getLong("Interval");
+		this.blocksPerInterval = getConfigSection().getInt("BlocksPerInterval");
+		this.revert = getConfigSection().getBoolean("Revert");
+		this.dropLootIfNotRevert = getConfigSection().getBoolean("DropLootIfNotRevert");
+		this.revertTime = getConfigSection().getLong("RevertCheckTime");
 
 		this.time = System.currentTimeMillis();
 

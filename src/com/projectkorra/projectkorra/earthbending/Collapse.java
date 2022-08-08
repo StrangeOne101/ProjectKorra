@@ -82,10 +82,10 @@ public class Collapse extends EarthAbility {
 	}
 
 	private void setFields() {
-		this.height = this.bPlayer.isAvatarState() ? getConfig().getInt("Abilities.Avatar.AvatarState.Earth.Collapse.Column.Height") : getConfig().getInt("Abilities.Earth.Collapse.Column.Height");
-		this.selectRange = getConfig().getInt("Abilities.Earth.Collapse.SelectRange");
-		this.speed = getConfig().getDouble("Abilities.Earth.Collapse.Speed");
-		this.cooldown = getConfig().getLong("Abilities.Earth.Collapse.Column.Cooldown");
+		this.height = this.bPlayer.isAvatarState() ? getConfig().getInt("Abilities.Avatar.AvatarState.Earth.Collapse.Column.Height") : getConfigSection().getInt("Column.Height");
+		this.selectRange = getConfigSection().getInt("SelectRange");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.cooldown = getConfigSection().getLong("Column.Cooldown");
 		this.direction = new Vector(0, -1, 0);
 		this.affectedBlocks = new ConcurrentHashMap<>();
 	}

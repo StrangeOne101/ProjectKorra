@@ -76,17 +76,17 @@ public class MetalClips extends MetalAbility {
 		this.abilityType = abilityType;
 		this.canLoot = player.hasPermission("bending.ability.MetalClips.loot");
 		this.canUse4Clips = player.hasPermission("bending.ability.MetalClips.4clips");
-		this.armorTime = getConfig().getInt("Abilities.Earth.MetalClips.Duration");
-		this.range = getConfig().getDouble("Abilities.Earth.MetalClips.Range");
-		this.cooldown = getConfig().getLong("Abilities.Earth.MetalClips.Cooldown");
+		this.armorTime = getConfigSection().getInt("Duration");
+		this.range = getConfigSection().getDouble("Range");
+		this.cooldown = getConfigSection().getLong("Cooldown");
 		this.shootCooldown = 600;
-		this.crushCooldown = getConfig().getLong("Abilities.Earth.MetalClips.Crush.Cooldown");
-		this.magnetCooldown = getConfig().getLong("Abilities.Earth.MetalClips.Magnet.Cooldown");
-		this.magnetRange = getConfig().getInt("Abilities.Earth.MetalClips.Magnet.Range");
-		this.magnetSpeed = getConfig().getDouble("Abilities.Earth.MetalClips.Magnet.Speed");
-		this.crushDamage = getConfig().getDouble("Abilities.Earth.MetalClips.Crush.Damage");
-		this.damage = getConfig().getDouble("Abilities.Earth.MetalClips.Damage");
-		this.canThrow = (getConfig().getBoolean("Abilities.Earth.MetalClips.ThrowEnabled") && player.hasPermission("bending.ability.metalclips.throw"));
+		this.crushCooldown = getConfigSection().getLong("Crush.Cooldown");
+		this.magnetCooldown = getConfigSection().getLong("Magnet.Cooldown");
+		this.magnetRange = getConfigSection().getInt("Magnet.Range");
+		this.magnetSpeed = getConfigSection().getDouble("Magnet.Speed");
+		this.crushDamage = getConfigSection().getDouble("Crush.Damage");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.canThrow = (getConfigSection().getBoolean("ThrowEnabled") && player.hasPermission("bending.ability.metalclips.throw"));
 		this.trackedIngots = new ArrayList<>();
 
 		if (this.bPlayer.isAvatarState()) {

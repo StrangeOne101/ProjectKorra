@@ -770,6 +770,8 @@ public class ConfigManager {
 			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.CooldownFactor", 1.0);
 			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.RangeFactor", 1.0);
 			config.addDefault("PerWorldConfig.Arena.Properties.Earth.MetalPowerFactor", 1.0);
+			config.addDefault("PerWorldConfig.ResourceWorld.Abilities.Earth.EarthTunnel.Revert", false);
+			config.addDefault("PerWorldConfig.ResourceWorld.Abilities.Earth.EarthTunnel.DropLootIfNotRevert", true);
 
 			config.addDefault("Abilities.Avatar.AvatarState.Enabled", true);
 			config.addDefault("Abilities.Avatar.AvatarState.Cooldown", 7200000);

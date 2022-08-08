@@ -50,9 +50,9 @@ public class LavaSurgeWave extends LavaAbility {
 		this.radius = 1;
 		this.interval = 30;
 		this.cooldown = GeneralMethods.getGlobalCooldown();
-		this.maxRadius = getConfig().getDouble("Abilities.Earth.LavaSurge.Radius");
-		this.horizontalPush = getConfig().getDouble("Abilities.Earth.LavaSurge.HorizontalPush");
-		this.verticalPush = getConfig().getDouble("Abilities.Earth.LavaSurge.VerticalPush");
+		this.maxRadius = getConfigSection("LavaSurge").getDouble("Radius");
+		this.horizontalPush = getConfigSection("LavaSurge").getDouble("HorizontalPush");
+		this.verticalPush = getConfigSection("LavaSurge").getDouble("VerticalPush");
 		this.waveBlocks = new ConcurrentHashMap<Block, Block>();
 		this.frozenBlocks = new ConcurrentHashMap<Block, Block>();
 

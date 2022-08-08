@@ -65,10 +65,10 @@ public class EarthArmor extends EarthAbility {
 		this.active = true;
 		this.interval = 2000;
 		this.goldHearts = 0;
-		this.cooldown = getConfig().getLong("Abilities.Earth.EarthArmor.Cooldown");
-		this.maxDuration = getConfig().getLong("Abilities.Earth.EarthArmor.MaxDuration");
-		this.selectRange = getConfig().getDouble("Abilities.Earth.EarthArmor.SelectRange");
-		this.maxGoldHearts = getConfig().getInt("Abilities.Earth.EarthArmor.GoldHearts");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.maxDuration = getConfigSection().getLong("MaxDuration");
+		this.selectRange = getConfigSection().getDouble("SelectRange");
+		this.maxGoldHearts = getConfigSection().getInt("GoldHearts");
 
 		if (this.bPlayer.isAvatarState()) {
 			this.cooldown = getConfig().getLong("Abilities.Avatar.AvatarState.Earth.EarthArmor.Cooldown");

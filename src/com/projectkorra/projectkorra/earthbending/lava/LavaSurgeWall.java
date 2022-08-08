@@ -47,8 +47,8 @@ public class LavaSurgeWall extends LavaAbility {
 		super(player);
 
 		this.interval = 30;
-		this.radius = getConfig().getDouble("Abilities.Water.Surge.Wall.Radius");
-		this.range = getConfig().getDouble("Abilities.Water.Surge.Wall.Range");
+		this.radius = getConfigSection("LavaSurge").getDouble("Wall.Radius");
+		this.range = getConfigSection("LavaSurge").getDouble("Wall.Range");
 		this.cooldown = GeneralMethods.getGlobalCooldown();
 
 		final LavaSurgeWave wave = getAbility(player, LavaSurgeWave.class);

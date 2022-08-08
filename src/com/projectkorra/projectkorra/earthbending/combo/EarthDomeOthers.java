@@ -44,7 +44,7 @@ public class EarthDomeOthers extends EarthAbility implements ComboAbility {
 		}
 		this.range = 0;
 		this.direction = this.loc.getDirection().setY(0);
-		this.maxRange = getConfig().getDouble("Abilities.Earth.EarthDome.Range");
+		this.maxRange = getConfigSection().getDouble("Range");
 		this.start();
 	}
 
@@ -100,7 +100,7 @@ public class EarthDomeOthers extends EarthAbility implements ComboAbility {
 	public void remove(final boolean cooldown) {
 		super.remove();
 		if (cooldown) {
-			this.bPlayer.addCooldown("EarthDome", getConfig().getLong("Abilities.Earth.EarthDome.Cooldown"));
+			this.bPlayer.addCooldown("EarthDome", getConfigSection("EarthDome").getLong("Cooldown"));
 		}
 	}
 

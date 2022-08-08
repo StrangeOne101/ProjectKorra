@@ -88,12 +88,12 @@ public class EarthGrab extends EarthAbility {
 	}
 
 	private void setFields() {
-		this.range = getConfig().getDouble("Abilities.Earth.EarthGrab.Range");
-		this.cooldown = getConfig().getLong("Abilities.Earth.EarthGrab.Cooldown");
-		this.dragSpeed = getConfig().getDouble("Abilities.Earth.EarthGrab.DragSpeed");
-		this.interval = getConfig().getLong("Abilities.Earth.EarthGrab.TrapHitInterval");
-		this.trapHP = getConfig().getDouble("Abilities.Earth.EarthGrab.TrapHP");
-		this.damageThreshold = getConfig().getDouble("Abilities.Earth.EarthGrab.DamageThreshold");
+		this.range = getConfigSection().getDouble("Range");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.dragSpeed = getConfigSection().getDouble("DragSpeed");
+		this.interval = getConfigSection().getLong("TrapHitInterval");
+		this.trapHP = getConfigSection().getDouble("TrapHP");
+		this.damageThreshold = getConfigSection().getDouble("DamageThreshold");
 		this.origin = this.player.getLocation().clone();
 		this.direction = this.player.getLocation().getDirection().setY(0).normalize();
 		this.lastHit = 0;

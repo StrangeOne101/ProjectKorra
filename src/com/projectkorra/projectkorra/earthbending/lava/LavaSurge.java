@@ -59,13 +59,13 @@ public class LavaSurge extends LavaAbility {
 	public LavaSurge(final Player player) {
 		super(player);
 
-		this.impactDamage = getConfig().getInt("Abilities.Earth.LavaSurge.Damage");
-		this.cooldown = getConfig().getLong("Abilities.Earth.LavaSurge.Cooldown");
-		this.fractureRadius = getConfig().getDouble("Abilities.Earth.LavaSurge.FractureRadius");
-		this.prepareRange = getConfig().getInt("Abilities.Earth.LavaSurge.PrepareRange");
-		this.travelRange = getConfig().getInt("Abilities.Earth.LavaSurge.TravelRange");
-		this.maxBlocks = getConfig().getInt("Abilities.Earth.LavaSurge.MaxLavaWaves");
-		this.canSourceBeEarth = getConfig().getBoolean("Abilities.Earth.LavaSurge.SourceCanBeEarth");
+		this.impactDamage = getConfigSection().getInt("Damage");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.fractureRadius = getConfigSection().getDouble("FractureRadius");
+		this.prepareRange = getConfigSection().getInt("PrepareRange");
+		this.travelRange = getConfigSection().getInt("TravelRange");
+		this.maxBlocks = getConfigSection().getInt("MaxLavaWaves");
+		this.canSourceBeEarth = getConfigSection().getBoolean("SourceCanBeEarth");
 		this.particleInterval = 100;
 		this.fallingBlockInterval = 100;
 

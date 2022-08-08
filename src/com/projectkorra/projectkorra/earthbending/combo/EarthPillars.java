@@ -57,14 +57,14 @@ public class EarthPillars extends EarthAbility implements ComboAbility {
 	}
 
 	private void setFields(final boolean fall) {
-		this.radius = getConfig().getDouble("Abilities.Earth.EarthPillars.Radius");
-		this.damage = getConfig().getDouble("Abilities.Earth.EarthPillars.Damage.Value");
-		this.knockup = getConfig().getDouble("Abilities.Earth.EarthPillars.Knockup");
-		this.damaging = getConfig().getBoolean("Abilities.Earth.EarthPillars.Damage.Enabled");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.damage = getConfigSection().getDouble("Damage.Value");
+		this.knockup = getConfigSection().getDouble("Knockup");
+		this.damaging = getConfigSection().getBoolean("Damage.Enabled");
 		this.entities = new HashMap<>();
 
 		if (fall) {
-			this.fallThreshold = getConfig().getDouble("Abilities.Earth.EarthPillars.FallThreshold");
+			this.fallThreshold = getConfigSection().getDouble("FallThreshold");
 			this.damaging = true;
 			this.damage *= this.knockup;
 			this.radius = this.fallThreshold;
@@ -135,7 +135,7 @@ public class EarthPillars extends EarthAbility implements ComboAbility {
 
 	@Override
 	public long getCooldown() {
-		return getConfig().getLong("Abilities.Earth.EarthPillars.Cooldown");
+		return getConfigSection().getLong("Cooldown");
 	}
 
 	@Override

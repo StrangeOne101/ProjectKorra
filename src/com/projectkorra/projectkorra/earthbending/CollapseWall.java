@@ -36,10 +36,10 @@ public class CollapseWall extends EarthAbility {
 			return;
 		}
 
-		this.selectRange = getConfig().getInt("Abilities.Earth.Collapse.SelectRange");
-		this.height = getConfig().getInt("Abilities.Earth.Collapse.Wall.Height");
-		this.radius = getConfig().getDouble("Abilities.Earth.Collapse.Radius");
-		this.cooldown = getConfig().getLong("Abilities.Earth.Collapse.Wall.Cooldown");
+		this.selectRange = getConfigSection().getInt("SelectRange");
+		this.height = getConfigSection().getInt("Wall.Height");
+		this.radius = getConfigSection().getDouble("Radius");
+		this.cooldown = getConfigSection().getLong("Wall.Cooldown");
 		this.blocks = new ConcurrentHashMap<>();
 		this.baseBlocks = new ConcurrentHashMap<>();
 

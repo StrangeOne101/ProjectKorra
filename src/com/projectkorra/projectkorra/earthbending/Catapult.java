@@ -57,10 +57,10 @@ public class Catapult extends EarthAbility {
 	}
 
 	private void setFields() {
-		this.stageTimeMult = getConfig().getDouble("Abilities.Earth.Catapult.StageTimeMult");
-		this.cooldown = getConfig().getLong("Abilities.Earth.Catapult.Cooldown");
-		this.angle = Math.toRadians(getConfig().getDouble("Abilities.Earth.Catapult.Angle"));
-		this.cancelWithAngle = getConfig().getBoolean("Abilities.Earth.Catapult.CancelWithAngle");
+		this.stageTimeMult = getConfigSection().getDouble("StageTimeMult");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.angle = Math.toRadians(getConfigSection().getDouble("Angle"));
+		this.cancelWithAngle = getConfigSection().getBoolean("CancelWithAngle");
 		this.activationHandled = false;
 		this.stage = 1;
 		this.stageStart = System.currentTimeMillis();

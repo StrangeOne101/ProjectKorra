@@ -34,9 +34,9 @@ public class EarthDome extends EarthAbility {
 		}
 
 		this.center = center;
-		this.radius = getConfig().getDouble("Abilities.Earth.EarthDome.Radius");
-		this.height = getConfig().getInt("Abilities.Earth.EarthDome.Height");
-		this.cooldown = getConfig().getLong("Abilities.Earth.EarthDome.Cooldown");
+		this.radius = getConfigSection("EarthDome").getDouble("Radius");
+		this.height = getConfigSection("EarthDome").getInt("Height");
+		this.cooldown = getConfigSection("EarthDome").getLong("Cooldown");
 		this.checked = new HashSet<>();
 
 		this.start();

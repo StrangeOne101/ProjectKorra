@@ -48,11 +48,11 @@ public class Tremorsense extends EarthAbility {
 	}
 
 	private void setFields() {
-		this.maxDepth = getConfig().getInt("Abilities.Earth.Tremorsense.MaxDepth");
-		this.radius = getConfig().getInt("Abilities.Earth.Tremorsense.Radius");
-		this.lightThreshold = (byte) getConfig().getInt("Abilities.Earth.Tremorsense.LightThreshold");
-		this.cooldown = getConfig().getLong("Abilities.Earth.Tremorsense.Cooldown");
-		this.stickyRange = getConfig().getInt("Abilities.Earth.Tremorsense.StickyRange");
+		this.maxDepth = getConfigSection().getInt("MaxDepth");
+		this.radius = getConfigSection().getInt("Radius");
+		this.lightThreshold = (byte) getConfigSection().getInt("LightThreshold");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.stickyRange = getConfigSection().getInt("StickyRange");
 	}
 
 	private void activate() {

@@ -58,9 +58,9 @@ public class Ripple extends EarthAbility {
 			return;
 		}
 
-		this.range = getConfig().getDouble("Abilities.Earth.Shockwave.Range");
-		this.damage = getConfig().getDouble("Abilities.Earth.Shockwave.Damage");
-		this.knockback = getConfig().getDouble("Abilities.Earth.Shockwave.Knockback");
+		this.range = getConfigSection().getDouble("Range");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.knockback = getConfigSection().getDouble("Knockback");
 		this.direction = direction.clone().normalize();
 		this.origin = origin.clone();
 		this.location = origin.clone();

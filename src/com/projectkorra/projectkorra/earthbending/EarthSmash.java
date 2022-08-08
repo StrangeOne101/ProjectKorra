@@ -87,8 +87,8 @@ public class EarthSmash extends EarthAbility {
 		super(player);
 
 		this.state = State.START;
-		this.requiredBendableBlocks = getConfig().getInt("Abilities.Earth.EarthSmash.RequiredBendableBlocks");
-		this.maxBlocksToPassThrough = getConfig().getInt("Abilities.Earth.EarthSmash.MaxBlocksToPassThrough");
+		this.requiredBendableBlocks = getConfigSection().getInt("RequiredBendableBlocks");
+		this.maxBlocksToPassThrough = getConfigSection().getInt("MaxBlocksToPassThrough");
 		this.setFields();
 		this.affectedEntities = new ArrayList<>();
 		this.currentBlocks = new ArrayList<>();
@@ -148,28 +148,28 @@ public class EarthSmash extends EarthAbility {
 
 	public void setFields() {
 		final BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(this.player);
-		this.shootAnimationInterval = getConfig().getLong("Abilities.Earth.EarthSmash.Shoot.AnimationInterval");
-		this.flightAnimationInterval = getConfig().getLong("Abilities.Earth.EarthSmash.Flight.AnimationInterval");
-		this.liftAnimationInterval = getConfig().getLong("Abilities.Earth.EarthSmash.LiftAnimationInterval");
-		this.grabDetectionRadius = getConfig().getDouble("Abilities.Earth.EarthSmash.Grab.DetectionRadius");
-		this.flightDetectionRadius = getConfig().getDouble("Abilities.Earth.EarthSmash.Flight.DetectionRadius");
-		this.hitRadius = getConfig().getDouble("Abilities.Earth.EarthSmash.Shoot.CollisionRadius");
-		this.allowGrab = getConfig().getBoolean("Abilities.Earth.EarthSmash.Grab.Enabled");
-		this.allowFlight = getConfig().getBoolean("Abilities.Earth.EarthSmash.Flight.Enabled");
-		this.selectRange = getConfig().getDouble("Abilities.Earth.EarthSmash.SelectRange");
-		this.grabRange = getConfig().getDouble("Abilities.Earth.EarthSmash.Grab.Range");
-		this.shootRange = getConfig().getDouble("Abilities.Earth.EarthSmash.Shoot.Range");
-		this.minDamage = getConfig().getDouble("Abilities.Earth.EarthSmash.MinimumDamage");
-		this.maxDamage = getConfig().getDouble("Abilities.Earth.EarthSmash.MaximumDamage");
-		this.knockback = getConfig().getDouble("Abilities.Earth.EarthSmash.Knockback");
-		this.knockup = getConfig().getDouble("Abilities.Earth.EarthSmash.Knockup");
-		this.liftKnockup = getConfig().getDouble("Abilities.Earth.EarthSmash.Lift.Knockup");
-		this.liftRange = getConfig().getDouble("Abilities.Earth.EarthSmash.Lift.Range");
-		this.flightSpeed = getConfig().getDouble("Abilities.Earth.EarthSmash.Flight.Speed");
-		this.chargeTime = getConfig().getLong("Abilities.Earth.EarthSmash.ChargeTime");
-		this.cooldown = getConfig().getLong("Abilities.Earth.EarthSmash.Cooldown");
-		this.flightDuration = getConfig().getLong("Abilities.Earth.EarthSmash.Flight.Duration");
-		this.duration = getConfig().getLong("Abilities.Earth.EarthSmash.Duration");
+		this.shootAnimationInterval = getConfigSection().getLong("Shoot.AnimationInterval");
+		this.flightAnimationInterval = getConfigSection().getLong("Flight.AnimationInterval");
+		this.liftAnimationInterval = getConfigSection().getLong("LiftAnimationInterval");
+		this.grabDetectionRadius = getConfigSection().getDouble("Grab.DetectionRadius");
+		this.flightDetectionRadius = getConfigSection().getDouble("Flight.DetectionRadius");
+		this.hitRadius = getConfigSection().getDouble("Shoot.CollisionRadius");
+		this.allowGrab = getConfigSection().getBoolean("Grab.Enabled");
+		this.allowFlight = getConfigSection().getBoolean("Flight.Enabled");
+		this.selectRange = getConfigSection().getDouble("SelectRange");
+		this.grabRange = getConfigSection().getDouble("Grab.Range");
+		this.shootRange = getConfigSection().getDouble("Shoot.Range");
+		this.minDamage = getConfigSection().getDouble("MinimumDamage");
+		this.maxDamage = getConfigSection().getDouble("MaximumDamage");
+		this.knockback = getConfigSection().getDouble("Knockback");
+		this.knockup = getConfigSection().getDouble("Knockup");
+		this.liftKnockup = getConfigSection().getDouble("Lift.Knockup");
+		this.liftRange = getConfigSection().getDouble("Lift.Range");
+		this.flightSpeed = getConfigSection().getDouble("Flight.Speed");
+		this.chargeTime = getConfigSection().getLong("ChargeTime");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.flightDuration = getConfigSection().getLong("Flight.Duration");
+		this.duration = getConfigSection().getLong("Duration");
 
 		if (bPlayer.isAvatarState()) {
 			this.selectRange = getConfig().getDouble("Abilities.Avatar.AvatarState.Earth.EarthSmash.SelectRange");

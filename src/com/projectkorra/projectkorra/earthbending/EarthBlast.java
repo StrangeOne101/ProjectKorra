@@ -57,15 +57,15 @@ public class EarthBlast extends EarthAbility {
 		this.isProgressing = false;
 		this.isAtDestination = false;
 		this.isSettingUp = true;
-		this.deflectRange = getConfig().getDouble("Abilities.Earth.EarthBlast.DeflectRange");
-		this.collisionRadius = getConfig().getDouble("Abilities.Earth.EarthBlast.CollisionRadius");
-		this.cooldown = getConfig().getLong("Abilities.Earth.EarthBlast.Cooldown");
-		this.canHitSelf = getConfig().getBoolean("Abilities.Earth.EarthBlast.CanHitSelf");
-		this.range = getConfig().getDouble("Abilities.Earth.EarthBlast.Range");
-		this.damage = getConfig().getDouble("Abilities.Earth.EarthBlast.Damage");
-		this.speed = getConfig().getDouble("Abilities.Earth.EarthBlast.Speed");
-		this.pushFactor = getConfig().getDouble("Abilities.Earth.EarthBlast.Push");
-		this.selectRange = getConfig().getDouble("Abilities.Earth.EarthBlast.SelectRange");
+		this.deflectRange = getConfigSection().getDouble("DeflectRange");
+		this.collisionRadius = getConfigSection().getDouble("CollisionRadius");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.canHitSelf = getConfigSection().getBoolean("CanHitSelf");
+		this.range = getConfigSection().getDouble("Range");
+		this.damage = getConfigSection().getDouble("Damage");
+		this.speed = getConfigSection().getDouble("Speed");
+		this.pushFactor = getConfigSection().getDouble("Push");
+		this.selectRange = getConfigSection().getDouble("SelectRange");
 		this.time = System.currentTimeMillis();
 		this.interval = (long) (1000.0 / this.speed);
 

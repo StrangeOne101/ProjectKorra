@@ -30,10 +30,10 @@ public class Extraction extends MetalAbility {
 	public Extraction(final Player player) {
 		super(player);
 
-		this.doubleChance = getConfig().getInt("Abilities.Earth.Extraction.DoubleLootChance");
-		this.tripleChance = getConfig().getInt("Abilities.Earth.Extraction.TripleLootChance");
-		this.cooldown = getConfig().getLong("Abilities.Earth.Extraction.Cooldown");
-		this.selectRange = getConfig().getInt("Abilities.Earth.Extraction.SelectRange");
+		this.doubleChance = getConfigSection().getInt("DoubleLootChance");
+		this.tripleChance = getConfigSection().getInt("TripleLootChance");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.selectRange = getConfigSection().getInt("SelectRange");
 
 		this.is117 = GeneralMethods.getMCVersion() >= 1170;
 

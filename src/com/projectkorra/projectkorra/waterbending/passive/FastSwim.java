@@ -29,10 +29,10 @@ public class FastSwim extends WaterAbility implements PassiveAbility {
 			return;
 		}
 
-		this.cooldown = getConfigSection().getLong("FastSwim.Cooldown");
-		this.swimSpeed = getConfigSection().getDouble("FastSwim.SpeedFactor");
-		this.duration = getConfigSection().getLong("FastSwim.Duration");
-		this.allowWaterArms = getConfigSection().getBoolean("FastSwim.AllowWaterArms");
+		this.cooldown = getConfigSection().getLong("Cooldown");
+		this.swimSpeed = getConfigSection().getDouble("SpeedFactor");
+		this.duration = getConfigSection().getLong("Duration");
+		this.allowWaterArms = getConfigSection().getBoolean("AllowWaterArms");
 
 		this.start();
 	}
