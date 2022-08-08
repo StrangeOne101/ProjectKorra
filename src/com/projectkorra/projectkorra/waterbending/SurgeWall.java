@@ -65,13 +65,13 @@ public class SurgeWall extends WaterAbility {
 	public SurgeWall(final Player player) {
 		super(player);
 
-		this.interval = getConfig().getLong("Abilities.Water.Surge.Wall.Interval");
-		this.cooldown = applyInverseModifiers(getConfig().getLong("Abilities.Water.Surge.Wall.Cooldown"));
-		this.duration = applyModifiers(getConfig().getLong("Abilities.Water.Surge.Wall.Duration"));
-		this.range = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wall.Range"));
-		this.radius = applyModifiers(getConfig().getDouble("Abilities.Water.Surge.Wall.Radius"));
-		this.solidifyLava = getConfig().getBoolean("Abilities.Water.Surge.Wall.SolidifyLava.Enabled");
-		this.obsidianDuration = getConfig().getLong("Abilities.Water.Surge.Wall.SolidifyLava.Duration");
+		this.interval = getConfigSection().getLong("Wall.Interval");
+		this.cooldown = applyInverseModifiers(getConfigSection().getLong("Wall.Cooldown"));
+		this.duration = applyModifiers(getConfigSection().getLong("Wall.Duration"));
+		this.range = applyModifiers(getConfigSection().getDouble("Wall.Range"));
+		this.radius = applyModifiers(getConfigSection().getDouble("Wall.Radius"));
+		this.solidifyLava = getConfigSection().getBoolean("Wall.SolidifyLava.Enabled");
+		this.obsidianDuration = getConfigSection().getLong("Wall.SolidifyLava.Duration");
 		this.locations = new ArrayList<>();
 		this.oldTemps = new HashMap<>();
 

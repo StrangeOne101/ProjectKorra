@@ -3,6 +3,7 @@ package com.projectkorra.projectkorra.ability;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.projectkorra.projectkorra.configuration.ConfigManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -155,7 +156,7 @@ public abstract class WaterAbility extends ElementalAbility {
 
 	public static double getNightFactor(final double value, final World world) {
 		if (isNight(world)) {
-			return value * getNightFactor();
+			return value * ConfigManager.defaultConfig().get(world).getDouble("Properties.Water.NightFactor");
 		}
 
 		return value;

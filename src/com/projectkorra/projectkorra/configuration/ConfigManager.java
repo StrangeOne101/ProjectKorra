@@ -3,9 +3,14 @@ package com.projectkorra.projectkorra.configuration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ProjectKorra;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import net.md_5.bungee.api.ChatColor;
@@ -16,13 +21,17 @@ public class ConfigManager {
 	public static Config defaultConfig;
 	public static Config languageConfig;
 
+
+
 	public ConfigManager() {
 		presetConfig = new Config(new File("presets.yml"));
-		defaultConfig = new Config(new File("config.yml"));
+		defaultConfig = new PerWorldConfig(new File("config.yml"));
 		languageConfig = new Config(new File("language.yml"));
 		configCheck(ConfigType.DEFAULT);
 		configCheck(ConfigType.LANGUAGE);
 		configCheck(ConfigType.PRESETS);
+
+		Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, () -> ((PerWorldConfig) defaultConfig).loadWorldConfigs(), 1L);
 	}
 
 	public static void configCheck(final ConfigType type) {
@@ -754,6 +763,13 @@ public class ConfigManager {
 			disabledWorlds.add("TestWorld");
 			disabledWorlds.add("TestWorld2");
 			config.addDefault("Properties.DisabledWorlds", disabledWorlds);
+
+			config.addDefault("PerWorldConfig.Arena.Properties.Water.NightFactor", 1.0);
+			config.addDefault("PerWorldConfig.Arena.Properties.Fire.DayFactor", 1.0);
+			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.DamageFactor", 1.0);
+			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.CooldownFactor", 1.0);
+			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.RangeFactor", 1.0);
+			config.addDefault("PerWorldConfig.Arena.Properties.Earth.MetalPowerFactor", 1.0);
 
 			config.addDefault("Abilities.Avatar.AvatarState.Enabled", true);
 			config.addDefault("Abilities.Avatar.AvatarState.Cooldown", 7200000);
@@ -1714,5 +1730,9 @@ public class ConfigManager {
 
 	public static FileConfiguration getConfig() {
 		return ConfigManager.defaultConfig.get();
+	}
+
+	public static PerWorldConfig defaultConfig() {
+		return (PerWorldConfig) ConfigManager.defaultConfig;
 	}
 }

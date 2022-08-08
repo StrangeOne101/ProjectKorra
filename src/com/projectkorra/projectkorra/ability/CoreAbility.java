@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.jar.JarFile;
 
 import com.projectkorra.projectkorra.command.CooldownCommand;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.permissions.Permission;
 import sun.reflect.ReflectionFactory;
 
@@ -107,6 +108,7 @@ public abstract class CoreAbility implements Ability {
 	private long startTime;
 	private long startTick;
 	private boolean attributesModified;
+	private String pathCache;
 
 	static {
 		idCounter = Integer.MIN_VALUE;
@@ -981,10 +983,34 @@ public abstract class CoreAbility implements Ability {
 	}
 
 	/**
+	 * Deprecated. Use {@link #getConfigSection()} instead.
 	 * @return the current FileConfiguration for the plugin
 	 */
+	@Deprecated
 	public static FileConfiguration getConfig() {
 		return ConfigManager.getConfig();
+	}
+
+	public ConfigurationSection getConfigSection() {
+		if (this.pathCache != null) {
+			return player != null ? ConfigManager.defaultConfig().get(this.player.getWorld()).getConfigurationSection(this.pathCache)
+					: ConfigManager.defaultConfig().get().getConfigurationSection(this.pathCache);
+		}
+		String element = getElement().getName();
+		if (getElement() instanceof SubElement && !(getElement() instanceof Element.MultiSubElement)) {
+			element = ((SubElement) getElement()).getParentElement().getName();
+		}
+
+		if (this instanceof AddonAbility) {
+			this.pathCache = "ExtraAbilities." + ((AddonAbility) this).getAuthor() + "." + getName();
+			return getConfigSection();
+		}
+
+		this.pathCache = "Abilities." + element + "." + getName();
+		if (this instanceof PassiveAbility) {
+			this.pathCache = this.pathCache + ".Passive";
+		}
+		return getConfigSection();
 	}
 
 	/**
