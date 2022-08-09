@@ -31,7 +31,21 @@ public class ConfigManager {
 		configCheck(ConfigType.LANGUAGE);
 		configCheck(ConfigType.PRESETS);
 
-		Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, () -> ((PerWorldConfig) defaultConfig).loadWorldConfigs(), 1L);
+		if (!defaultConfig().getWorldConfigsFolder().exists()) {
+			defaultConfig().getWorldConfigsFolder().mkdir();
+
+			Config exampleWorldConfig = new Config(new File(defaultConfig().getWorldConfigsFolder(), "Arena.yml"));
+			exampleWorldConfig.get().addDefault("Properties.Water.NightFactor", 1.0);
+			exampleWorldConfig.get().addDefault("Properties.Fire.DayFactor", 1.0);
+			exampleWorldConfig.get().addDefault("Properties.Fire.BlueFire.DamageFactor", 1.0);
+			exampleWorldConfig.get().addDefault("Properties.Fire.BlueFire.CooldownFactor", 1.0);
+			exampleWorldConfig.get().addDefault("Properties.Fire.BlueFire.RangeFactor", 1.0);
+			exampleWorldConfig.get().addDefault("Properties.Earth.MetalPowerFactor", 1.0);
+			exampleWorldConfig.get().addDefault("Abilities.Earth.EarthTunnel.Revert", true);
+			exampleWorldConfig.get().addDefault("Abilities.Earth.EarthTunnel.DropLootIfNotRevert", false);
+
+			exampleWorldConfig.save();
+		}
 	}
 
 	public static void configCheck(final ConfigType type) {
@@ -763,15 +777,6 @@ public class ConfigManager {
 			disabledWorlds.add("TestWorld");
 			disabledWorlds.add("TestWorld2");
 			config.addDefault("Properties.DisabledWorlds", disabledWorlds);
-
-			config.addDefault("PerWorldConfig.Arena.Properties.Water.NightFactor", 1.0);
-			config.addDefault("PerWorldConfig.Arena.Properties.Fire.DayFactor", 1.0);
-			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.DamageFactor", 1.0);
-			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.CooldownFactor", 1.0);
-			config.addDefault("PerWorldConfig.Arena.Properties.Fire.BlueFire.RangeFactor", 1.0);
-			config.addDefault("PerWorldConfig.Arena.Properties.Earth.MetalPowerFactor", 1.0);
-			config.addDefault("PerWorldConfig.ResourceWorld.Abilities.Earth.EarthTunnel.Revert", false);
-			config.addDefault("PerWorldConfig.ResourceWorld.Abilities.Earth.EarthTunnel.DropLootIfNotRevert", true);
 
 			config.addDefault("Abilities.Avatar.AvatarState.Enabled", true);
 			config.addDefault("Abilities.Avatar.AvatarState.Cooldown", 7200000);

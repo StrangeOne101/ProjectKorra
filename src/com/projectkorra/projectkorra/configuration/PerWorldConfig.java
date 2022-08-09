@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,37 +16,54 @@ public class PerWorldConfig extends Config {
 
     private static Map<String, ConfigurationSection> worldConfigs = new HashMap<>();
 
+    private File folder;
+
     /**
      * Creates a new {@link Config} with the file being the configuration file.
      *
      * @param file The file to create/load
      */
     public PerWorldConfig(File file) {
+        this(file, "WorldConfigs");
+    }
+
+    /**
+     * Creates a new {@link Config} with the file being the configuration file.
+     *
+     * @param file The file to create/load
+     * @param worldsConfigFolder The folder containing all the per world config files
+     */
+    public PerWorldConfig(File file, String worldsConfigFolder) {
         super(file);
+
+        this.folder = new File(file.getParentFile(), worldsConfigFolder);
+
+        Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, this::loadWorldConfigs, 1L);
     }
 
     /**
      * Loads all PerWorldConfigs from the config
      */
-    public void loadWorldConfigs() {
+    protected void loadWorldConfigs() {
         worldConfigs.clear();
 
-        ConfigurationSection section = get().getConfigurationSection("PerWorldConfig");
-        if (section != null) {
-            for (String world : section.getKeys(false)) {
-                World worldObject = Bukkit.getWorld(world);
-                if (worldObject == null) {
-                    ProjectKorra.log.severe("Could not find world " + world + " for per world config settings. Skipping...");
-                    continue;
-                }
+        if (this.folder.exists() && this.folder.isDirectory()) {
+            for (File file : this.folder.listFiles()) {
+                if (file.isFile() && file.getName().toLowerCase().endsWith(".yml")) {
+                    String worldName = file.getName().substring(0, file.getName().length() - 4);
 
-                Object config = get().get("PerWorldConfig." + world);
-                if (config instanceof ConfigurationSection) {
-                    //We clone the config completely, so if an addon happens to get a configuration section
-                    //and list the keys, it has ALL keys and not just the ones specific for this world
+                    World worldObject = Bukkit.getWorld(worldName);
+                    if (worldObject == null) {
+                        ProjectKorra.log.severe("Could not find world " + worldName + " for per world config settings. Skipping...");
+                        continue;
+                    }
+
+                    YamlConfiguration worldConfig = YamlConfiguration.loadConfiguration(file);
+
                     ConfigurationSection clonedConfig = clone(get());
-                    ConfigurationSection newSection = merge(clonedConfig, (ConfigurationSection) config);
-                    worldConfigs.put(world.toLowerCase(), newSection);
+                    ConfigurationSection newSection = merge(clonedConfig, worldConfig);
+                    worldConfigs.put(worldName.toLowerCase(), newSection);
+
                 }
             }
         }
@@ -78,6 +96,12 @@ public class PerWorldConfig extends Config {
         return base;
     }
 
+    /**
+     * @return The folder housing all the per world configs
+     */
+    public File getWorldConfigsFolder() {
+        return folder;
+    }
 
     /**
      * Gets the config for the specified world.
