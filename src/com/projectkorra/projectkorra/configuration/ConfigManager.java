@@ -100,8 +100,8 @@ public class ConfigManager {
 			config.addDefault("Chat.Branding.Borders.BottomBorder", "");
 			config.addDefault("Chat.Branding.ChatPrefix.Prefix", "");
 			config.addDefault("Chat.Branding.ChatPrefix.Suffix", " \u00BB ");
-			config.addDefault("Chat.Branding.ChatPrefix.Main", "ProjectRoku");
-			config.addDefault("Chat.Branding.ChatPrefix.Hover", "Bending brought to you by ProjectKorra | Fork Roku!\\nClick for more info.");
+			config.addDefault("Chat.Branding.ChatPrefix.Main", "ProjectKorra");
+			config.addDefault("Chat.Branding.ChatPrefix.Hover", "Bending brought to you by ProjectKorra!\\nClick for more info.");
 			config.addDefault("Chat.Branding.ChatPrefix.Click", "https://projectkorra.com");
 
 			config.addDefault("Chat.Prefixes.Air", "[Air]");
@@ -254,6 +254,8 @@ public class ConfigManager {
 			config.addDefault("Commands.Copy.SuccessfullyCopied", "Your binds have been set to match {target}'s!");
 			config.addDefault("Commands.Copy.FailedToBindAll", "Some moves were not bound due to insufficient permissions.");
 			config.addDefault("Commands.Copy.Other.SuccessfullyCopied", "{target1}'s binds have been set to match {target2}'s.");
+			config.addDefault("Commands.Copy.CantEditBinds", "You can't edit your binds right now!");
+			config.addDefault("Commands.Copy.Other.CantEditBinds", "You can't edit their binds right now!");
 
 			config.addDefault("Commands.Clear.Description", "This command will clear the bound ability from the slot you specify (if you specify one). If you choose not to specify a slot, all of your abilities will be cleared.");
 			config.addDefault("Commands.Clear.CantEditBinds", "You can't edit your binds right now!");
