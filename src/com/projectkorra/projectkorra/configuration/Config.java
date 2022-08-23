@@ -15,7 +15,7 @@ public class Config {
 
 	private final ProjectKorra plugin;
 
-	private final File file;
+	protected final File file;
 	private final FileConfiguration config;
 
 	/**

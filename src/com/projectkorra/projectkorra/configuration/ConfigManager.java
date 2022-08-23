@@ -31,10 +31,12 @@ public class ConfigManager {
 		configCheck(ConfigType.LANGUAGE);
 		configCheck(ConfigType.PRESETS);
 
-		if (!defaultConfig().getWorldConfigsFolder().exists()) {
-			defaultConfig().getWorldConfigsFolder().mkdir();
+		File worldConfigsFolder = new File(ProjectKorra.plugin.getDataFolder(), "WorldConfigs");
+		if (!worldConfigsFolder.exists()) {
+			worldConfigsFolder.mkdir();
 
 			Config exampleWorldConfig = new Config(new File(defaultConfig().getWorldConfigsFolder(), "Arena.yml"));
+
 			exampleWorldConfig.get().addDefault("Properties.Water.NightFactor", 1.0);
 			exampleWorldConfig.get().addDefault("Properties.Fire.DayFactor", 1.0);
 			exampleWorldConfig.get().addDefault("Properties.Fire.BlueFire.DamageFactor", 1.0);

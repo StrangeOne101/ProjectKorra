@@ -864,7 +864,7 @@ public class PKListener implements Listener {
 		}
 
 		if (player.hasPermission("bending.avatar") || (bPlayer.hasElement(Element.AIR) && bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.FIRE) && bPlayer.hasElement(Element.WATER))) {
-			color = ChatColor.valueOf(ConfigManager.languageConfig.get().getString("Chat.Colors.Avatar"));
+			color = ChatColor.of(ConfigManager.languageConfig.get().getString("Chat.Colors.Avatar"));
 		} else if (bPlayer.getElements().size() > 0) {
 			color = bPlayer.getElements().get(0).getColor();
 		}
@@ -1467,7 +1467,7 @@ public class PKListener implements Listener {
 				return;
 			}
 
-			if (coreAbil instanceof AirAbility && bPlayer.isElementToggled(Element.AIR) == true) {
+			if (coreAbil instanceof AirAbility && bPlayer.isElementToggled(Element.AIR)) {
 				if (bPlayer.canCurrentlyBendWithWeapons()) {
 					if (abil.equalsIgnoreCase("Tornado")) {
 						new Tornado(player);
@@ -1487,7 +1487,7 @@ public class PKListener implements Listener {
 				}
 			}
 
-			if (coreAbil instanceof WaterAbility && bPlayer.isElementToggled(Element.WATER) == true) {
+			if (coreAbil instanceof WaterAbility && bPlayer.isElementToggled(Element.WATER)) {
 				if (bPlayer.canCurrentlyBendWithWeapons()) {
 					if (abil.equalsIgnoreCase("Bloodbending")) {
 						new Bloodbending(player);
@@ -1522,7 +1522,7 @@ public class PKListener implements Listener {
 				}
 			}
 
-			if (coreAbil instanceof EarthAbility && bPlayer.isElementToggled(Element.EARTH) == true) {
+			if (coreAbil instanceof EarthAbility && bPlayer.isElementToggled(Element.EARTH)) {
 				if (bPlayer.canCurrentlyBendWithWeapons()) {
 					if (abil.equalsIgnoreCase("Catapult")) {
 						new Catapult(player, true);
@@ -1566,7 +1566,7 @@ public class PKListener implements Listener {
 
 			}
 
-			if (coreAbil instanceof FireAbility && bPlayer.isElementToggled(Element.FIRE) == true) {
+			if (coreAbil instanceof FireAbility && bPlayer.isElementToggled(Element.FIRE)) {
 				if (bPlayer.canCurrentlyBendWithWeapons()) {
 					if (abil.equalsIgnoreCase("Blaze")) {
 						new BlazeRing(player);
@@ -1699,7 +1699,7 @@ public class PKListener implements Listener {
 				return;
 			}
 
-			if (coreAbil instanceof AirAbility && bPlayer.isElementToggled(Element.AIR) == true) {
+			if (coreAbil instanceof AirAbility && bPlayer.isElementToggled(Element.AIR)) {
 				if (bPlayer.canCurrentlyBendWithWeapons()) {
 					if (abil.equalsIgnoreCase("AirBlast")) {
 						new AirBlast(player);
@@ -1798,7 +1798,7 @@ public class PKListener implements Listener {
 				}
 			}
 
-			if (coreAbil instanceof FireAbility && bPlayer.isElementToggled(Element.FIRE) == true) {
+			if (coreAbil instanceof FireAbility && bPlayer.isElementToggled(Element.FIRE)) {
 				if (bPlayer.canCurrentlyBendWithWeapons()) {
 					if (abil.equalsIgnoreCase("Blaze")) {
 						new Blaze(player);

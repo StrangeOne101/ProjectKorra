@@ -46,6 +46,7 @@ import com.projectkorra.projectkorra.event.PlayerCooldownChangeEvent;
 import com.projectkorra.projectkorra.event.PlayerCooldownChangeEvent.Result;
 import com.projectkorra.projectkorra.util.Cooldown;
 import com.projectkorra.projectkorra.waterbending.blood.Bloodbending;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -245,22 +246,15 @@ public class BendingPlayer extends OfflineBendingPlayer {
 
 	public boolean canCurrentlyBendWithWeapons() {
 		if (this.getBoundAbility() != null) {
-			this.player.getInventory().getItemInMainHand();
-			if (this.player.getInventory().getItemInMainHand().getType() != Material.AIR) {
-				final boolean hasWeapon = GeneralMethods.isWeapon(this.player.getInventory().getItemInMainHand().getType());
+			ItemStack stack = this.player.getInventory().getItemInMainHand();
+			if (stack.getType() != Material.AIR) {
+				final boolean hasWeapon = GeneralMethods.isWeapon(stack.getType());
 				String path = "Properties." + this.getBoundAbility().getElement().getTopElement().getName() + ".CanBendWithWeapons";
 				final boolean noWeaponElement = ConfigManager.defaultConfig().get(player.getWorld()).getBoolean(path);
 
-				if (hasWeapon) {
-					if (noWeaponElement) {
-						return false;
-					} else {
-						return true;
-					}
-				}
-
-				return true;
+				if (hasWeapon && noWeaponElement) return false;
 			}
+			return true;
 		}
 
 		return false;
