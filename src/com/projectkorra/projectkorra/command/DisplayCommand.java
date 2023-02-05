@@ -58,7 +58,7 @@ public class DisplayCommand extends PKCommand {
 		this.playersOnly = ConfigManager.languageConfig.get().getString("Commands.Display.PlayersOnly");
 		this.noBinds = ConfigManager.languageConfig.get().getString("Commands.Display.NoBinds");
 		this.format = ConfigManager.languageConfig.get().getString("Commands.Display.Format");
-		this.separator = ConfigManager.languageConfig.get().getString("Commands.Display.Separator");
+		this.separator = ConfigManager.languageConfig.get().getString("Commands.Display.Separator").replaceAll("\\\\n", "\n");
 		this.hoverType = ConfigManager.languageConfig.get().getString("Commands.Display.HoverType");
 		this.hoverAbility = ConfigManager.languageConfig.get().getString("Commands.Display.HoverAbility");
 		
@@ -256,7 +256,7 @@ public class DisplayCommand extends PKCommand {
 		//Display the number of Passives and Combos
 		if (!combos.isEmpty()) {
 			sender.sendMessage("");
-			final ComponentBuilder messageBuilder = new ComponentBuilder().appendLegacy(subColor + "Combos (#)".replace("#", String.valueOf(combos.size())));
+			final ComponentBuilder messageBuilder = new ComponentBuilder().appendLegacy(subColor + elementName + " Combos (#)".replace("#", String.valueOf(combos.size())));
 			messageBuilder.event(this.hoverEvent(mainColor + ChatUtil.color(this.hoverType.replace("{type}", subColor + elementName + "Combos"))));
 			messageBuilder.event(this.clickEvent("/bending display " + elementName + "Combos"));
 			sender.spigot().sendMessage(messageBuilder.create());
@@ -267,7 +267,7 @@ public class DisplayCommand extends PKCommand {
 				sender.sendMessage("");
 			}
 			
-			final ComponentBuilder messageBuilder = new ComponentBuilder().appendLegacy(subColor + "Passives (#)".replace("#", String.valueOf(passives.size())));
+			final ComponentBuilder messageBuilder = new ComponentBuilder().appendLegacy(subColor + elementName + " Passives (#)".replace("#", String.valueOf(passives.size())));
 			messageBuilder.event(this.hoverEvent(mainColor + ChatUtil.color(this.hoverType.replace("{type}", subColor + elementName + "Passives"))));
 			messageBuilder.event(this.clickEvent("/bending display " + elementName + "Passives"));
 			sender.spigot().sendMessage(messageBuilder.create());
