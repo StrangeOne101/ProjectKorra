@@ -38,7 +38,7 @@ public class TimeUtil {
 			formatted += "0." + String.valueOf(ms / 100) + "s";
 		}
 		if (formatted.length() == 0) return "0s";
-		return formatted;
+		return formatted.trim();
 	}
 
 	/**

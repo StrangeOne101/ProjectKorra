@@ -1,11 +1,14 @@
 package com.projectkorra.projectkorra;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,6 +29,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -628,6 +632,45 @@ public class BendingPlayer extends OfflineBendingPlayer {
 		PassiveManager.registerPassives(this.player);
 	}
 
+	/**
+	 * Recalculate temporary elements the player has. This will remove any that have expired, as well as send
+	 * the player a message about them
+	 * @param offline Whether the player was previously offline. E.g. they just logged in
+	 */
+	public void recalculateTempElements(boolean offline) {
+		String expired = ConfigManager.languageConfig.get().getString("Commands.Temp.Expired" + (offline ? "Offline" : ""));
+		String expiredAvatar = ConfigManager.languageConfig.get().getString("Commands.Temp.ExpiredAvatar" + (offline ? "Offline" : ""));
+
+		Iterator<Element> elements = tempElements.keySet().iterator();
+		Element element;
+		while (elements.hasNext() && (element = elements.next()) != null) {
+			long time = tempElements.get(element);
+
+			String message = expired;
+			if (element == Element.AVATAR) message = expiredAvatar;
+
+			if (System.currentTimeMillis() >= time) {
+				ChatUtil.sendBrandingMessage(player, ChatUtil.color(ChatColor.YELLOW + message
+						.replace("{element}", element.getColor() + element.getName())
+						.replace("{bending}", element.getType().getBending())
+						.replace("{bender}", element.getType().getBender())
+						.replace("{bend}", element.getType().getBend())));
+				elements.remove();
+			}
+		}
+
+		if (this.tempElements.size() > 0) {
+			long shortestTime = this.tempElements.values().stream().filter(l -> l > System.currentTimeMillis()).sorted(Comparator.comparingLong(Long::longValue)).findFirst().get();
+
+			TEMP_ELEMENTS.removeIf(pair -> pair.getLeft().getUniqueId().equals(this.getUUID()));
+			TEMP_ELEMENTS.add(new ImmutablePair<>(player, shortestTime));
+		}
+
+		this.removeUnusableAbilities();
+
+		saveTempElements();
+	}
+
 	public void removeUnusableAbilities() {
 		// Remove all active instances of abilities that will become unusable.
 		// We need to do this prior to filtering binds in case the player has a MultiAbility running.
@@ -703,6 +746,7 @@ public class BendingPlayer extends OfflineBendingPlayer {
 		this.removeUnusableAbilities();
 		this.fixSubelements(); //Grant all subelements for an element if they have 0 subs for that element (that they are allowed)
 		this.removeOldCooldowns();
+		this.recalculateTempElements(true);
 		PassiveManager.registerPassives(this.player);
 		FirePassive.handle(player);
 

@@ -50,7 +50,7 @@ public class Element {
 	public static final Element WATER = new Element("Water");
 	public static final Element EARTH = new Element("Earth");
 	public static final Element FIRE = new Element("Fire");
-	public static final Element CHI = new Element("Chi", ElementType.BLOCKING);
+	public static final Element CHI = new Element("Chi", ElementType.BLOCKING, false);
 	public static final Element AVATAR = new Element("Avatar", null);
 	public static final SubElement FLIGHT = new SubElement("Flight", AIR, ElementType.NO_SUFFIX);
 	public static final SubElement SPIRITUAL = new SubElement("Spiritual", AIR, ElementType.NO_SUFFIX);
@@ -118,6 +118,20 @@ public class Element {
 	 * @param name Name of the new Element.
 	 * @param type ElementType specifies if its a regular element or chi style
 	 *            element.
+	 * @param countTowardsAvatar If this element is used when calculating if a player has avatar
+	 */
+	@Experimental
+	public Element(final String name, final ElementType type, boolean countTowardsAvatar) {
+		this(name, type, ProjectKorra.plugin, countTowardsAvatar);
+	}
+
+	/**
+	 * To be used when creating a new Element. Do not use for comparing
+	 * Elements.
+	 *
+	 * @param name Name of the new Element.
+	 * @param type ElementType specifies if its a regular element or chi style
+	 *            element.
 	 * @param plugin The plugin that is adding the element.
 	 * @param countTowardsAvatar If this element is used when calculating if a player has avatar
 	 */
@@ -153,6 +167,7 @@ public class Element {
 				this.color = ChatColor.of(value);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
+				this.color = ChatColor.WHITE;
 			}
 		}
 

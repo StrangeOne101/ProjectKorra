@@ -11,6 +11,7 @@ import com.projectkorra.projectkorra.util.ChatUtil;
 import com.projectkorra.projectkorra.util.Cooldown;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -19,10 +20,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -51,6 +55,11 @@ public class OfflineBendingPlayer {
      */
     protected static final Map<UUID, BendingPlayer> ONLINE_PLAYERS = new ConcurrentHashMap<>();
 
+    /**
+     * Queue of all the temporary elements, sorted by expiry time. Only for online players
+     */
+    protected static final PriorityQueue<Pair<Player, Long>> TEMP_ELEMENTS = new PriorityQueue(Comparator.comparingLong(Pair<Player, Long>::getRight));
+
     protected final OfflinePlayer player;
     protected final UUID uuid;
     protected boolean permaRemoved;
@@ -60,6 +69,7 @@ public class OfflineBendingPlayer {
 
     protected final List<Element> elements = new ArrayList<>();
     protected final List<SubElement> subelements = new ArrayList<>();
+    protected Map<Element, Long> tempElements = new HashMap<>();
     protected HashMap<Integer, String> abilities = new HashMap<>();
     protected final Map<String, Cooldown> cooldowns = new HashMap<>();
     protected final Set<Element> toggledElements = new HashSet<>();
@@ -208,6 +218,7 @@ public class OfflineBendingPlayer {
                                 }.runTaskTimer(ProjectKorra.plugin, 0, 5);
                             } else func.test(addonClone); //Addon elements should be loaded so
                         }
+
                     }
 
                     //Load subelements
@@ -371,6 +382,22 @@ public class OfflineBendingPlayer {
                         }
                     }
 
+                    //Load tempelements from the database
+                   try (ResultSet rs3 = DBConnection.sql.readQuery("SELECT * FROM pk_temp_elements WHERE uuid = '" + uuid.toString() + "'")) {
+                       Map<Element, Long> elements = new HashMap<>();
+
+                       while (rs3.next()) {
+                            Element element = Element.getElement(rs3.getString("element"));
+                            long time = rs3.getLong("expiry");
+                            elements.put(element, time);
+                       }
+
+                       bPlayer.tempElements = elements;
+                   } catch (SQLException e) {
+                       e.printStackTrace();
+                   }
+
+
                     bPlayer.loading = false;
                     //Call postLoad() on the main thread and wait for it to complete
                     if (bPlayer instanceof BendingPlayer) {
@@ -497,6 +524,17 @@ public class OfflineBendingPlayer {
     }
 
     /**
+     * Saves all temporary elements to the database
+     */
+    public void saveTempElements() {
+        DBConnection.sql.modifyQuery("DELETE FROM pk_temp_elements WHERE uuid = '" + uuid + "'");
+
+        for (Element e : this.tempElements.keySet()) {
+            DBConnection.sql.modifyQuery("INSERT INTO pk_temp_elements (uuid, element, expiry) VALUES ('" + uuid + "', '" + e.getName() + "', " + this.tempElements.get(e) + ")");
+        }
+    }
+
+    /**
      * Binds an ability to the hotbar slot that the player is on.
      *
      * @param ability The ability name to bind
@@ -507,7 +545,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Binds a Ability to a specific hotbar slot.
+     * Binds an Ability to a specific hotbar slot.
      *
      * @param ability The ability name to bind
      * @param slot The slot to bind on
@@ -572,6 +610,15 @@ public class OfflineBendingPlayer {
      */
     public List<SubElement> getSubElements() {
         return this.subelements;
+    }
+
+    /**
+     * Get the list of temporary elements & subelements the {@link BendingPlayer} has.
+     *
+     * @return a map of temporary elements & subelements
+     */
+    public Map<Element, Long> getTempElements() {
+        return this.tempElements;
     }
 
     /**
@@ -821,6 +868,10 @@ public class OfflineBendingPlayer {
             // At the moment we'll allow for both permissions to return true.
             // Later on we can consider deleting the bending.ability.avatarstate option.
             return this.player instanceof Player && ((Player)this.player).hasPermission("bending.avatar");
+        } else if (this.tempElements.containsKey(element) && this.tempElements.get(element) > System.currentTimeMillis()) {
+            return true;
+        } else if (element.doesCountTowardsAvatar() && this.tempElements.containsKey(Element.AVATAR) && this.tempElements.get(Element.AVATAR) > System.currentTimeMillis()) {
+            return true;
         } else if (!(element instanceof SubElement)) {
             return this.elements.contains(element);
         } else {
@@ -835,7 +886,8 @@ public class OfflineBendingPlayer {
      * @return true If the player knows the element
      */
     public boolean hasSubElement(@NotNull final SubElement sub) {
-        return this.subelements.contains(sub);
+        return this.subelements.contains(sub) ||
+                (this.tempElements.containsKey(sub) && this.tempElements.get(sub) > System.currentTimeMillis());
     }
 
     /**
@@ -845,6 +897,13 @@ public class OfflineBendingPlayer {
      */
     public boolean isBender() {
         return !this.elements.isEmpty();
+    }
+
+    /**
+     * @return Is the player online?
+     */
+    public boolean isOnline() {
+        return this instanceof BendingPlayer;
     }
 
     /**
@@ -1098,6 +1157,8 @@ public class OfflineBendingPlayer {
 
         if (bendingPlayer.getPlayer() == null || !bendingPlayer.getPlayer().isOnline()) ONLINE_PLAYERS.remove(bendingPlayer.getUUID());
         PLAYERS.put(bendingPlayer.getUUID(), offlineBendingPlayer);
+
+        TEMP_ELEMENTS.removeIf(pair -> pair.getLeft().getUniqueId().equals(bendingPlayer.getUUID()));
 
         return offlineBendingPlayer;
     }

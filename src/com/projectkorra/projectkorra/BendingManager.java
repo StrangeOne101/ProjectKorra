@@ -9,6 +9,7 @@ import co.aikar.timings.lib.MCTiming;
 import com.projectkorra.projectkorra.event.WorldTimeEvent;
 import com.projectkorra.projectkorra.util.ChatUtil;
 import com.projectkorra.projectkorra.util.TempFallingBlock;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -34,7 +35,8 @@ public class BendingManager implements Runnable {
 	long interval;
 	private final HashMap<World, WorldTimeEvent.Time> times = new HashMap<>(); // true if day time
 
-	private final MCTiming CORE_ABILITY_TIMING, TEMP_POTION_TIMING, DAY_NIGHT_TIMING, HORIZONTAL_VELOCITY_TRACKER_TIMING, COOLDOWN_TIMING, TEMP_ARMOR_TIMING, ACTIONBAR_STATUS_TIMING, TEMP_FALLING_BLOCKS;
+	private final MCTiming CORE_ABILITY_TIMING, TEMP_POTION_TIMING, DAY_NIGHT_TIMING, HORIZONTAL_VELOCITY_TRACKER_TIMING,
+			COOLDOWN_TIMING, TEMP_ARMOR_TIMING, ACTIONBAR_STATUS_TIMING, TEMP_FALLING_BLOCKS, TEMP_ELEMENTS_TIMING;
 
 	public BendingManager() {
 		instance = this;
@@ -48,6 +50,7 @@ public class BendingManager implements Runnable {
 		this.TEMP_ARMOR_TIMING = ProjectKorra.timing("TempArmor#Cleanup");
 		this.ACTIONBAR_STATUS_TIMING = ProjectKorra.timing("ActionBarCheck");
 		this.TEMP_FALLING_BLOCKS = ProjectKorra.timing("TempFallingBlock#manage");
+		this.TEMP_ELEMENTS_TIMING = ProjectKorra.timing("TempElements");
 
 		times.clear();
 
@@ -160,6 +163,19 @@ public class BendingManager implements Runnable {
 
 		try (MCTiming timing = this.TEMP_FALLING_BLOCKS.startTiming()) {
 			TempFallingBlock.manage();
+		}
+
+		try (MCTiming timing = this.TEMP_ELEMENTS_TIMING.startTiming()) {
+			while (!BendingPlayer.TEMP_ELEMENTS.isEmpty()) {
+				Pair<Player, Long> pair = BendingPlayer.TEMP_ELEMENTS.peek();
+
+				if (System.currentTimeMillis() > pair.getRight()) { //Check if the top temp element has expired
+					BendingPlayer.TEMP_ELEMENTS.poll(); //And if it has, recalculate temp elements for that player
+					BendingPlayer.getBendingPlayer(pair.getLeft()).recalculateTempElements(false);
+				} else {
+					break;
+				}
+			}
 		}
 	}
 
