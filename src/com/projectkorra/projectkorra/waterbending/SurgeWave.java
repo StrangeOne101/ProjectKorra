@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -41,6 +42,7 @@ public class SurgeWave extends WaterAbility {
 	private boolean solidifyLava;
 	private long time;
 	@Attribute(Attribute.COOLDOWN)
+	@DayNightFactor(invert = true)
 	private long cooldown;
 	private long interval;
 	@Attribute("IceRevertTime")
@@ -48,16 +50,20 @@ public class SurgeWave extends WaterAbility {
 	private long obsidianDuration;
 	private double currentRadius;
 	@Attribute(Attribute.RADIUS)
+	@DayNightFactor
 	private double maxRadius;
 	@Attribute(Attribute.RANGE)
+	@DayNightFactor
 	private double range;
 	@Attribute(Attribute.SELECT_RANGE)
+	@DayNightFactor
 	private double selectRange;
 	@Attribute(Attribute.KNOCKBACK)
 	private double knockback;
 	@Attribute(Attribute.KNOCKUP)
 	private double knockup;
 	@Attribute("Freeze" + Attribute.RADIUS)
+	@DayNightFactor
 	private double maxFreezeRadius;
 	private Block sourceBlock;
 	private Location location;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.region.RegionProtection;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -44,12 +45,15 @@ public class FireBlast extends FireAbility {
 	private boolean isFireBurst = false;
 	private boolean fireBurstIgnite;
 	private int ticks;
+	@DayNightFactor(invert = true)
 	@Attribute(Attribute.COOLDOWN)
 	private long cooldown;
 	private double speedFactor;
 	@Attribute(Attribute.RANGE)
+	@DayNightFactor
 	private double range;
 	@Attribute(Attribute.DAMAGE)
+	@DayNightFactor
 	private double damage;
 	@Attribute(Attribute.SPEED)
 	private double speed;
