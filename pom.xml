@@ -5,7 +5,7 @@
 
     <groupId>com.projectkorra</groupId>
     <artifactId>projectkorra</artifactId>
-    <version>1.11.3-BETA-11</version>
+    <version>1.11.3-BETA-PERFORMANCE-TEST-QUEUE</version>
     <name>ProjectKorra</name>
     <packaging>pom</packaging>
 
