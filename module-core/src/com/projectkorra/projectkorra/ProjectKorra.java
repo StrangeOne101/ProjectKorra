@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
-import co.aikar.timings.lib.MCTiming;
-import co.aikar.timings.lib.TimingManager;
-
 import com.projectkorra.projectkorra.region.RegionProtection;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
@@ -46,15 +43,12 @@ public class ProjectKorra extends JavaPlugin {
 	public static long time_step = 1;
 	public Updater updater;
 	BukkitTask revertChecker;
-	private static TimingManager timingManager;
 	private static PlaceholderAPIHook papiHook;
 
 	@Override
 	public void onEnable() {
 		plugin = this;
 		ProjectKorra.log = this.getLogger();
-
-		timingManager = TimingManager.of(this);
 
 		new ConfigManager();
 		new GeneralMethods(this);
@@ -184,10 +178,5 @@ public class ProjectKorra extends JavaPlugin {
 
 	public static boolean isDatabaseCooldownsEnabled() {
 		return ConfigManager.getConfig().getBoolean("Properties.DatabaseCooldowns");
-	}
-
-	@Deprecated
-	public static MCTiming timing(final String name) {
-		return timingManager.of(name);
 	}
 }

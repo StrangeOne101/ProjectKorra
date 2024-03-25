@@ -85,11 +85,6 @@
       <version>1.0.1</version>
     </dependency>
     <!-- Minecraft Timings -->
-    <dependency>
-      <groupId>co.aikar</groupId>
-      <artifactId>minecraft-timings</artifactId>
-      <version>1.0.4</version>
-    </dependency>
     <!-- Spigot API -->
     <dependency>
       <groupId>org.spigotmc</groupId>
@@ -250,6 +245,38 @@
         <configuration>
           <outputDirectory>${dir}</outputDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <configuration>
+          <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+          <filters>
+
+          </filters>
+          <relocations>
+            <relocation>
+              <pattern>io.papermc.lib</pattern>
+              <shadedPattern>paperlib.projectkorra</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.apache.commons</pattern>
+              <shadedPattern>commonslang3.projectkorra</shadedPattern>
+            </relocation>
+          </relocations>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <minimizeJar>true</minimizeJar>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
