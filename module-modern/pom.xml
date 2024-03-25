@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.projectkorra</groupId>
     <artifactId>projectkorra</artifactId>
-    <version>1.11.3-BETA-11</version>
+    <version>1.11.3-BETA-PERFORMANCE-TEST-SET</version>
   </parent>
 
   <artifactId>module-modern</artifactId>

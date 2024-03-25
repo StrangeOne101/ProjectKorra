@@ -31,7 +31,7 @@ public class BendingManager implements Runnable {
 	long time;
 	long interval;
 	private final HashMap<World, WorldTimeEvent.Time> times = new HashMap<>(); // true if day time
-
+	private final TempBlock.TempBlockRevertTask tempBlockRevertTask = new TempBlock.TempBlockRevertTask();
 	public BendingManager() {
 		instance = this;
 		this.time = System.currentTimeMillis();
@@ -150,16 +150,7 @@ public class BendingManager implements Runnable {
 		//}
 
 		//try (MCTiming timing = this.TEMP_BLOCK_TIMING.startTiming()) {
-			final long currentTime = System.currentTimeMillis();
-			while (!TempBlock.REVERT_QUEUE.isEmpty()) {
-				final TempBlock tempBlock = TempBlock.REVERT_QUEUE.peek(); //Check if the top TempBlock is ready for reverting
-				if (currentTime >= tempBlock.getRevertTime()) {
-					TempBlock.REVERT_QUEUE.poll();
-					tempBlock.revertBlock();
-				} else {
-					break;
-				}
-			}
+		tempBlockRevertTask.run();
 		//}
 	}
 
