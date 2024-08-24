@@ -1,9 +1,13 @@
 package com.projectkorra.projectkorra.waterbending.ice;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.AirAbility;
+import com.projectkorra.projectkorra.ability.IceAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
+import com.projectkorra.projectkorra.util.*;
+import com.projectkorra.projectkorra.waterbending.util.WaterReturn;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -16,18 +20,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.AirAbility;
-import com.projectkorra.projectkorra.ability.IceAbility;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.BlockSource;
-import com.projectkorra.projectkorra.util.ClickType;
-import com.projectkorra.projectkorra.util.DamageHandler;
-import com.projectkorra.projectkorra.util.ParticleEffect;
-import com.projectkorra.projectkorra.util.TempBlock;
-import com.projectkorra.projectkorra.util.TempPotionEffect;
-import com.projectkorra.projectkorra.waterbending.util.WaterReturn;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class IceBlast extends IceAbility {
 
@@ -161,13 +155,13 @@ public class IceBlast extends IceAbility {
 	private void affect(final LivingEntity entity) {
 		if (entity instanceof Player) {
 			if (this.bPlayer.canBeSlowed()) {
-				final PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 70, 2);
+				final PotionEffect effect = new PotionEffect(PotionEffectType.SLOWNESS, 70, 2);
 				new TempPotionEffect(entity, effect);
 				this.bPlayer.slow(10);
 				DamageHandler.damageEntity(entity, this.damage, this);
 			}
 		} else {
-			final PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 70, 2);
+			final PotionEffect effect = new PotionEffect(PotionEffectType.SLOWNESS, 70, 2);
 			new TempPotionEffect(entity, effect);
 			DamageHandler.damageEntity(entity, this.damage, this);
 		}

@@ -136,7 +136,7 @@ public class WaterArmsFreeze extends IceAbility {
 					continue;
 				}
 				DamageHandler.damageEntity(entity, this.iceDamage, this);
-				final PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 40, 2);
+				final PotionEffect effect = new PotionEffect(PotionEffectType.SLOWNESS, 40, 2);
 				new TempPotionEffect((LivingEntity) entity, effect);
 				this.remove();
 				return;

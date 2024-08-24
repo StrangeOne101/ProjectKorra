@@ -1,35 +1,30 @@
 package com.projectkorra.projectkorra.waterbending.util;
 
-import java.util.HashMap;
-
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.WaterAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
+import com.projectkorra.projectkorra.util.ParticleEffect;
+import com.projectkorra.projectkorra.util.TempBlock;
 import com.projectkorra.projectkorra.versions.IBottleFinder;
-import com.projectkorra.projectkorra.versions.legacy.LegacyBottleFinder;
 import com.projectkorra.projectkorra.versions.modern.ModernBottleFinder;
+import com.projectkorra.projectkorra.waterbending.OctopusForm;
+import com.projectkorra.projectkorra.waterbending.SurgeWall;
+import com.projectkorra.projectkorra.waterbending.WaterManipulation;
+import com.projectkorra.projectkorra.waterbending.ice.IceSpikeBlast;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
-import org.bukkit.potion.PotionType;
 import org.bukkit.util.Vector;
 
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.WaterAbility;
-import com.projectkorra.projectkorra.util.ParticleEffect;
-import com.projectkorra.projectkorra.util.TempBlock;
-import com.projectkorra.projectkorra.waterbending.OctopusForm;
-import com.projectkorra.projectkorra.waterbending.SurgeWall;
-import com.projectkorra.projectkorra.waterbending.WaterManipulation;
-import com.projectkorra.projectkorra.waterbending.ice.IceSpikeBlast;
+import java.util.HashMap;
 
 public class WaterReturn extends WaterAbility {
 
-	public static final IBottleFinder BOTTLE_FINDER = GeneralMethods.getMCVersion() >= 1204 ? new ModernBottleFinder() : new LegacyBottleFinder();
+	public static final IBottleFinder BOTTLE_FINDER = new ModernBottleFinder();
 
 	private long time;
 	private long interval;

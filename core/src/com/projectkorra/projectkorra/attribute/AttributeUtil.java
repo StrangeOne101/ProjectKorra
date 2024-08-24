@@ -1,6 +1,5 @@
 package com.projectkorra.projectkorra.attribute;
 
-import com.projectkorra.projectkorra.ProjectKorra;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class AttributeUtil {

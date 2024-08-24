@@ -1,18 +1,8 @@
 package com.projectkorra.projectkorra.ability;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
-
+import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.region.RegionProtection;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Tag;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
@@ -21,7 +11,7 @@ import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-import com.projectkorra.projectkorra.GeneralMethods;
+import java.util.*;
 
 /**
  * ElementalAbility is used to hold methods that should be accessible by every
@@ -29,9 +19,9 @@ import com.projectkorra.projectkorra.GeneralMethods;
  * keep CoreAbility from becoming too cluttered.
  */
 public abstract class ElementalAbility extends CoreAbility {
-	private static final PotionEffectType[] POSITIVE_EFFECTS = { PotionEffectType.ABSORPTION, PotionEffectType.DAMAGE_RESISTANCE, PotionEffectType.FAST_DIGGING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.HEAL, PotionEffectType.HEALTH_BOOST, PotionEffectType.INCREASE_DAMAGE, PotionEffectType.JUMP, PotionEffectType.NIGHT_VISION, PotionEffectType.REGENERATION, PotionEffectType.SATURATION, PotionEffectType.SPEED, PotionEffectType.WATER_BREATHING };
+	private static final PotionEffectType[] POSITIVE_EFFECTS = { PotionEffectType.ABSORPTION, PotionEffectType.RESISTANCE, PotionEffectType.HASTE, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.INSTANT_HEALTH, PotionEffectType.HEALTH_BOOST, PotionEffectType.STRENGTH, PotionEffectType.JUMP_BOOST, PotionEffectType.NIGHT_VISION, PotionEffectType.REGENERATION, PotionEffectType.SATURATION, PotionEffectType.SPEED, PotionEffectType.WATER_BREATHING };
 	private static final PotionEffectType[] NEUTRAL_EFFECTS = { PotionEffectType.INVISIBILITY };
-	private static final PotionEffectType[] NEGATIVE_EFFECTS = { PotionEffectType.POISON, PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION, PotionEffectType.HARM, PotionEffectType.HUNGER, PotionEffectType.SLOW, PotionEffectType.SLOW_DIGGING, PotionEffectType.WEAKNESS, PotionEffectType.WITHER };
+	private static final PotionEffectType[] NEGATIVE_EFFECTS = { PotionEffectType.POISON, PotionEffectType.BLINDNESS, PotionEffectType.NAUSEA, PotionEffectType.INSTANT_DAMAGE, PotionEffectType.HUNGER, PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE, PotionEffectType.WEAKNESS, PotionEffectType.WITHER };
 	private static final Set<Material> TRANSPARENT = new HashSet<>();
 
 	private static final Set<String> EARTH_BLOCKS = new HashSet<String>();

@@ -1,13 +1,15 @@
 package com.projectkorra.projectkorra.util;
 
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ProjectKorra;
+import com.projectkorra.projectkorra.ability.Ability;
+import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.command.Commands;
+import com.projectkorra.projectkorra.event.AbilityDamageEntityEvent;
+import com.projectkorra.projectkorra.event.EntityBendingDeathEvent;
 import com.projectkorra.projectkorra.versions.IDamageEventPasser;
-import com.projectkorra.projectkorra.versions.legacy.LegacyDamageEventPasser;
 import com.projectkorra.projectkorra.versions.modern.ModernDamageEventPasser;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -15,14 +17,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-
-import com.projectkorra.projectkorra.ability.Ability;
-import com.projectkorra.projectkorra.ability.CoreAbility;
-import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.event.AbilityDamageEntityEvent;
-import com.projectkorra.projectkorra.event.EntityBendingDeathEvent;
-
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +31,7 @@ public class DamageHandler {
 	private static final String IGNORE_ARMOR_PREFIX = "Properties.IgnoreArmorPercentage.";
 	private static final Set<LivingEntity> BEING_DAMAGED = new HashSet<>();
 
-	private static final IDamageEventPasser DAMAGE_EVENT_PASSER = GeneralMethods.getMCVersion() >= 1205 ? new ModernDamageEventPasser() : new LegacyDamageEventPasser();
+	private static final IDamageEventPasser DAMAGE_EVENT_PASSER = new ModernDamageEventPasser();
 
 	private static boolean checkTicks(LivingEntity entity, double damage) {
 		return entity.getNoDamageTicks() > entity.getMaximumNoDamageTicks() / 2.0f && damage <= entity.getLastDamage();

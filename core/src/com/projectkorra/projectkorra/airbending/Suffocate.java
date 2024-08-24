@@ -1,8 +1,10 @@
 package com.projectkorra.projectkorra.airbending;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ProjectKorra;
+import com.projectkorra.projectkorra.ability.AirAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.DamageHandler;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -12,11 +14,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ProjectKorra;
-import com.projectkorra.projectkorra.ability.AirAbility;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.DamageHandler;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Suffocate
@@ -194,7 +193,7 @@ public class Suffocate extends AirAbility {
 				final BukkitRunnable br2 = new BukkitRunnable() {
 					@Override
 					public void run() {
-						target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (Suffocate.this.slowRepeat * 20), (int) Suffocate.this.slow));
+						target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, (int) (Suffocate.this.slowRepeat * 20), (int) Suffocate.this.slow));
 					}
 				};
 				final BukkitRunnable br3 = new BukkitRunnable() {

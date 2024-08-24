@@ -1,30 +1,26 @@
 package com.projectkorra.projectkorra.avatar;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ProjectKorra;
+import com.projectkorra.projectkorra.ability.AvatarAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.attribute.AttributeCache;
 import com.projectkorra.projectkorra.attribute.AttributeModification;
-import com.projectkorra.projectkorra.attribute.AttributeModifier;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.projectkorra.projectkorra.ability.AvatarAbility;
-import com.projectkorra.projectkorra.attribute.Attribute;
 import org.bukkit.potion.PotionEffectTypeWrapper;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class AvatarState extends AvatarAbility {
 
@@ -74,7 +70,7 @@ public class AvatarState extends AvatarAbility {
 
 			Random rand = new Random();
 			for (int i = 0; i < 60; i++) {
-				Particle particle = i % 2 == 0 ? Particle.END_ROD : Particle.FIREWORKS_SPARK;
+				Particle particle = i % 2 == 0 ? Particle.END_ROD : Particle.FIREWORK;
 
 				player.getWorld().spawnParticle(particle, player.getLocation().add(0, 1, 0), 0, rand.nextDouble() - 0.5, rand.nextDouble() - 0.5, rand.nextDouble() - 0.5, 0.3);
 			}
@@ -111,7 +107,7 @@ public class AvatarState extends AvatarAbility {
 			}
 			if (this.getRunningTicks() % 6 == 0) {
 				final Location loc = this.player.getEyeLocation();
-				loc.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, loc, 1, 0.3, 0.3, 0.3, 0);
+				loc.getWorld().spawnParticle(Particle.FIREWORK, loc, 1, 0.3, 0.3, 0.3, 0);
 			}
 
 		}

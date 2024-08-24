@@ -1,39 +1,28 @@
 package com.projectkorra.projectkorra.waterbending.blood;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
-import com.projectkorra.projectkorra.region.RegionProtection;
-import com.projectkorra.projectkorra.util.ActionBar;
-import com.projectkorra.projectkorra.util.ChatUtil;
-import org.bukkit.Location;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
-
 import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.BloodAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.avatar.AvatarState;
+import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
+import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.object.HorizontalVelocityTracker;
+import com.projectkorra.projectkorra.region.RegionProtection;
+import com.projectkorra.projectkorra.util.ActionBar;
+import com.projectkorra.projectkorra.util.ChatUtil;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.TempPotionEffect;
+import org.bukkit.Location;
+import org.bukkit.entity.*;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Bloodbending extends BloodAbility {
 
@@ -184,7 +173,7 @@ public class Bloodbending extends BloodAbility {
 
 	@Override
 	public void progress() {
-		final PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 60, 1);
+		final PotionEffect effect = new PotionEffect(PotionEffectType.SLOWNESS, 60, 1);
 
 		if (!this.player.isSneaking()) {
 			bPlayer.addCooldown(this);
