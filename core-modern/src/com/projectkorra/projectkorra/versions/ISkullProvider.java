@@ -6,7 +6,7 @@ public interface ISkullProvider {
 	/**
 	 * Interface created to make the Lands plugin bending flag
 	 * use an Aang skin as Flag toggle icon.
-	 * @param skin
+	 * @param skin Name or Texture URL
 	 * @return Skull ItemStack
 	 */
 	ItemStack getSkull(String skin);

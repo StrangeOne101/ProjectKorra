@@ -2,12 +2,13 @@ package com.projectkorra.projectkorra.region;
 
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.versions.ISkullProvider;
+import com.projectkorra.projectkorra.versions.modern.ModernSkullProvider;
 import me.angeschossen.lands.api.LandsIntegration;
 import me.angeschossen.lands.api.flags.enums.FlagTarget;
 import me.angeschossen.lands.api.flags.type.NaturalFlag;
 import me.angeschossen.lands.api.land.Area;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,18 +33,23 @@ public class Lands extends RegionProtectionBase {
     }
 
     public static void createBendingFlag(ProjectKorra pk) {
-        //ISkullProvider provider = new ModernSkullProvider();
-        //ItemStack aangSkull = provider.getSkull("http://textures.minecraft.net/texture/a6a9910be2e94179cc8d057ee58e0c6931d1793e8996edce29f04034d5d8eeb2");
+        ItemStack aangSkull = getItemStack();
 
         landsIntegration = LandsIntegration.of(pk);
         bendingFlag = NaturalFlag.of(landsIntegration, FlagTarget.PLAYER,"bending");
 
         bendingFlag.setDisplayName("Bending")
-                .setIcon(new ItemStack(Material.ANDESITE))
+                .setIcon(aangSkull)
                 .setDescription("Enable or Disable bending on areas!")
                 .setDefaultState(false)
                 .setAlwaysAllowInWilderness(true)
                 .setActiveInWar(true)
                 .setApplyInSubareas(true);
+    }
+
+    private static ItemStack getItemStack() {
+        String textureVal = "http://textures.minecraft.net/texture/e45c254da148921001dad0ebbd841802ed2e6c6f9fb08df99e8da3e4b2a74e54";
+        ISkullProvider provider = new ModernSkullProvider();
+		return provider.getSkull(textureVal);
     }
 }
