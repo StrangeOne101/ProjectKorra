@@ -1113,8 +1113,8 @@ public class ConfigManager {
 			config.addDefault("Abilities.Water.FrostBreath.FrostEffect.Enabled",true);
 			config.addDefault("Abilities.Water.FrostBreath.FrostEffect.Damage",0.5);
 			config.addDefault("Abilities.Water.FrostBreath.Snow.Enabled",true);
-			config.addDefault("Abilities.Water.FrostBreath.Bendable",true);
-			config.addDefault("Abilities.Water.FrostBreath.Duration",4000);
+			config.addDefault("Abilities.Water.FrostBreath.Snow.Bendable",true);
+			config.addDefault("Abilities.Water.FrostBreath.Snow.Duration",4000);
 			config.addDefault("Abilities.Water.FrostBreath.Ice.Enabled",true);
 			config.addDefault("Abilities.Water.FrostBreath.Ice.BlockDuration",3000);
 			config.addDefault("Abilities.Water.FrostBreath.Ice.Damage",false);

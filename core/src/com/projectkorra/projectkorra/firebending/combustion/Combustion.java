@@ -88,7 +88,7 @@ public class Combustion extends CombustionAbility implements SubAbility {
 	}
 
 	private void setFields() {
-		cooldown = ConfigManager.getConfig().getLong("Abilities.Fire.Combustinn.Cooldown");
+		cooldown = ConfigManager.getConfig().getLong("Abilities.Fire.Combustion.Cooldown");
 		chargeDuration = ConfigManager.getConfig().getLong("Abilities.Fire.Combustion.ChargeDuration");
 		burnTime = ConfigManager.getConfig().getInt("Abilities.Fire.Combustion.BurnTime");
 		explosionRevertTime = ConfigManager.getConfig().getLong("Abilities.Fire.Combustion.ExplosionRevertTime");

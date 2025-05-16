@@ -100,7 +100,6 @@ public class FrostBreath extends IceAbility implements SubAbility {
         iceDamage = ConfigManager.getConfig().getBoolean("Abilities.Water.FrostBreath.Ice.Damage");
         timeRequired = ConfigManager.getConfig().getLong("Abilities.Water.FrostBreath.Ice.BreathTimeRequiredToFreeze");
 
-
         for (String s : ConfigManager.getConfig().getStringList("Abilities.Water.FrostBreath.DisallowedBiomes")) {
             biomeList.add(s);
         }
