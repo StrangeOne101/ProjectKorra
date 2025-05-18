@@ -411,6 +411,8 @@ public class ConfigManager {
 			config.addDefault("Abilities.Water.IceBlast.DeathMessage", "{victim} was shattered by {attacker}'s {ability}");
 			config.addDefault("Abilities.Water.IceSpike.Description", "This ability offers a powerful ice utility for Waterbenders. It can be used to fire an ice blast or raise an ice spike. If the ice blast or ice spike comes into contact with another entity, it will give them slowness and deal some damage to them..");
 			config.addDefault("Abilities.Water.IceSpike.Instructions", "\n" + "(Blast) Tap sneak on a water source and then left click in a direction to fire an ice blast in a direction. Additionally, you can left click to manipulate the ice blast while it's in the air to change the direction of the blast." + "\n" + "(Spike) While in range of ice, tap sneak to raise ice pillars from the ice. If a player is caught in these ice pillars they will be propelled into the air. You cannot be looking at ice or water or this feature will not activate. Alternatively, you can left click an ice block to raise a single pilar of ice.");
+			config.addDefault("Abilities.Water.FrostBreath.Description","Lets the user to breathe extremely cold air, freezing their enemies.");
+			config.addDefault("Abilities.Water.FrostBreath.Instructions","Hold sneak");
 			config.addDefault("Abilities.Water.IceSpike.DeathMessage", "{victim} was impaled by {attacker}'s {ability}");
 //			config.addDefault("Abilities.Water.PlantTether.Description", "PlantTether is unique ability that creates a vine from some plant source to either constrict and draw in an enemy, or pull the user.");
 //			config.addDefault("Abilities.Water.PlantTether.Instructions", "Tap sneak while looking at a plant source. Then tap sneak again at the source to pull yourself towards it. Or, tap sneak at a target entity to have them pulled towards the plant source.");
@@ -493,7 +495,7 @@ public class ConfigManager {
 			config.addDefault("Abilities.Fire.Blaze.Instructions", "Left click to send an arc of fire in the direction you're facing that will burn entities in its path. Additionally, you can tap sneak to send a blaze all around you.");
 			config.addDefault("Abilities.Fire.Blaze.DeathMessage", "{victim} was incinerated by {attacker}'s {ability}");
 			config.addDefault("Abilities.Fire.Combustion.Description", "Combustion is a special firebending technique that's extremely deadly. It allows you to create a powerful blast to deal immense damage to players at long range.");
-			config.addDefault("Abilities.Fire.Combustion.Instructions", "Tap sneak to send a combustion out in the direction you're looking. It will explode on impact, or you can left click to manually explode it. This deals damage to players who are in radius of the blast.");
+			config.addDefault("Abilities.Fire.Combustion.Instructions", "Hold sneak to charge combustion, when ready release sneak to send it in the direction you're looking. It will explode on impact, or you can left click to manually explode it. This deals damage to players who are in radius of the blast.");
 			config.addDefault("Abilities.Fire.Combustion.DeathMessage", "{victim} was shot down by {attacker}'s {ability}");
 			config.addDefault("Abilities.Fire.FireBlast.Description", "FireBlast is the most fundamental bending technique of a firebender. It allows the firebender to create mass amounts of fire blasts to constantly keep damaging an entity. It's great for rapid fire successions to deal immense damage.");
 			config.addDefault("Abilities.Fire.FireBlast.Instructions", "\n" + "(Ball) Left click to send out a ball of fire that will deal damage and knockback entities it hits. Additionally, this ability can refuel furnace power if the blast connects with a furnace." + "\n" + "(Blast) Hold sneak until you see particles and then release sneak to send out a powerful fire blast outwards. This deals damage and knocks back anyone it hits, while exploding on impact.");
@@ -1088,6 +1090,41 @@ public class ConfigManager {
 			config.addDefault("Abilities.Water.IceSpike.Blast.SlowDuration", 70);
 			config.addDefault("Abilities.Water.IceSpike.Blast.Interval", 20);
 
+			List<String> disallowedBiomes = new ArrayList<>();
+			disallowedBiomes.add("DESERT");
+			disallowedBiomes.add("BADLANDS");
+			disallowedBiomes.add("ERODED_BADLANDS");
+			disallowedBiomes.add("WOODED_BADLANDS");
+			disallowedBiomes.add("SAVANNA");
+			disallowedBiomes.add("SAVANNA_PLATEAU");
+			disallowedBiomes.add("WINDSWEPT_SAVANNA");
+			disallowedBiomes.add("BASALT_DELTAS");
+			disallowedBiomes.add("CRIMSON_FOREST");
+			disallowedBiomes.add("WARPED_FOREST");
+			disallowedBiomes.add("NETHER_WASTES");
+			disallowedBiomes.add("SOUL_SAND_VALLEY");
+
+			config.addDefault("Abilities.Water.FrostBreath.Enabled", true);
+			config.addDefault("Abilities.Water.FrostBreath.BreathDuration",4000);
+			config.addDefault("Abilities.Water.FrostBreath.Cooldown",14000);
+			config.addDefault("Abilities.Water.FrostBreath.Range",8);
+			config.addDefault("Abilities.Water.FrostBreath.Particle.ParticleCount",20);
+			config.addDefault("Abilities.Water.FrostBreath.Particle.ParticleExpansion",1.5);
+			config.addDefault("Abilities.Water.FrostBreath.FrostEffect.Enabled",true);
+			config.addDefault("Abilities.Water.FrostBreath.FrostEffect.Damage",0.5);
+			config.addDefault("Abilities.Water.FrostBreath.Snow.Enabled",true);
+			config.addDefault("Abilities.Water.FrostBreath.Snow.Bendable",true);
+			config.addDefault("Abilities.Water.FrostBreath.Snow.Duration",4000);
+			config.addDefault("Abilities.Water.FrostBreath.Ice.Enabled",true);
+			config.addDefault("Abilities.Water.FrostBreath.Ice.BlockDuration",3000);
+			config.addDefault("Abilities.Water.FrostBreath.Ice.Damage",false);
+			config.addDefault("Abilities.Water.FrostBreath.Ice.BreathTimeRequiredToFreeze",1500);
+			config.addDefault("Abilities.Water.FrostBreath.DisallowedBiomes",disallowedBiomes);
+
+
+
+
+
 			config.addDefault("Abilities.Water.OctopusForm.Enabled", true);
 			config.addDefault("Abilities.Water.OctopusForm.Range", 10);
 			config.addDefault("Abilities.Water.OctopusForm.AttackRange", 2.5);
@@ -1485,12 +1522,21 @@ public class ConfigManager {
 
 			config.addDefault("Abilities.Fire.Combustion.Enabled", true);
 			config.addDefault("Abilities.Fire.Combustion.Cooldown", 10000);
-			config.addDefault("Abilities.Fire.Combustion.BreakBlocks", false);
-			config.addDefault("Abilities.Fire.Combustion.ExplosivePower", 2.0);
+			config.addDefault("Abilities.Fire.Combustion.ChargeDuration", 2500);
+			config.addDefault("Abilities.Fire.Combustion.BurnTime", 4000);
 			config.addDefault("Abilities.Fire.Combustion.Damage", 4);
-			config.addDefault("Abilities.Fire.Combustion.Radius", 4);
-			config.addDefault("Abilities.Fire.Combustion.Range", 35);
-			config.addDefault("Abilities.Fire.Combustion.Speed", 25);
+			config.addDefault("Abilities.Fire.Combustion.WaterDamage",2);
+			config.addDefault("Abilities.Fire.Combustion.ExplosionRadius", 3);
+			config.addDefault("Abilities.Fire.Combustion.ExplosionRevertTime",5000);
+			config.addDefault("Abilities.Fire.Combustion.Speed", 2);
+			config.addDefault("Abilities.Fire.Combustion.Weight", 4);
+			config.addDefault("Abilities.Fire.Combustion.Range",85);
+			config.addDefault("Abilities.Fire.Combustion.ForceRelease", false);
+			config.addDefault("Abilities.Fire.Combustion.PunishPlayer", true);
+			config.addDefault("Abilities.Fire.Combustion.SonicBoom.Speed",1);
+			config.addDefault("Abilities.Fire.Combustion.SonicBoom.ParticleCount",99);
+			config.addDefault("Abilities.Fire.Combustion.SonicBoom.Frequency",5);
+			config.addDefault("Abilities.Fire.Combustion.SonicBoom.Radius",1);
 
 			config.addDefault("Abilities.Fire.FireBlast.Enabled", true);
 			config.addDefault("Abilities.Fire.FireBlast.Speed", 20);

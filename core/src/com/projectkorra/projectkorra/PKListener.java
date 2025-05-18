@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.griefdefender.api.Core;
 import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.ability.Ability;
 import com.projectkorra.projectkorra.ability.AddonAbility;
@@ -131,6 +132,7 @@ import com.projectkorra.projectkorra.waterbending.WaterSpoutWave;
 import com.projectkorra.projectkorra.waterbending.blood.Bloodbending;
 import com.projectkorra.projectkorra.waterbending.combo.IceBullet;
 import com.projectkorra.projectkorra.waterbending.healing.HealingWaters;
+import com.projectkorra.projectkorra.waterbending.ice.FrostBreath;
 import com.projectkorra.projectkorra.waterbending.ice.IceBlast;
 import com.projectkorra.projectkorra.waterbending.ice.IceSpikeBlast;
 import com.projectkorra.projectkorra.waterbending.ice.PhaseChange;
@@ -608,6 +610,11 @@ public class PKListener implements Listener {
 			if (CoreAbility.hasAbility(player, EarthGrab.class)) {
 				final EarthGrab abil = CoreAbility.getAbility(player, EarthGrab.class);
 				abil.remove();
+			}
+
+			if(CoreAbility.hasAbility(player, Combustion.class)){
+				Combustion combustion = CoreAbility.getAbility(player, Combustion.class);
+				combustion.setDamaged(true);
 			}
 
 			if (CoreAbility.getAbility(player, FireJet.class) != null && event.getCause() == DamageCause.FLY_INTO_WALL) {
@@ -1183,6 +1190,7 @@ public class PKListener implements Listener {
 			return;
 		}
 
+
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			final UUID uuid = player.getUniqueId();
 
@@ -1611,6 +1619,8 @@ public class PKListener implements Listener {
 //						} else {
 //							new PlantTether(player);
 //						}
+					} else if (abil.equalsIgnoreCase("FrostBreath")) {
+						new FrostBreath(player);
 					}
 				}
 			}
@@ -1931,9 +1941,7 @@ public class PKListener implements Listener {
 						new FireShield(player);
 					} else if (abil.equalsIgnoreCase("WallOfFire")) {
 						new WallOfFire(player);
-					} else if (abil.equalsIgnoreCase("Combustion")) {
-						Combustion.explode(player);
-					} else if (abil.equalsIgnoreCase("FireManipulation")) {
+					}  else if (abil.equalsIgnoreCase("FireManipulation")) {
 						if (CoreAbility.hasAbility(player, FireManipulation.class)) {
 							final FireManipulation fireManip = CoreAbility.getAbility(player, FireManipulation.class);
 							if (fireManip.getFireManipulationType() == FireManipulationType.SHIFT) {
@@ -1941,6 +1949,11 @@ public class PKListener implements Listener {
 							}
 						} else {
 							new FireManipulation(player, FireManipulationType.CLICK);
+						}
+					} else if (abil.equalsIgnoreCase("Combustion")) {
+						if(CoreAbility.hasAbility(player, Combustion.class)){
+							final Combustion combustion = CoreAbility.getAbility(player, Combustion.class);
+							combustion.setClicked(true);
 						}
 					}
 				}
