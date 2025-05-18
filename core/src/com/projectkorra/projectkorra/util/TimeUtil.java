@@ -3,6 +3,9 @@ package com.projectkorra.projectkorra.util;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A utility class for converting time between milliseconds and formatted strings.
+ */
 public class TimeUtil {
 
 	/**

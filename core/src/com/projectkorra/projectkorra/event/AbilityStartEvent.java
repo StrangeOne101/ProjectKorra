@@ -1,5 +1,6 @@
 package com.projectkorra.projectkorra.event;
 
+import com.projectkorra.projectkorra.ability.CoreAbility;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -7,7 +8,7 @@ import org.bukkit.event.HandlerList;
 import com.projectkorra.projectkorra.ability.Ability;
 
 /**
- * Called when an ability starts
+ * Called when an ability starts via the {@link CoreAbility#start()} method.
  *
  * @author Philip
  *

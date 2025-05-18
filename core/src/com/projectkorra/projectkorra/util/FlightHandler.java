@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.Manager;
-import com.projectkorra.projectkorra.ProjectKorra;
 
 public class FlightHandler extends Manager {
 

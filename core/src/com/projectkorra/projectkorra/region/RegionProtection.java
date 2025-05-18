@@ -1,6 +1,5 @@
 package com.projectkorra.projectkorra.region;
 
-import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.hooks.RegionProtectionHook;
 import com.projectkorra.projectkorra.util.BlockCacheElement;

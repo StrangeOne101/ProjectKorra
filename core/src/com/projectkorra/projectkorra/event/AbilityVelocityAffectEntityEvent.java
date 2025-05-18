@@ -12,7 +12,7 @@ import com.projectkorra.projectkorra.ability.Ability;
  * Cancellable event called when an ability would push or alter the velocity of
  * an entity.
  * 
- * the entity can be changed, vector can be modified, and the ability that
+ * The entity can be changed, vector can be modified, and the ability that
  * caused the change can be accessed.
  *
  * @author dNiym
@@ -49,6 +49,11 @@ public class AbilityVelocityAffectEntityEvent extends Event implements Cancellab
         return handlers;
     }
 
+    /**
+     * Gets the entity that was affected.
+     *
+     * @return The entity that was affected.
+     */
     public Entity getAffected() {
         return affected;
     }
@@ -57,14 +62,29 @@ public class AbilityVelocityAffectEntityEvent extends Event implements Cancellab
         this.affected = affected;
     }
 
+    /**
+     * Gets the velocity that was applied to the entity.
+     *
+     * @return The velocity that was applied to the entity.
+     */
     public Vector getVelocity() {
         return velocity;
     }
 
+    /**
+     * Sets the velocity that was applied to the entity.
+     *
+     * @param velocity The new velocity to be applied to the entity.
+     */
     public void setVelocity(Vector velocity) {
         this.velocity = velocity;
     }
 
+    /**
+     * Gets the ability that caused the event.
+     *
+     * @return The ability that caused the event.
+     */
     public Ability getAbility() {
         return ability;
     }

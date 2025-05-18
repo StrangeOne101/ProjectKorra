@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -45,7 +45,6 @@ import org.bukkit.entity.Player;
 import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.Element.MultiSubElement;
 import com.projectkorra.projectkorra.ability.AvatarAbility;
-import com.projectkorra.projectkorra.ability.ChiAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.util.PassiveManager;
 import com.projectkorra.projectkorra.avatar.AvatarState;
@@ -60,10 +59,15 @@ import com.projectkorra.projectkorra.waterbending.blood.Bloodbending;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * Class that presents a player and stores all bending information about the
- * player.
+ * A class that holds all bending data and information for a player. If a player is offline,
+ *  the instance of this class will be a {@link OfflineBendingPlayer} instead.
+ *  <br><br>
+ *  The difference between this class and {@link OfflineBendingPlayer} is that this class
+ *  contains lots of methods to check if a player can bend, bind or use abilities based
+ *  on their permissions, toggled elements and region protection.
  */
 public class BendingPlayer extends OfflineBendingPlayer {
 
@@ -472,10 +476,11 @@ public class BendingPlayer extends OfflineBendingPlayer {
 	}
 
 	/**
-	 * Gets the {@link ChiAbility Chi stance} the player is in
+	 * Gets the {@link StanceAbility} the player is in
 	 *
 	 * @return The player's stance object
 	 */
+	@Nullable
 	public StanceAbility getStance() {
 		return this.stance;
 	}
@@ -500,14 +505,28 @@ public class BendingPlayer extends OfflineBendingPlayer {
 		return this.player.hasPermission("bending." + sub.getParentElement().getName().toLowerCase() + "." + sub.getName().toLowerCase() + sub.getType().getBending());
 	}
 
+	/**
+	 * Checks to see if the {@link BendingPlayer} is in AvatarState.
+	 * @return true If the player is in AvatarState
+	 */
 	public boolean isAvatarState() {
 		return CoreAbility.hasAbility(this.player, AvatarState.class);
 	}
 
+	/**
+	 * Checks to see if the {@link BendingPlayer} is being bloodbent
+	 * by another player
+	 * @return true If the player is being bloodbent
+	 */
 	public boolean isBloodbent() {
 		return Bloodbending.isBloodbent(this.player);
 	}
 
+	/**
+	 * Checks to see if the {@link BendingPlayer} is being controlled by
+	 * metal clips
+	 * @return true If the player is being controlled by metal clips
+	 */
 	public boolean isControlledByMetalClips() {
 		return MetalClips.isControlled(this.player);
 	}
@@ -527,6 +546,11 @@ public class BendingPlayer extends OfflineBendingPlayer {
 		return false;
 	}
 
+	/**
+	 * Checks to see if the {@link BendingPlayer} is paralyzed.
+	 *
+	 * @return true If the player is paralyzed
+	 */
 	public boolean isParalyzed() {
 		return this.player.hasMetadata("movement:stop");
 	}
@@ -548,7 +572,7 @@ public class BendingPlayer extends OfflineBendingPlayer {
 	}
 
 	/**
-	 * Sets chiBlocked to true.
+	 * Chiblocks the {@link BendingPlayer}.
 	 */
 	public void blockChi() {
 		if (this.isAvatarState() && !ConfigManager.avatarStateConfig.get().getBoolean("AvatarState.CanBeChiblocked")) return;
@@ -645,12 +669,12 @@ public class BendingPlayer extends OfflineBendingPlayer {
 	}
 
 	/**
-	 * Sets the player's {@link StanceAbility stance}
-	 * Also update any previews
+	 * Sets the player's {@link StanceAbility stance}. Will also update
+	 * the ActionBar to reflect the change in stance.
 	 *
 	 * @param stance The player's new stance object
 	 */
-	public void setStance(final StanceAbility stance) {
+	public void setStance(@Nullable final StanceAbility stance) {
 		final String oldStance = (this.stance == null) ? "" : this.stance.getStanceName();
 		final String newStance = (stance == null) ? "" : stance.getStanceName();
 		final PlayerStanceChangeEvent event = new PlayerStanceChangeEvent(this.player, oldStance, newStance);

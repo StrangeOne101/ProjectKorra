@@ -182,16 +182,6 @@ public class FireComboStream extends BukkitRunnable {
 				entity.setFireTicks((int) (this.fireTicks * 20));
 				new FireDamageTimer(entity, this.player, coreAbility);
 			}
-		} else if (coreAbility.getName().equalsIgnoreCase("FireWheel")) {
-			final FireWheel fireWheel = CoreAbility.getAbility(this.player, FireWheel.class);
-
-			if (!fireWheel.getAffectedEntities().contains(entity)) {
-				fireWheel.getAffectedEntities().add(entity);
-				DamageHandler.damageEntity(entity, this.damage, coreAbility);
-				entity.setFireTicks((int) (this.fireTicks * 20));
-				new FireDamageTimer(entity, this.player, coreAbility);
-				this.remove();
-			}
 		}
 	}
 

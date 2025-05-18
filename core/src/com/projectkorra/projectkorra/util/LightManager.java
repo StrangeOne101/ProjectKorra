@@ -1,7 +1,6 @@
 package com.projectkorra.projectkorra.util;
 
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ProjectKorra;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +13,9 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * LightManager is a util class to asynchronously manage light emission in ProjectKorra.
+ */
 public class LightManager {
 
     // Our LightManager instance

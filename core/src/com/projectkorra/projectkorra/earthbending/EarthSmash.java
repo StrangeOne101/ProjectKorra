@@ -146,7 +146,6 @@ public class EarthSmash extends EarthAbility {
 	}
 
 	public void setFields() {
-		final BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(this.player);
 		this.shootAnimationInterval = getConfig().getLong("Abilities.Earth.EarthSmash.Shoot.AnimationInterval");
 		this.flightAnimationInterval = getConfig().getLong("Abilities.Earth.EarthSmash.Flight.AnimationInterval");
 		this.liftAnimationInterval = getConfig().getLong("Abilities.Earth.EarthSmash.LiftAnimationInterval");

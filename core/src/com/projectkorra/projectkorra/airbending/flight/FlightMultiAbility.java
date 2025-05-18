@@ -19,7 +19,6 @@ import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.FlightAbility;
 import com.projectkorra.projectkorra.ability.MultiAbility;

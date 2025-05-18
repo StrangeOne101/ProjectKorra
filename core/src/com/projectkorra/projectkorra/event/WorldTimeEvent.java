@@ -29,10 +29,18 @@ public class WorldTimeEvent extends WorldEvent {
         this.to = to;
     }
 
+    /**
+     * Get the {@link Time} that the world was at before
+     * @return The time
+     */
     public Time getFrom() {
         return from;
     }
 
+    /**
+     * Get the {@link Time} that the world is at now
+     * @return The time
+     */
     public Time getTo() {
         return to;
     }

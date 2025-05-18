@@ -35,7 +35,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
 
 import com.projectkorra.projectkorra.Element.SubElement;
@@ -48,6 +47,10 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * A class that holds all bending data and information for a player. If a player is online,
+ * the instance of this class will be a {@link BendingPlayer} instead.
+ */
 public class OfflineBendingPlayer {
 
     /**
@@ -647,7 +650,8 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Gets the list of elements the {@link BendingPlayer} knows.
+     * Gets the list of elements the player knows. This list can be modified and saved
+     * with {@link #saveElements()}.
      *
      * @return a list of elements
      */
@@ -656,7 +660,8 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Gets the list of subelements the {@link BendingPlayer} knows.
+     * Gets the list of subelements the player knows. This list can be modified and saved
+     * with {@link #saveSubElements()}.
      *
      * @return a list of subelements
      */
@@ -665,7 +670,8 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Get the list of temporary elements and subelements the {@link BendingPlayer} has.
+     * Get a map of temporary elements and subelements the player has.
+     * The key is the element and the value is the time it expires.
      *
      * @return a map of temporary elements and subelements
      */
@@ -674,9 +680,10 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Get the list of temporary subelements the {@link BendingPlayer} has.
+     * Get a map of temporary subelements the player has. Like {@link #getTempElements()},
+     * the key is the subelement and the value is the time it expires.
      *
-     * Temporary subelements are a bit more confusing than elements. If a subelement's expirary
+     * Temporary subelements are a bit more confusing than elements. If a subelement's expiry
      * is set to -1, it means it is linked with the temporary parent element. When that parent
      * element is removed, the sub should be removed as well.
      *
@@ -687,7 +694,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Gets the unique identifier of the {@link BendingPlayer}.
+     * Gets the unique identifier of the player.
      *
      * @return the uuid
      */
@@ -705,7 +712,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Gets the name of the {@link BendingPlayer}.
+     * Gets the name of the player.
      *
      * @return the player name
      */
@@ -725,12 +732,18 @@ public class OfflineBendingPlayer {
         return name != null ? name : "";
     }
 
+    /**
+     * Gets the currently selected slot for a bending player. If the player is offline, this
+     * returns a variable that can be changed with {@link #setCurrentSlot(int)}.
+     *
+     * @return The currently selected slot
+     */
     public int getCurrentSlot() {
         return this.currentSlot;
     }
 
     /**
-     * Sets the currently held slot
+     * Sets the currently held slot. Only works for offline players.
      * @param slot The slot number
      */
     public void setCurrentSlot(int slot) {
@@ -738,7 +751,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Gets the map of abilities that the {@link BendingPlayer} knows.
+     * Gets the map of abilities that the player knows.
      *
      * @return map of abilities
      */
@@ -746,10 +759,8 @@ public class OfflineBendingPlayer {
         return this.abilities;
     }
 
-
-
     /**
-     * Adds an element to the {@link BendingPlayer}'s known list.
+     * Adds an element to the player's known list.
      *
      * @param element The element to add.
      */
@@ -758,7 +769,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Adds a subelement to the {@link BendingPlayer}'s known list.
+     * Adds a subelement to the player's known list.
      *
      * @param subelement The subelement to add.
      */
@@ -777,6 +788,11 @@ public class OfflineBendingPlayer {
         return this.subelements.contains(sub);
     }
 
+    /**
+     * Gets the current bound ability in the form of a {@link CoreAbility}.
+     * @return The bound ability
+     */
+    @Nullable
     public CoreAbility getBoundAbility() {
         return CoreAbility.getAbility(this.getBoundAbilityName());
     }
@@ -849,22 +865,49 @@ public class OfflineBendingPlayer {
         return false;
     }
 
+    /**
+     * Adds a cooldown for an ability to the current BendingPlayer.
+     * @param ability The ability to apply the cooldown to
+     * @param cooldown The cooldown time
+     * @param database Whether or not to save the cooldown to the database
+     */
     public void addCooldown(final Ability ability, final long cooldown, final boolean database) {
         this.addCooldown(ability.getName(), cooldown, database);
     }
 
+    /**
+     * Adds a cooldown for an ability to the current BendingPlayer. Uses
+     * {@link Ability#getCooldown()} to get the cooldown time.
+     * @param ability The ability to apply the cooldown to
+     * @param database Whether or not to save the cooldown to the database
+     */
     public void addCooldown(final Ability ability, final boolean database) {
         this.addCooldown(ability.getName(), ability.getCooldown(), database);
     }
 
+    /**
+     * Adds a cooldown for an ability to the current BendingPlayer.
+     * @param ability The ability to apply the cooldown to
+     * @param cooldown The cooldown time
+     */
     public void addCooldown(final Ability ability, final long cooldown) {
         this.addCooldown(ability, cooldown, false);
     }
 
+    /**
+     * Adds a cooldown for an ability to the current BendingPlayer. Uses
+     * {@link Ability#getCooldown()} to get the cooldown time.
+     * @param ability The ability to apply the cooldown to
+     */
     public void addCooldown(final Ability ability) {
         this.addCooldown(ability, false);
     }
 
+    /**
+     * Adds a cooldown for an ability to the current BendingPlayer.
+     * @param ability The ability to apply the cooldown to. Does not have to be a real ability name.
+     * @param cooldown The cooldown time
+     */
     public void addCooldown(final String ability, final long cooldown) {
         this.addCooldown(ability, cooldown, false);
     }
@@ -906,11 +949,19 @@ public class OfflineBendingPlayer {
         }
     }
 
+    /**
+     * Saves the cooldowns of a BendingPlayer to the database.
+     * @param async Whether or not to save the cooldowns asynchronously
+     */
     public void saveCooldowns(boolean async) {
         if (async) Bukkit.getScheduler().runTaskAsynchronously(ProjectKorra.plugin, this::saveCooldownsForce);
         else this.saveCooldownsForce();
     }
 
+    /**
+     * Saves the cooldowns of a BendingPlayer to the database.
+     * This method will save the cooldowns asynchronously.
+     */
     public void saveCooldowns() {
         this.saveCooldowns(true);
     }
@@ -924,7 +975,8 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Checks to see if the {@link BendingPlayer} knows a specific element.
+     * Checks to see if the {@link BendingPlayer} knows a specific element. If the element being
+     * tested is AVATAR, it will check if the player has the `bending.avatar` permission.
      *
      * @param element The element to check
      * @return true If the player knows the element
@@ -1040,7 +1092,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Checks to see if the {@link BendingPlayer} is a bender.
+     * Checks to see if the {@link BendingPlayer} has at least one element.
      *
      * @return true If the player is a bender.
      */
@@ -1077,7 +1129,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Checks if the {@link BendingPlayer} is permaremoved.
+     * Checks if the {@link BendingPlayer}'s bending is permaremoved.
      *
      * @return true If the player is permaremoved
      */
@@ -1140,14 +1192,25 @@ public class OfflineBendingPlayer {
         DBConnection.sql.modifyQuery("UPDATE pk_players SET permaremoved = '" + (permaRemoved ? "true" : "false") + "' WHERE uuid = '" + uuid + "'");
     }
 
+    /**
+     * Toggles the {@link BendingPlayer}'s bending on or off.
+     */
     public void toggleBending() {
         this.toggled = !this.toggled;
     }
 
+    /**
+     * Toggles the {@link BendingPlayer}'s bending passives on or off.
+     */
     public void toggleAllPassives() {
         this.allPassivesToggled = !this.allPassivesToggled;
     }
 
+    /**
+     * Toggles the {@link BendingPlayer}'s bending passives on or off for a specific element.
+     *
+     * @param element The element to toggle
+     */
     public void toggleElement(@NotNull final Element element) {
         if (this.toggledElements.contains(element)) {
             this.toggledElements.remove(element);
@@ -1156,6 +1219,11 @@ public class OfflineBendingPlayer {
         }
     }
 
+    /**
+     * Toggles the {@link BendingPlayer}'s bending passives on or off for a specific element.
+     *
+     * @param element The element to toggle
+     */
     public void togglePassive(@NotNull final Element element) {
         if (this.toggledPassives.contains(element)) {
             this.toggledPassives.remove(element);
@@ -1167,20 +1235,35 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can BloodBend.
      *
-     * @return true If player has permission node "bending.earth.bloodbending"
+     * @return true If player has the bloodbending subelement
      */
     public boolean canBloodbend() {
         return this.subelements.contains(Element.BLOOD) || this.hasTempSubElement(Element.BLOOD); //If they have bloodbending OR temporary bloodbending that hasn't expired
     }
 
+    /**
+     * Checks to see if a player can BloodBend at any time.
+     *
+     * @return true If player has permission node "bending.earth.bloodbending.anytime"
+     */
     public boolean canBloodbendAtAnytime() {
         return false; //Offline players can't do it at anytime because OfflinePlayers have no permissions
     }
 
+    /**
+     * Checks to see if a player can CombustionBend.
+     *
+     * @return true If player has the combustion subelement
+     */
     public boolean canCombustionbend() {
         return this.subelements.contains(Element.COMBUSTION) || this.hasTempSubElement(Element.COMBUSTION); //If they have combustionbending OR temporary combustionbending that hasn't expired
     }
 
+    /**
+     * Checks to see if a player can Icebend.
+     *
+     * @return true If player has the ice subelement
+     */
     public boolean canIcebend() {
         return this.subelements.contains(Element.ICE) || this.hasTempSubElement(Element.ICE); //If they have icebending OR temporary icebending that hasn't expired
     }
@@ -1188,12 +1271,17 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can LavaBend.
      *
-     * @return true If player has permission node "bending.earth.lavabending"
+     * @return true If player has the lava subelement
      */
     public boolean canLavabend() {
         return this.subelements.contains(Element.LAVA) || this.hasTempSubElement(Element.LAVA); //If they have lavabending OR temporary lavabending that hasn't expired
     }
 
+    /**
+     * Checks to see if a player can LightningBend.
+     *
+     * @return true If player has the lightning subelement
+     */
     public boolean canLightningbend() {
         return this.subelements.contains(Element.LIGHTNING) || this.hasTempSubElement(Element.LIGHTNING); //If they have lightningbending OR temporary lightningbending that hasn't expired
     }
@@ -1201,7 +1289,7 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can MetalBend.
      *
-     * @return true If player has permission node "bending.earth.metalbending"
+     * @return true If player has the metal subelement
      */
     public boolean canMetalbend() {
         return this.subelements.contains(Element.METAL) || this.hasTempSubElement(Element.METAL); //If they have metalbending OR temporary metalbending that hasn't expired
@@ -1210,7 +1298,7 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can PlantBend.
      *
-     * @return true If player has permission node "bending.ability.plantbending"
+     * @return true If player has the plant subelement
      */
     public boolean canPlantbend() {
         return this.subelements.contains(Element.PLANT) || this.hasTempSubElement(Element.PLANT); //If they have plantbending OR temporary plantbending that hasn't expired
@@ -1219,7 +1307,7 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can SandBend.
      *
-     * @return true If player has permission node "bending.earth.sandbending"
+     * @return true If player has the sand subelement
      */
     public boolean canSandbend() {
         return this.subelements.contains(Element.SAND) || this.hasTempSubElement(Element.SAND); //If they have sandbending OR temporary sandbending that hasn't expired
@@ -1228,7 +1316,7 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can use Flight.
      *
-     * @return true If player has permission node "bending.air.flight"
+     * @return true If player has the flight subelement
      */
     public boolean canUseFlight() {
         return this.subelements.contains(Element.FLIGHT) || this.hasTempSubElement(Element.FLIGHT); //If they have flight OR temporary flight that hasn't expired
@@ -1237,8 +1325,7 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can use SpiritualProjection.
      *
-     * @return true If player has permission node
-     *         "bending.air.spiritualprojection"
+     * @return true If player has the spiritual projection subelement
      */
     public boolean canUseSpiritualProjection() {
         return this.subelements.contains(Element.SPIRITUAL) || this.hasTempSubElement(Element.SPIRITUAL); //If they have spiritual projection OR temporary spiritual projection that hasn't expired
@@ -1247,12 +1334,16 @@ public class OfflineBendingPlayer {
     /**
      * Checks to see if a player can use Water Healing.
      *
-     * @return true If player has permission node "bending.water.healing"
+     * @return true If player has the healing subelement
      */
     public boolean canWaterHeal() {
         return this.subelements.contains(Element.HEALING) || this.hasTempSubElement(Element.HEALING); //If they have water healing OR temporary water healing that hasn't expired
     }
 
+    /**
+     * Gets the {@link OfflinePlayer} that this instance is based on.
+     * @return The OfflinePlayer
+     */
     public OfflinePlayer getPlayer() {
         return this.player;
     }
@@ -1323,7 +1414,9 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Uncaches this instance of an Offline BendingPlayer.
+     * Uncaches this instance of an OfflineBendingPlayer. This will remove
+     * the instance from memory and will have to be loaded from the database again
+     * if you wish to access this data.
      */
     public void uncache() {
         if (this.player.isOnline() || this instanceof BendingPlayer) return;
@@ -1342,7 +1435,7 @@ public class OfflineBendingPlayer {
     }
 
     /**
-     * Uncaches this instance of an offline BendingPlayer
+     * Uncaches this instance of an offline BendingPlayer after a certain amount of time
      * @param time The amount of milliseconds to wait before uncaching
      */
     public void uncacheAfter(long time) {

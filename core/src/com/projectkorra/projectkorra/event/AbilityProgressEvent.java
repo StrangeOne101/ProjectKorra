@@ -6,7 +6,9 @@ import org.bukkit.event.HandlerList;
 import com.projectkorra.projectkorra.ability.Ability;
 
 /**
- * Called when an ability starts
+ * Called when an ability calls {@link Ability#progress()}. While
+ * this ability cannot be cancelled, you can call {@link Ability#remove()} to
+ * remove the ability from the player.
  *
  * @author Philip
  *

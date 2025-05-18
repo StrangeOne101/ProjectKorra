@@ -1,5 +1,6 @@
 package com.projectkorra.projectkorra.event;
 
+import com.projectkorra.projectkorra.util.DamageHandler;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -9,7 +10,8 @@ import org.bukkit.event.HandlerList;
 import com.projectkorra.projectkorra.ability.Ability;
 
 /**
- * Called when an ability damages an {@link Entity}
+ * Called when an ability damages an {@link Entity} via
+ * {@link DamageHandler#damageEntity(Entity, Player, double, Ability)}
  *
  * @author kingbirdy
  *

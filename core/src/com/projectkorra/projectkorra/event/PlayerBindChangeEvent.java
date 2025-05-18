@@ -34,20 +34,27 @@ public class PlayerBindChangeEvent extends Event implements Cancellable {
 		this(player, ability, player.getInventory().getHeldItemSlot(), isBinding, isMultiAbility);
 	}
 
+	/**
+	 * Get the {@link OfflinePlayer} that was affected
+	 * @return the {@link OfflinePlayer} that was affected
+	 */
 	public OfflinePlayer getPlayer() {
 		return this.player;
 	}
 
 	/**
-	 * Get the {@link BendingPlayer} that was affected
-	 * @return the {@link BendingPlayer} that was affected
+	 * Get the {@link OfflineBendingPlayer} that was affected. You can check
+	 * if the player is online with {@link #isOnline()} and if it is true,
+	 * it is safe to cast this to {@link BendingPlayer}
+	 * @return the {@link OfflineBendingPlayer} that was affected
 	 */
 	public OfflineBendingPlayer getBendingPlayer() {
 		return BendingPlayer.getBendingPlayer(this.player);
 	}
 
 	/**
-	 * Get whether the player is online
+	 * Get whether the player is online. If true, it is safe to cast the
+	 * {@link OfflineBendingPlayer} to {@link BendingPlayer}
 	 * @return true if the player is online
 	 */
 	public boolean isOnline() {

@@ -4,6 +4,13 @@ import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.event.AbilityRecalculateAttributeEvent;
 import org.bukkit.NamespacedKey;
 
+/**
+ * A class to modify attributes in the {@link AbilityRecalculateAttributeEvent} event.
+ * <br><br>
+ * To create a new instance, use {@link #of(AttributeModifier, Number, int, NamespacedKey)},
+ * {@link #setter(Boolean, int, NamespacedKey)} or
+ * {@link #setter(Number, int, NamespacedKey)}.
+ */
 public class AttributeModification {
 
     public static final NamespacedKey DAY_FACTOR = new NamespacedKey(ProjectKorra.plugin, "DAY_FACTOR");
@@ -57,8 +64,8 @@ public class AttributeModification {
     }
 
     /**
-     * Create a new AttributeModification instance with a normal priority. This can be applied to any ability in the
-     * {@link AbilityRecalculateAttributeEvent} event to modify the value of an attribute.
+     * Create a new AttributeModification that sets an attribute to a specific value. This can be applied to any ability in the
+     * {@link AbilityRecalculateAttributeEvent} event.
      * @param value The value to set the attribute to
      * @param priority The priority of this modification. Lower values are applied first
      * @param modificationName A unique identifier for this modification
@@ -69,8 +76,8 @@ public class AttributeModification {
     }
 
     /**
-     * Create a new AttributeModification instance with a normal priority. This can be applied to any ability in the
-     * {@link AbilityRecalculateAttributeEvent} event to modify the value of an attribute.
+     * Create a new AttributeModification that sets an attribute to a specific value. This can be applied to any ability in the
+     * {@link AbilityRecalculateAttributeEvent} event.
      * @param value The value to set the attribute to
      * @param priority The priority of this modification. Lower values are applied first
      * @param modificationName A unique identifier for this modification

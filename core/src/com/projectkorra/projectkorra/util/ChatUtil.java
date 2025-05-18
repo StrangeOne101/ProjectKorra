@@ -17,6 +17,11 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ChatUtil is a utility class that provides methods for sending messages to players
+ * with ProjectKorra branding, formatting strings with color codes, and displaying move
+ * previews in the action bar.
+ */
 public class ChatUtil {
 
     /**

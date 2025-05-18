@@ -1,5 +1,6 @@
 package com.projectkorra.projectkorra.event;
 
+import com.projectkorra.projectkorra.util.DamageHandler;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -8,8 +9,8 @@ import org.bukkit.event.HandlerList;
 import com.projectkorra.projectkorra.ability.Ability;
 
 /**
- * Called when an entity is killed by
- * DamageHandler#damageEntity(final Entity entity, Player source, double damage, final Ability ability, boolean ignoreArmor)
+ * Called when an entity is killed by damaged caused via
+ * {@link DamageHandler#damageEntity(Entity, Player, double, Ability, boolean)}
  */
 
 public class EntityBendingDeathEvent extends Event {
