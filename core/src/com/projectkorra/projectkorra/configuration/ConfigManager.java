@@ -411,8 +411,8 @@ public class ConfigManager {
 			config.addDefault("Abilities.Water.IceBlast.DeathMessage", "{victim} was shattered by {attacker}'s {ability}");
 			config.addDefault("Abilities.Water.IceSpike.Description", "This ability offers a powerful ice utility for Waterbenders. It can be used to fire an ice blast or raise an ice spike. If the ice blast or ice spike comes into contact with another entity, it will give them slowness and deal some damage to them..");
 			config.addDefault("Abilities.Water.IceSpike.Instructions", "\n" + "(Blast) Tap sneak on a water source and then left click in a direction to fire an ice blast in a direction. Additionally, you can left click to manipulate the ice blast while it's in the air to change the direction of the blast." + "\n" + "(Spike) While in range of ice, tap sneak to raise ice pillars from the ice. If a player is caught in these ice pillars they will be propelled into the air. You cannot be looking at ice or water or this feature will not activate. Alternatively, you can left click an ice block to raise a single pilar of ice.");
-			config.addDefault("Abilities.Water.FrostBreath.Description","Lets the user to breathe extremely cold air, freezing their enemies.");
-			config.addDefault("Abilities.Water.FrostBreath.Instructions","Hold sneak");
+			config.addDefault("Abilities.Water.FrostBreath.Description","Lets the user to breathe extremely cold air, freezing their enemies, creating ice and coating the ground in snow.");
+			config.addDefault("Abilities.Water.FrostBreath.Instructions","Hold sneak to breathe out cold air. This will freeze any water or ice in front of you, creating a wall of ice. If you hold sneak while looking at a target, it will freeze them in place for a short duration.");
 			config.addDefault("Abilities.Water.IceSpike.DeathMessage", "{victim} was impaled by {attacker}'s {ability}");
 //			config.addDefault("Abilities.Water.PlantTether.Description", "PlantTether is unique ability that creates a vine from some plant source to either constrict and draw in an enemy, or pull the user.");
 //			config.addDefault("Abilities.Water.PlantTether.Instructions", "Tap sneak while looking at a plant source. Then tap sneak again at the source to pull yourself towards it. Or, tap sneak at a target entity to have them pulled towards the plant source.");
@@ -1673,12 +1673,12 @@ public class ConfigManager {
 			config.addDefault("Abilities.Fire.FireSpin.Combination", Arrays.asList("FireBlast:LEFT_CLICK", "FireBlast:LEFT_CLICK", "FireShield:LEFT_CLICK", "FireShield:SNEAK_DOWN", "FireShield:SNEAK_UP"));
 
 			config.addDefault("Abilities.Fire.FireWheel.Enabled", true);
-			config.addDefault("Abilities.Fire.FireWheel.Range", 20.0);
+			config.addDefault("Abilities.Fire.FireWheel.Range", 35.0);
 			config.addDefault("Abilities.Fire.FireWheel.Damage", 4.0);
-			config.addDefault("Abilities.Fire.FireWheel.Speed", 0.55);
+			config.addDefault("Abilities.Fire.FireWheel.Speed", 1.0);
 			config.addDefault("Abilities.Fire.FireWheel.Cooldown", 6000);
 			config.addDefault("Abilities.Fire.FireWheel.FireTicks", 2.5);
-			config.addDefault("Abilities.Fire.FireWheel.Height", 2);
+			config.addDefault("Abilities.Fire.FireWheel.Height", 0.8);
 			config.addDefault("Abilities.Fire.FireWheel.Combination", Arrays.asList("FireShield:SNEAK_DOWN", "FireShield:RIGHT_CLICK_BLOCK", "FireShield:RIGHT_CLICK_BLOCK", "Blaze:SNEAK_UP"));
 
 			config.addDefault("Abilities.Fire.JetBlast.Enabled", true);

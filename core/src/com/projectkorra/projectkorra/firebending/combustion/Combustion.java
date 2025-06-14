@@ -82,7 +82,6 @@ public class Combustion extends CombustionAbility implements SubAbility {
 		super(player);
 		if (bPlayer.canBend(this) && !hasAbility(player, Combustion.class)) {
 			setFields();
-			setCollisions();
 			start();
 		}
 	}
@@ -114,11 +113,6 @@ public class Combustion extends CombustionAbility implements SubAbility {
 		canCharge = true;
 		needCharge = true;
 		thrown = false;
-	}
-
-	private void setCollisions() {
-		ProjectKorra.collisionManager.addCollision(new Collision(CoreAbility.getAbility("Combustion"), CoreAbility.getAbility("AirShield"), false, true));
-		ProjectKorra.collisionManager.addCollision(new Collision(CoreAbility.getAbility("Combustion"), CoreAbility.getAbility("FireShield"), true, true));
 	}
 
 	private void chargeAnimation() {
@@ -332,7 +326,6 @@ public class Combustion extends CombustionAbility implements SubAbility {
 		}
 		if (thrown) {
 			releaseCombustion();
-			setCollisions();
 			if (clicked) {
 
 				explode(location, false, false, null);

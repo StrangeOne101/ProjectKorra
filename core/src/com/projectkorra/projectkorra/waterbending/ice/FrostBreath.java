@@ -26,7 +26,7 @@ public class FrostBreath extends IceAbility implements SubAbility {
 
     /* General config variables */
     @Attribute(Attribute.COOLDOWN)
-    @DayNightFactor
+    @DayNightFactor(invert = true)
     private long cooldown;
     @Attribute(Attribute.DURATION)
     @DayNightFactor
