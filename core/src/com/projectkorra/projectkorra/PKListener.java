@@ -1182,7 +1182,7 @@ public class PKListener implements Listener {
 			final UUID uuid = player.getUniqueId();
 
 			if (RIGHT_CLICK_INTERACT.add(uuid)) { //Add if it isn't already in there. And if it isn't in there...
-				ThreadUtil.runSyncLater(() -> RIGHT_CLICK_INTERACT.remove(uuid), 2L);
+				ThreadUtil.runGlobalLater(() -> RIGHT_CLICK_INTERACT.remove(uuid), 2L);
 			}
 
 			if (event.getHand() == EquipmentSlot.HAND) {
@@ -1259,7 +1259,7 @@ public class PKListener implements Listener {
 					fma.requestCarry(target);
 					final UUID uuid = player.getUniqueId();
 					if (RIGHT_CLICK_INTERACT.add(uuid)) { //Add if it isn't already in there. And if it isn't in there...
-						ThreadUtil.runSyncLater(() -> RIGHT_CLICK_INTERACT.remove(uuid), 2L);
+						ThreadUtil.runGlobalLater(() -> RIGHT_CLICK_INTERACT.remove(uuid), 2L);
 					}
 				} else if (FlightMultiAbility.getFlyingPlayers().contains(target.getUniqueId())) {
 					FlightMultiAbility.acceptCarryRequest(player, target);
@@ -1294,7 +1294,7 @@ public class PKListener implements Listener {
 		}
 
 		if (ConfigManager.languageConfig.get().getBoolean("Chat.Branding.JoinMessage.Enabled")) {
-			ThreadUtil.ensureEntityDelay(player, () -> {
+			ThreadUtil.ensureEntityLater(player, () -> {
 				ChatColor color = ChatColor.of(ConfigManager.languageConfig.get().getString("Chat.Branding.Color").toUpperCase());
 				color = color == null ? ChatColor.GOLD : color;
 				final String topBorder = ConfigManager.languageConfig.get().getString("Chat.Branding.Borders.TopBorder");
@@ -1700,7 +1700,7 @@ public class PKListener implements Listener {
 			}
 		}
 
-		ThreadUtil.ensureEntityDelay(player, () -> Illumination.slotChange(player), 1L);
+		ThreadUtil.ensureEntityLater(player, () -> Illumination.slotChange(player), 1L);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -2190,7 +2190,7 @@ public class PKListener implements Listener {
 		final Player player = (Player) event.getPlayer();
 		if (player == null) return;
 		if (event.isMultiAbility()) {
-			ThreadUtil.ensureEntityDelay(player, () -> BendingBoardManager.updateAllSlots(player), 1);
+			ThreadUtil.ensureEntityLater(player, () -> BendingBoardManager.updateAllSlots(player), 1);
 		} else {
 			if (event.isBinding()) {
 				BendingBoardManager.updateBoard(player, event.getAbility(), false, event.getSlot());

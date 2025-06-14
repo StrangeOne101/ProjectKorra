@@ -299,7 +299,7 @@ public class EarthArmor extends EarthAbility {
 
 	public void updateAbsorbtion() {
 		final EarthArmor abil = this;
-		ThreadUtil.ensureLocationDelay(abil.player.getLocation(), () -> {
+		ThreadUtil.ensureLocationLater(abil.player.getLocation(), () -> {
 			abil.goldHearts = EarthArmor.this.player.getAbsorptionAmount();
 			if (abil.formed && abil.goldHearts < 0.9F) {
 				abil.bPlayer.addCooldown(abil);

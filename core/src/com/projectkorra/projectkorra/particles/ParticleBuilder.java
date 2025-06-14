@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A class that simplifies creating and emitting particles. For most uses, use
- * <code>new BasicParticleBuilder()</code>, but there other classes for special
+ * <code>new {@link BasicParticleBuilder}()</code>, but there other classes for special
  * particles like redstone/dust particles
  * @param <T> Itself
  */
@@ -47,7 +47,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * Get the amount of particles to spawn
      * @return The amount
      */
-    public int getAmount() {
+    public int amount() {
         return this.amount;
     }
 
@@ -67,7 +67,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * @return
      */
     @Nullable
-    public Vector getDirection() {
+    public Vector direction() {
         return this.direction;
     }
 
@@ -85,7 +85,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * Get the speed of the particles.
      * @return The speed
      */
-    public double getSpeed() {
+    public double speed() {
         return this.speed;
     }
 
@@ -103,14 +103,14 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * Get the location of the particles
      * @return The location
      */
-    public Location getLocation() {
+    public Location location() {
         return location;
     }
 
     /**
      * Get the type of particles to spawn.
      */
-    public Particle getType() {
+    public Particle type() {
         return type;
     }
 
@@ -128,7 +128,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * Get the amount of offset on the X axis to spawn the particles on.
      * @return The offset
      */
-    public double getOffsetX() {
+    public double offsetX() {
         return this.xOffset;
     }
 
@@ -146,7 +146,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * Get the amount of offset on the Y axis to spawn the particles on.
      * @return The offset
      */
-    public double getOffsetY() {
+    public double offsetY() {
         return this.yOffset;
     }
 
@@ -164,7 +164,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * Get the amount of offset on the Z axis to spawn the particles on.
      * @return The offset
      */
-    public double getOffsetZ() {
+    public double offsetZ() {
         return this.zOffset;
     }
 
@@ -225,7 +225,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * @return The receivers
      */
     @NotNull
-    public Set<Player> getReceivers() {
+    public Set<Player> receivers() {
         return limitPlayers;
     }
 
@@ -245,7 +245,7 @@ public abstract class ParticleBuilder<T extends ParticleBuilder> {
      * players will only see the particle within 32 blocks of the player.
      * @return Whether to force visibility
      */
-    public boolean getForceVisibility() {
+    public boolean forceVisibility() {
         return forceVisibility;
     }
 

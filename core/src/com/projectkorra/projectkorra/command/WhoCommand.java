@@ -176,7 +176,7 @@ public class WhoCommand extends PKCommand {
 		}
 
 		BendingPlayer.getOrLoadOfflineAsync(player).thenAccept(bPlayer -> {
-			ThreadUtil.runSyncLater(() -> {
+			ThreadUtil.runGlobalLater(() -> {
 				if (!(bPlayer instanceof BendingPlayer)) { //Uncache after 30s
 					bPlayer.uncacheAfter(30_000);
 				}

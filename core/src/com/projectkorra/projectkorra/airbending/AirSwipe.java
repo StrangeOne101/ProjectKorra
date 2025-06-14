@@ -222,7 +222,7 @@ public class AirSwipe extends AirAbility {
 		for (int i = 0; i < entities.size(); i++) {
 			final Entity entity = entities.get(i);
 			final AirSwipe abil = this;
-			ThreadUtil.ensureLocationDelay(entity.getLocation(), () -> {
+			ThreadUtil.ensureLocationLater(entity.getLocation(), () -> {
 				if (GeneralMethods.isRegionProtectedFromBuild(AirSwipe.this, entity.getLocation())) {
 					return;
 				}

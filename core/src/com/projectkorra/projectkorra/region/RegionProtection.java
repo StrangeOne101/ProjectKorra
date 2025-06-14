@@ -171,7 +171,7 @@ public class RegionProtection {
      * @param period The time, in milliseconds, to clean the cache
      */
     public static void startCleanCacheTask(double period) {
-        ThreadUtil.runSyncTimer(() -> {
+        ThreadUtil.runGlobalTimer(() -> {
             final long currentTime = System.currentTimeMillis();
             for (final String playerName : BLOCK_CACHE.keySet()) {
                 final Map<Block, BlockCacheElement> map = BLOCK_CACHE.get(playerName);

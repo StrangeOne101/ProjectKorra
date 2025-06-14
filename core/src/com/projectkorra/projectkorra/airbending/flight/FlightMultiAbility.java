@@ -179,7 +179,7 @@ public class FlightMultiAbility extends FlightAbility implements MultiAbility {
 					messageTask = ThreadUtil.ensureEntityTimer(player, () -> {
 						ChatUtil.sendActionBar(ChatColor.WHITE + FlightMultiAbility.this.player.getName() + ChatColor.GREEN + " has requested to carry you, right-click them to accept!", p2);
 						if (System.currentTimeMillis() >= start + 300) {
-							ThreadUtil.cancelTimerTask(messageTask);
+							ThreadUtil.cancelTask(messageTask);
 						}
 					}, 0, 1);
 				} else {
@@ -350,7 +350,7 @@ public class FlightMultiAbility extends FlightAbility implements MultiAbility {
 		messageTask = ThreadUtil.ensureEntityTimer(this.player, () -> {
 			ChatUtil.sendActionBar(ChatColor.AQUA + "Flight speed: " + FlightMultiAbility.this.speed(), FlightMultiAbility.this.player);
 			if (System.currentTimeMillis() >= start + 1000) {
-				ThreadUtil.cancelTimerTask(messageTask);
+				ThreadUtil.cancelTask(messageTask);
 			}
 		}, 0, 1);
 	}
@@ -363,7 +363,7 @@ public class FlightMultiAbility extends FlightAbility implements MultiAbility {
 				public void run() {
 					ChatUtil.sendActionBar(ChatColor.RED + "* Flight cancelled due to " + reason + " *", FlightMultiAbility.this.player);
 					if (System.currentTimeMillis() >= start + 1000) {
-						ThreadUtil.cancelTimerTask(messageTask);
+						ThreadUtil.cancelTask(messageTask);
 					}
 				}
 			}, 0, 1);

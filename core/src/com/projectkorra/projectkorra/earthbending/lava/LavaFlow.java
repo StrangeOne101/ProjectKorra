@@ -470,7 +470,7 @@ public class LavaFlow extends LavaAbility {
 	 * automatically clean up over time.
 	 */
 	public void removeOnDelay() {
-		ThreadUtil.ensureLocationDelay(this.getLocation(), this::removeSlowly, (long) (this.shiftRemoveDelay / 1000.0 * 20.0));
+		ThreadUtil.ensureLocationLater(this.getLocation(), this::removeSlowly, (long) (this.shiftRemoveDelay / 1000.0 * 20.0));
 	}
 
 	/**
@@ -488,7 +488,7 @@ public class LavaFlow extends LavaAbility {
 			final TempBlock tblock = this.affectedBlocks.get(i);
 			final boolean isTempAir = TEMP_AIR_BLOCKS.values().contains(tblock);
 
-			ThreadUtil.ensureLocationDelay(tblock.getLocation(), () -> {
+			ThreadUtil.ensureLocationLater(tblock.getLocation(), () -> {
 				tblock.revertBlock();
 
 				if (TEMP_LAVA_BLOCKS.values().contains(tblock)) {
@@ -511,7 +511,7 @@ public class LavaFlow extends LavaAbility {
 		}
 
 		for (final Object task : this.tasks) {
-			ThreadUtil.cancelTimerTask(task);
+			ThreadUtil.cancelTask(task);
 		}
 	}
 
@@ -536,7 +536,7 @@ public class LavaFlow extends LavaAbility {
 		}
 
 		for (final Object task : this.tasks) {
-			ThreadUtil.cancelTimerTask(task);
+			ThreadUtil.cancelTask(task);
 		}
 	}
 

@@ -61,8 +61,8 @@ public class MovementHandler {
 				//be stopped for the duration.
 				if (MovementHandler.this.entity.isOnGround()) {
 					MovementHandler.this.entity.setAI(false);
-					ThreadUtil.cancelTimerTask(MovementHandler.this.task);
-					ThreadUtil.ensureEntityDelay(MovementHandler.this.entity, MovementHandler.this::reset, duration);
+					ThreadUtil.cancelTask(MovementHandler.this.task);
+					ThreadUtil.ensureEntityLater(MovementHandler.this.entity, MovementHandler.this::reset, duration);
 				}
 			}, 0, 1);
 		}
@@ -89,7 +89,7 @@ public class MovementHandler {
 				//be stopped for the duration.
 				if (MovementHandler.this.entity.isOnGround()) {
 					MovementHandler.this.entity.setAI(false);
-					ThreadUtil.cancelTimerTask(MovementHandler.this.task);
+					ThreadUtil.cancelTask(MovementHandler.this.task);
 				}
 			}, 0, 1);
 		}
@@ -100,7 +100,7 @@ public class MovementHandler {
 	 */
 	public void reset() {
 		if (this.task != null) {
-			ThreadUtil.cancelTimerTask(this.task);
+			ThreadUtil.cancelTask(this.task);
 		}
 		if (!(this.entity instanceof Player)) {
 			this.entity.setAI(true);

@@ -70,7 +70,7 @@ public class ChiPassive {
 			ChatUtil.sendActionBar(Element.CHI.getColor() + "* Chiblocked *", player);
 			if (System.currentTimeMillis() >= start + getDuration()) {
 				bPlayer.unblockChi();
-				ThreadUtil.cancelTimerTask(ChiPassive.messageTasks.get(player));
+				ThreadUtil.cancelTask(ChiPassive.messageTasks.get(player));
 			}
 		};
 		messageTasks.put(player, ThreadUtil.ensureEntityTimer(player, runnable, 0, 1));

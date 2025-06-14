@@ -134,7 +134,7 @@ public class AirStream extends AirAbility implements ComboAbility {
 					playAirbendingParticles(loc.clone().add(orthog), 1, 0F, 0F, 0F);
 				}
 			};
-			ThreadUtil.ensureLocationDelay(loc, runnable, i * 2);
+			ThreadUtil.ensureLocationLater(loc, runnable, i * 2);
 		}
 
 		for (final Entity entity : GeneralMethods.getEntitiesAroundPoint(this.currentLoc, 2.8)) {

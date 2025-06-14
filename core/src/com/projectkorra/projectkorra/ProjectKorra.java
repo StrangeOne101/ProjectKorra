@@ -150,7 +150,7 @@ public class ProjectKorra extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		if (this.revertChecker != null) ThreadUtil.cancelTimerTask(this.revertChecker);
+		if (this.revertChecker != null) ThreadUtil.cancelTask(this.revertChecker);
 		GeneralMethods.stopBending();
 		for (final Player player : this.getServer().getOnlinePlayers()) {
 			if (isStatisticsEnabled()) {

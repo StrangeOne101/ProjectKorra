@@ -349,7 +349,7 @@ public class HeatControl extends FireAbility {
 				final TempBlock tb = new TempBlock(block, Material.WATER);
 				MELTED_BLOCKS.put(block, tb);
 
-				ThreadUtil.ensureLocationDelay(block.getLocation(), () -> {
+				ThreadUtil.ensureLocationLater(block.getLocation(), () -> {
 					final TempBlock melted = MELTED_BLOCKS.get(block);
 					if (melted != null) {
 						melted.revertBlock();
@@ -391,7 +391,7 @@ public class HeatControl extends FireAbility {
 		}
 
 		if (LavaFlow.isLavaFlowBlock(tempBlock.getBlock())) {
-			ThreadUtil.ensureLocationDelay(b.getLocation(), () -> {
+			ThreadUtil.ensureLocationLater(b.getLocation(), () -> {
 				if (tempBlock != null) {
 					ParticleEffect.SMOKE_NORMAL.display(tempBlock.getBlock().getLocation().clone().add(0.5, 1, 0.5), 3, 0.1, 0.1, 0.1, 0.01);
 					if (HeatControl.this.randy.nextInt(3) == 0) {
@@ -405,7 +405,7 @@ public class HeatControl extends FireAbility {
 			return;
 		}
 
-		ThreadUtil.ensureLocationDelay(b.getLocation(), () -> {
+		ThreadUtil.ensureLocationLater(b.getLocation(), () -> {
 			if (tempBlock != null) {
 				final boolean bool = Math.random() > .5 ? true : false;
 				if (HeatControl.this.solidifyRevert) {

@@ -314,7 +314,7 @@ public class Suffocate extends AirAbility {
 		super.remove();
 		this.bPlayer.addCooldown(this);
 		for (int i = 0; i < this.tasks.size(); i++) {
-			ThreadUtil.cancelTimerTask(this.tasks.get(i));
+			ThreadUtil.cancelTask(this.tasks.get(i));
 			this.tasks.remove(i);
 			i--;
 		}

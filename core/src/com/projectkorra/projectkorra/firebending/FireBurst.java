@@ -100,7 +100,7 @@ public class FireBurst extends FireAbility {
 		for (int i = 0; i < this.blasts.size(); i++) {
 			final FireBlast fblast = this.blasts.get(i);
 			final int toggleTime = (int) (i % (100.0 / this.particlesPercentage));
-			ThreadUtil.ensureLocationDelay(fblast.getLocation(), () -> fblast.setShowParticles(true), toggleTime);
+			ThreadUtil.ensureLocationLater(fblast.getLocation(), () -> fblast.setShowParticles(true), toggleTime);
 		}
 	}
 

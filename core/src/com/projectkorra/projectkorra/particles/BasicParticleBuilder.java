@@ -18,7 +18,7 @@ public class BasicParticleBuilder extends ParticleBuilder<BasicParticleBuilder> 
      * Gets the type of particle to spawn.
      * @return The type
      */
-    public Particle getType() {
+    public Particle type() {
         return this.type;
     }
 }

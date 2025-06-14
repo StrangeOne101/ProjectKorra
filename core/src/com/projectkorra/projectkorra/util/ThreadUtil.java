@@ -18,10 +18,6 @@ public class ThreadUtil {
      * Runs a task on the same thread as an entity. On Spigot, this is the main
      * thread. On Folia, this is the thread that the entity is on.<br><br>
      *
-     * <b>NOTE:</b> On Folia, this will run the task <i>next</i> tick as it
-     * is impossible to immediately run a task on the same thread as an entity.
-     * This is because the task has to find what region the entity is in and
-     * wait for the next tick in that thread to begin.
      * @param entity The entity to run the task on.
      * @param runnable The task to run.
      */
@@ -47,13 +43,16 @@ public class ThreadUtil {
      * @param entity The entity to run the task on.
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
+     * @return The task object that can be used to cancel the task. Is a
+     * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
+     * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static void ensureEntityDelay(Entity entity, Runnable runnable, long delay) {
+    public static @NotNull Object ensureEntityLater(Entity entity, Runnable runnable, long delay) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
-            entity.getScheduler().execute(ProjectKorra.plugin, runnable, null, delay);
+            return entity.getScheduler().execute(ProjectKorra.plugin, runnable, null, delay);
         } else {
-            Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
+            return Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
         }
     }
 
@@ -64,8 +63,11 @@ public class ThreadUtil {
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
      * @param repeat The delay in ticks between each repeat of the task.
+     * @return The task object that can be used to cancel the task. Is a
+     * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
+     * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static Object ensureEntityTimer(Entity entity, Runnable runnable, long delay, long repeat) {
+    public static @NotNull Object ensureEntityTimer(Entity entity, Runnable runnable, long delay, long repeat) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
             return entity.getScheduler().runAtFixedRate(ProjectKorra.plugin, (task) -> runnable.run(), null, delay, repeat);
@@ -103,14 +105,17 @@ public class ThreadUtil {
      * @param location The location to run the task on.
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
+     * @return The task object that can be used to cancel the task. Is a
+     * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
+     * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static void ensureLocationDelay(@NotNull Location location, Runnable runnable, long delay) {
+    public static @NotNull Object ensureLocationLater(@NotNull Location location, Runnable runnable, long delay) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
             RegionScheduler scheduler = Bukkit.getRegionScheduler();
-            scheduler.runDelayed(ProjectKorra.plugin, location, (task) -> runnable.run(), delay);
+            return scheduler.runDelayed(ProjectKorra.plugin, location, (task) -> runnable.run(), delay);
         } else {
-            Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
+            return Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
         }
     }
 
@@ -125,7 +130,7 @@ public class ThreadUtil {
      * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
      * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static Object ensureLocationTimer(Location location, Runnable runnable, long delay, long repeat) {
+    public static @NotNull Object ensureLocationTimer(Location location, Runnable runnable, long delay, long repeat) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
             RegionScheduler scheduler = Bukkit.getRegionScheduler();
@@ -155,13 +160,16 @@ public class ThreadUtil {
      * Runs a task asynchronously after a delay.
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
+     * @return The task object that can be used to cancel the task. Is a
+     * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
+     * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static void runAsyncLater(Runnable runnable, long delay) {
+    public static @NotNull Object runAsyncLater(Runnable runnable, long delay) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
-            Bukkit.getAsyncScheduler().runDelayed(ProjectKorra.plugin, (task) -> runnable.run(), delay * 50, TimeUnit.MILLISECONDS);
+            return Bukkit.getAsyncScheduler().runDelayed(ProjectKorra.plugin, (task) -> runnable.run(), delay * 50, TimeUnit.MILLISECONDS);
         } else {
-            Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
+            return Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
         }
     }
 
@@ -170,8 +178,11 @@ public class ThreadUtil {
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
      * @param repeat The delay in ticks between each repeat of the task.
+     * @return The task object that can be used to cancel the task. Is a
+     * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
+     * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static Object runAsyncTimer(Runnable runnable, long delay, long repeat) {
+    public static @NotNull Object runAsyncTimer(Runnable runnable, long delay, long repeat) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
             return Bukkit.getAsyncScheduler().runAtFixedRate(ProjectKorra.plugin, (task) -> runnable.run(), delay * 50, repeat * 50, TimeUnit.MILLISECONDS);
@@ -182,10 +193,16 @@ public class ThreadUtil {
 
     /**
      * Runs a task synchronously. On Spigot, this is on the main thread. On Folia,
-     * this is on the global region thread.
+     * this is on the global region thread.<br><br>
+     *
+     * <b>Warning:</b> This should only be used for tasks that affect the world itself! Such as
+     * modifying gamerules, the weather, world time, etc. It should not be used for tasks
+     * that modify entities or the world, as those should be run using {@link #ensureEntity(Entity, Runnable)}
+     * or {@link #ensureLocation(Location, Runnable)}.
+     *
      * @param runnable The task to run.
      */
-    public static void runSync(Runnable runnable) {
+    public static void runGlobal(Runnable runnable) {
         if (ProjectKorra.isFolia()) {
             if (Bukkit.isStopping()) {
                 runnable.run();
@@ -199,14 +216,20 @@ public class ThreadUtil {
 
     /**
      * Runs a task synchronously after a delay. On Spigot, this is on the main thread.
-     * On Folia, this is on the global region thread.
+     * On Folia, this is on the global region thread.<br><br>
+     *
+     * <b>Warning:</b> This should only be used for tasks that affect the world itself! Such as
+     * modifying gamerules, the weather, world time, etc. It should not be used for tasks
+     * that modify entities or the world, as those should be run using {@link #ensureEntityLater(Entity, Runnable, long)}
+     * or {@link #ensureLocationLater(Location, Runnable, long)}.
+     *
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
      * @return The task object that can be used to cancel the task. Is a
      * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
      * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static Object runSyncLater(Runnable runnable, long delay) {
+    public static @NotNull Object runGlobalLater(Runnable runnable, long delay) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
             return Bukkit.getGlobalRegionScheduler().runDelayed(ProjectKorra.plugin, (task) -> runnable.run(), delay);
@@ -217,12 +240,22 @@ public class ThreadUtil {
 
     /**
      * Runs a task synchronously after a delay and repeats it until cancelled.
-     * On Spigot, this is on the main thread. On Folia, this is on the global region thread.
+     * On Spigot, this is on the main thread. On Folia, this is on the global region thread.<br><br>
+     *
+     * <b>Warning:</b> This should only be used for tasks that affect the world itself! Such as
+     * modifying gamerules, the weather, world time, etc. It should not be used for tasks
+     * that modify entities or the world, as those should be run using
+     * {@link #ensureEntityTimer(Entity, Runnable, long, long)}
+     * or {@link #ensureLocationTimer(Location, Runnable, long, long)}
+     *
      * @param runnable The task to run.
      * @param delay The delay in ticks before running the task.
      * @param repeat The delay in ticks between each repeat of the task.
+     * @return The task object that can be used to cancel the task. Is a
+     * {@link io.papermc.paper.threadedregions.scheduler.ScheduledTask} on Folia and a
+     * {@link org.bukkit.scheduler.BukkitTask} on Spigot.
      */
-    public static Object runSyncTimer(Runnable runnable, long delay, long repeat) {
+    public static @NotNull Object runGlobalTimer(Runnable runnable, long delay, long repeat) {
         delay = Math.max(1, delay);
         if (ProjectKorra.isFolia()) {
             return Bukkit.getGlobalRegionScheduler().runAtFixedRate(ProjectKorra.plugin, (task) -> runnable.run(), delay, repeat);
@@ -232,16 +265,13 @@ public class ThreadUtil {
     }
 
     /**
-     * Cancels a task that was created with {@link #ensureLocationTimer(Location, Runnable, long, long)}
-     * or {@link #ensureEntityTimer(Entity, Runnable, long, long)}.
+     * Cancels a task that was created with either timers or delayed tasks.
      * @param task The task to cancel. This is the object returned from
      * {@link #ensureLocationTimer(Location, Runnable, long, long)} or
      *             {@link #ensureEntityTimer(Entity, Runnable, long, long)}.
      * @return True if the task was cancelled successfully, false otherwise.
      */
-    public static boolean cancelTimerTask(Object task) {
-        if (task == null) return false;
-
+    public static boolean cancelTask(@NotNull Object task) {
         if (ProjectKorra.isFolia()) {
             if (task instanceof io.papermc.paper.threadedregions.scheduler.ScheduledTask) {
                 ((io.papermc.paper.threadedregions.scheduler.ScheduledTask) task).cancel();
@@ -260,7 +290,7 @@ public class ThreadUtil {
      * Checks if a task is cancelled.
      * @return True if the task is cancelled, false otherwise.
      */
-    public static boolean isTaskCancelled(Object task) {
+    public static boolean isTaskCancelled(@NotNull Object task) {
         if (ProjectKorra.isFolia()) {
             if (task instanceof io.papermc.paper.threadedregions.scheduler.ScheduledTask) {
                 return ((io.papermc.paper.threadedregions.scheduler.ScheduledTask) task).isCancelled();

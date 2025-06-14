@@ -314,7 +314,7 @@ public abstract class PKCommand implements SubCommand {
 		ThreadUtil.runAsync(() -> {
 			OfflinePlayer player = Bukkit.getOfflinePlayer(name);
 			//TODO FOLIA: THIS MAY NOT RETURN ON THE SAME THREAD IT WAS CALLED FROM. BEWARE.
-			ThreadUtil.runSync(() -> future.complete(player)); //Complete in a sync thread
+			ThreadUtil.runGlobal(() -> future.complete(player)); //Complete in a sync thread
 		});
 
 		return future;

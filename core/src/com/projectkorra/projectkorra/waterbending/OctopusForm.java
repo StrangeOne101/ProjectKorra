@@ -476,7 +476,7 @@ public class OctopusForm extends WaterAbility {
 		for (final TempBlock block : this.blocks) {
 			block.revertBlock();
 		}
-		ThreadUtil.ensureLocationDelay(this.sourceBlock.getLocation(), () -> OctopusForm.this.pc.remove(), 1000L);
+		ThreadUtil.ensureLocationLater(this.sourceBlock.getLocation(), () -> OctopusForm.this.pc.remove(), 1000L);
 
 	}
 

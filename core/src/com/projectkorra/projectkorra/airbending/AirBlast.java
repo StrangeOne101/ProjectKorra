@@ -444,7 +444,7 @@ public class AirBlast extends AirAbility {
 					testblock.setBlockData(button);
 					this.affectedLevers.add(testblock);
 
-					ThreadUtil.ensureLocationDelay(testblock.getLocation(), () -> {
+					ThreadUtil.ensureLocationLater(testblock.getLocation(), () -> {
 						button.setPowered(false);
 						testblock.setBlockData(button);
 						AirBlast.this.affectedLevers.remove(testblock);

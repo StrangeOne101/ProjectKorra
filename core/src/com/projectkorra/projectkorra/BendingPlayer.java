@@ -906,7 +906,7 @@ public class BendingPlayer extends OfflineBendingPlayer {
 			for (final String str : bound.values()) {
 				if (str.equalsIgnoreCase("AirSpout") || str.equalsIgnoreCase("WaterSpout") || str.equalsIgnoreCase("SandSpout")) {
 					final Player fplayer = this.player;
-					ThreadUtil.ensureEntityDelay(fplayer, () -> {
+					ThreadUtil.ensureEntityLater(fplayer, () -> {
 						fplayer.setFlying(false);
 						fplayer.setAllowFlight(false);
 
@@ -931,7 +931,7 @@ public class BendingPlayer extends OfflineBendingPlayer {
 
 		//Show the bending board 1 tick later. We do it 1 tick later because postLoad() is called BEFORE the player is loaded into the map,
 		//and the board needs to see the player in the map to initialize
-		ThreadUtil.ensureEntityDelay(player, () -> {
+		ThreadUtil.ensureEntityLater(player, () -> {
 			BendingBoardManager.getBoard(this.player).ifPresent(BendingBoard::show);
 			//Hide the board if they spawn in a world with bending disabled
 			BendingBoardManager.changeWorld(this.player);

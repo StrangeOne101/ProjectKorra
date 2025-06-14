@@ -43,7 +43,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -154,7 +153,7 @@ public class OfflineBendingPlayer {
                     if (offlinePlayer.isOnline()) {
                         newPlayer = new BendingPlayer((Player)offlinePlayer);
                         //Call postLoad() on the main thread and wait for it to complete
-                        ThreadUtil.runSync(() -> {
+                        ThreadUtil.runGlobal(() -> {
                             ((BendingPlayer)newPlayer).postLoad();
                             ONLINE_PLAYERS.put(uuid, (BendingPlayer) newPlayer);
                         });
@@ -162,7 +161,7 @@ public class OfflineBendingPlayer {
                         newPlayer = new OfflineBendingPlayer(offlinePlayer);
                     }
                     PLAYERS.put(uuid, newPlayer);
-                    ThreadUtil.runSync(() -> Bukkit.getPluginManager().callEvent(new BendingPlayerLoadEvent(newPlayer)));
+                    ThreadUtil.runGlobal(() -> Bukkit.getPluginManager().callEvent(new BendingPlayerLoadEvent(newPlayer)));
                     future.complete(newPlayer);
                     LOADING.remove(uuid);
                 } else {
@@ -417,7 +416,7 @@ public class OfflineBendingPlayer {
                     }
 
                     OfflineBendingPlayer finalBPlayer4 = bPlayer;
-                    ThreadUtil.runSync(() -> {
+                    ThreadUtil.runGlobal(() -> {
                         Bukkit.getPluginManager().callEvent(new BendingPlayerLoadEvent(finalBPlayer4));
                         LOADING.remove(uuid);
                         future.complete(finalBPlayer4);
@@ -1345,7 +1344,7 @@ public class OfflineBendingPlayer {
         bendingPlayer.loading = false;
 
         if (offlineBendingPlayer.uncache != null) {
-            ThreadUtil.cancelTimerTask(offlineBendingPlayer.uncache);
+            ThreadUtil.cancelTask(offlineBendingPlayer.uncache);
         }
 
         PLAYERS.put(player.getUniqueId(), bendingPlayer);
@@ -1395,8 +1394,8 @@ public class OfflineBendingPlayer {
         long remaining = (this.lastAccessed + this.uncacheTime) - System.currentTimeMillis();
 
         if (remaining >= 500) { //If there is at least half a second to go, delay the uncache
-            if (this.uncache != null) ThreadUtil.cancelTimerTask(this.uncache); //Cancel existing task
-            this.uncache = ThreadUtil.runSyncLater(this::uncache, remaining / 50);
+            if (this.uncache != null) ThreadUtil.cancelTask(this.uncache); //Cancel existing task
+            this.uncache = ThreadUtil.runGlobalLater(this::uncache, remaining / 50);
             return;
         }
 

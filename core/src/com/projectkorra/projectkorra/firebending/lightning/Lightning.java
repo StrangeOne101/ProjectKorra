@@ -14,7 +14,6 @@ import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.firebending.FireJet;
 import com.projectkorra.projectkorra.region.RegionProtection;
 import com.projectkorra.projectkorra.util.ThreadUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -271,7 +270,7 @@ public class Lightning extends LightningAbility {
 			} else {
 				updateLightningRod(block, true);
 			}
-			ThreadUtil.ensureLocationDelay(block.getLocation(), () -> {
+			ThreadUtil.ensureLocationLater(block.getLocation(), () -> {
 				if (blocks.isEmpty()) {
 					updateLightningRod(block, false);
 					return;

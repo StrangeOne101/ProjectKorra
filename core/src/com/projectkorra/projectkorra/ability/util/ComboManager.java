@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.projectkorra.projectkorra.util.ThreadUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.projectkorra.projectkorra.BendingPlayer;
@@ -38,7 +37,7 @@ public class ComboManager {
 			COMBO_ABILITIES.put("EarthDomeOthers", new ComboAbilityInfo("EarthDomeOthers", earthDomeOthers, EarthDomeOthers.class));
 		}*/
 
-		ThreadUtil.runSyncLater(ComboManager::registerCombos, 1L);
+		ThreadUtil.runGlobalLater(ComboManager::registerCombos, 1L);
 		startCleanupTask();
 	}
 
@@ -220,7 +219,7 @@ public class ComboManager {
 	}
 
 	public static void startCleanupTask() {
-		ThreadUtil.runSyncTimer(ComboManager::cleanupOldCombos, 1, CLEANUP_DELAY);
+		ThreadUtil.runGlobalTimer(ComboManager::cleanupOldCombos, 1, CLEANUP_DELAY);
 	}
 
 	public static long getCleanupDelay() {

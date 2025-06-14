@@ -45,7 +45,7 @@ public class FoliaCollisionManager {
         if (!collisionTasks.containsKey(id)) {
             CollisionTask task = new CollisionTask(region);
             collisionTasks.put(id, task);
-            ThreadUtil.ensureLocationDelay(location, task, 1);
+            ThreadUtil.ensureLocationLater(location, task, 1);
         }
 
         //
@@ -112,7 +112,7 @@ public class FoliaCollisionManager {
             Location location = first.getLocation();
             if (location == null) location = first.getPlayer().getLocation();
 
-            ThreadUtil.ensureLocationDelay(location, this, 1);
+            ThreadUtil.ensureLocationLater(location, this, 1);
         }
     }
 

@@ -37,7 +37,7 @@ public class CooldownCommand extends PKCommand {
 
         COOLDOWNS.add("ChooseElement");
 
-        ThreadUtil.runSyncLater(() -> {
+        ThreadUtil.runGlobalLater(() -> {
             for (CoreAbility ability : CoreAbility.getAbilities()) {
                 if (ability.isHiddenAbility() || ability instanceof PassiveAbility || !ability.isEnabled()) continue;
 

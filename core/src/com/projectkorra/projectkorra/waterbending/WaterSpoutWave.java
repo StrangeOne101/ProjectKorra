@@ -310,7 +310,7 @@ public class WaterSpoutWave extends WaterAbility {
 							final Player fplayer = this.player;
 							final Entity fent = entity;
 
-							ThreadUtil.ensureLocationDelay(entity.getLocation(), () -> {
+							ThreadUtil.ensureLocationLater(entity.getLocation(), () -> {
 								if (WaterSpoutWave.this.isRemoved()) return;
 								WaterSpoutWave.this.createIceSphere(fplayer, fent, iceSphereRadius);
 							}, 6);
@@ -353,7 +353,7 @@ public class WaterSpoutWave extends WaterAbility {
 	}
 
 	public void createBlockDelay(final Block block, final Material mat, final long delay) {
-		ThreadUtil.ensureLocationDelay(block.getLocation(), () -> {
+		ThreadUtil.ensureLocationLater(block.getLocation(), () -> {
 			if (WaterSpoutWave.this.isRemoved()) return;
 			WaterSpoutWave.this.createBlock(block, block.getLocation().distance(player.getLocation()) >= 1.6 ? mat : Material.WATER);
 		}, delay);

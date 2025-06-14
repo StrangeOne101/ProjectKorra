@@ -172,7 +172,7 @@ public class AirBurst extends AirAbility {
 			if (i % 4 != 0) {
 				toggleTime = (int) (i % (100 / this.particlePercentage)) + 3;
 			}
-			ThreadUtil.ensureLocationDelay(blast.getLocation(), () -> blast.setShowParticles(true), toggleTime);
+			ThreadUtil.ensureLocationLater(blast.getLocation(), () -> blast.setShowParticles(true), toggleTime);
 		}
 	}
 
