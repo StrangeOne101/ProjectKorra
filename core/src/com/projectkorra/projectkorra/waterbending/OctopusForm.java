@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
+import com.projectkorra.projectkorra.util.ThreadUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,7 +12,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.GeneralMethods;
@@ -476,14 +476,8 @@ public class OctopusForm extends WaterAbility {
 		for (final TempBlock block : this.blocks) {
 			block.revertBlock();
 		}
-		new BukkitRunnable() {
+		ThreadUtil.ensureLocationDelay(this.sourceBlock.getLocation(), () -> OctopusForm.this.pc.remove(), 1000L);
 
-			@Override
-			public void run() {
-				OctopusForm.this.pc.remove();
-			}
-
-		}.runTaskLater(ProjectKorra.plugin, 1000);
 	}
 
 	private void returnWater() {

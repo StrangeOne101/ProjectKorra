@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.projectkorra.projectkorra.util.ThreadUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
@@ -38,7 +38,7 @@ public class ComboManager {
 			COMBO_ABILITIES.put("EarthDomeOthers", new ComboAbilityInfo("EarthDomeOthers", earthDomeOthers, EarthDomeOthers.class));
 		}*/
 
-		Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, ComboManager::registerCombos, 1L);
+		ThreadUtil.runSyncLater(ComboManager::registerCombos, 1L);
 		startCleanupTask();
 	}
 
@@ -63,25 +63,21 @@ public class ComboManager {
 			return;
 		}
 
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (comboAbil.getComboType() instanceof Class) {
-					final Class<?> clazz = (Class<?>) comboAbil.getComboType();
-					try {
-						ReflectionHandler.instantiateObject(clazz, player);
-					} catch (final Exception e) {
-						e.printStackTrace();
-					}
-				} else {
-					if (comboAbil.getComboType() instanceof ComboAbility) {
-						((ComboAbility) comboAbil.getComboType()).createNewComboInstance(player);
-						return;
-					}
+		ThreadUtil.ensureLocation(player.getLocation(), () -> {
+			if (comboAbil.getComboType() instanceof Class) {
+				final Class<?> clazz = (Class<?>) comboAbil.getComboType();
+				try {
+					ReflectionHandler.instantiateObject(clazz, player);
+				} catch (final Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				if (comboAbil.getComboType() instanceof ComboAbility) {
+					((ComboAbility) comboAbil.getComboType()).createNewComboInstance(player);
+					return;
 				}
 			}
-
-		}.runTaskLater(ProjectKorra.plugin, 1L);
+		});
 	}
 
 	/**
@@ -224,12 +220,7 @@ public class ComboManager {
 	}
 
 	public static void startCleanupTask() {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				cleanupOldCombos();
-			}
-		}.runTaskTimer(ProjectKorra.plugin, 0, CLEANUP_DELAY);
+		ThreadUtil.runSyncTimer(ComboManager::cleanupOldCombos, 1, CLEANUP_DELAY);
 	}
 
 	public static long getCleanupDelay() {
