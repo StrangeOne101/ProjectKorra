@@ -12,13 +12,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.jar.JarFile;
 
-import com.projectkorra.projectkorra.ability.util.FoliaCollisionManager;
 import com.projectkorra.projectkorra.attribute.*;
 import com.projectkorra.projectkorra.command.CooldownCommand;
 import com.projectkorra.projectkorra.event.AbilityRecalculateAttributeEvent;
@@ -108,7 +108,7 @@ public abstract class CoreAbility implements Ability {
 	 * CoreAbility via reflection in {@link #registerAbilities()}. More
 	 * specifically, {@link #registerPluginAbilities} calls
 	 * getDeclaredConstructor which is only usable with a public default
-	 * constructor. Reflection lets us create a list of all of the plugin's
+	 * constructor. Reflection lets us create a list of all the plugin's
 	 * abilities when the plugin first loads.
 	 *
 	 * @see #ABILITIES_BY_NAME
@@ -171,12 +171,7 @@ public abstract class CoreAbility implements Ability {
 		}
 
 		if (ProjectKorra.isFolia() && !Bukkit.isOwnedByCurrentRegion(this.player)) {
-			ProjectKorra.log.warning("Tried to start ability " + this.getName() + " (" + this.getClass().getSimpleName() +
-					".class) on a player that is not owned by the current region. This is not allowed in Folia. Please report " +
-					"this to the ProjectKorra team.");
-			for (int i = 0; i < 6 && i < Thread.currentThread().getStackTrace().length; i++) {
-				ProjectKorra.log.warning(Thread.currentThread().getStackTrace()[i].toString());
-			}
+			Bukkit.getRegionScheduler().execute(ProjectKorra.plugin, player.getLocation(), this::start);
 			return;
 		}
 
@@ -194,13 +189,13 @@ public abstract class CoreAbility implements Ability {
 		final UUID uuid = this.player.getUniqueId();
 
 		if (!INSTANCES_BY_PLAYER.containsKey(clazz)) {
-			INSTANCES_BY_PLAYER.put(clazz, new ConcurrentHashMap<UUID, Map<Integer, CoreAbility>>());
+			INSTANCES_BY_PLAYER.put(clazz, new ConcurrentHashMap<>());
 		}
 		if (!INSTANCES_BY_PLAYER.get(clazz).containsKey(uuid)) {
-			INSTANCES_BY_PLAYER.get(clazz).put(uuid, new ConcurrentHashMap<Integer, CoreAbility>());
+			INSTANCES_BY_PLAYER.get(clazz).put(uuid, new ConcurrentHashMap<>());
 		}
 		if (!INSTANCES_BY_CLASS.containsKey(clazz)) {
-			INSTANCES_BY_CLASS.put(clazz, Collections.newSetFromMap(new ConcurrentHashMap<CoreAbility, Boolean>()));
+			INSTANCES_BY_CLASS.put(clazz, Collections.newSetFromMap(new ConcurrentHashMap<>()));
 		}
 
 		this.recalculateAttributes();
@@ -219,19 +214,15 @@ public abstract class CoreAbility implements Ability {
 				this._foliaCurrentTick++;
 				this.progressSelf();
 			}, 1L, 1L);
-
-			if (ProjectKorra.isLuminol()) { //Luminol is required for collisions right now, until Folia implements API that we can use
-				FoliaCollisionManager.startTracking(this);
-			}
 		}
 	}
 
 	/**
 	 * Causes this CoreAbility instance to be removed, and {@link #progress}
-	 * will no longer be called every tick. If this method is overridden then
+	 * will no longer be called every tick. If this method is overridden, then
 	 * the new method must call <b>super.remove()</b>.
 	 *
-	 * {@inheritDoc}
+	 * <p>{@inheritDoc}</p>
 	 *
 	 * @see #isRemoved()
 	 */
@@ -249,12 +240,12 @@ public abstract class CoreAbility implements Ability {
 			final Map<Integer, CoreAbility> playerMap = classMap.get(this.player.getUniqueId());
 			if (playerMap != null) {
 				playerMap.remove(this.id);
-				if (playerMap.size() == 0) {
+				if (playerMap.isEmpty()) {
 					classMap.remove(this.player.getUniqueId());
 				}
 			}
 
-			if (classMap.size() == 0) {
+			if (classMap.isEmpty()) {
 				INSTANCES_BY_PLAYER.remove(this.getClass());
 			}
 		}
@@ -268,15 +259,10 @@ public abstract class CoreAbility implements Ability {
 			INSTANCES_BY_CLASS.get(this.getClass()).remove(this);
 		}
 
-
 		INSTANCES.remove(this);
 
-		if (ProjectKorra.isFolia()) {
-			((ScheduledTask) this._foliaTask).cancel(); //Cancel the task if it exists
-
-			if (ProjectKorra.isLuminol()) {
-				FoliaCollisionManager.stopTracking(this);
-			}
+		if (ProjectKorra.isFolia() && this._foliaTask instanceof ScheduledTask task) {
+			task.cancel();
 		}
 	}
 
@@ -299,7 +285,7 @@ public abstract class CoreAbility implements Ability {
 				return;
 			}
 
-			if (ProjectKorra.isFolia() && !Bukkit.isOwnedByCurrentRegion(this.player)) {
+			if (ProjectKorra.isFolia()) {
 				//player.sendMessage(ChatColor.RED +"[Debug] " + this.getName() + " was killed because you changed regions");
 				this.remove();
 				return;
@@ -319,11 +305,6 @@ public abstract class CoreAbility implements Ability {
 
 		try {
 			this.progress();
-
-			if (ProjectKorra.isFolia()) { //Collisions don't work properly on Folia, so we spawn Markers at each location to damage
-				//this._foliaCollisions();
-			}
-
 			Bukkit.getServer().getPluginManager().callEvent(new AbilityProgressEvent(this));
 		} catch (final Throwable e) {
 			if (e instanceof NoSuchMethodError || e instanceof NoSuchFieldError || e instanceof NoClassDefFoundError) {
@@ -373,7 +354,6 @@ public abstract class CoreAbility implements Ability {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
 		}
 	}
@@ -435,7 +415,7 @@ public abstract class CoreAbility implements Ability {
 	 *         {@link #registerAbilities()}
 	 */
 	public static ArrayList<CoreAbility> getAbilities() {
-		return new ArrayList<CoreAbility>(ABILITIES_BY_CLASS.values());
+		return new ArrayList<>(ABILITIES_BY_CLASS.values());
 	}
 
 	/**
@@ -444,11 +424,11 @@ public abstract class CoreAbility implements Ability {
 	 *         {@link #registerAbilities()}
 	 */
 	public static ArrayList<CoreAbility> getAbilitiesByName() {
-		return new ArrayList<CoreAbility>(ABILITIES_BY_NAME.values());
+		return new ArrayList<>(ABILITIES_BY_NAME.values());
 	}
 
 	/**
-	 * Returns a Collection of all of the player created instances for a
+	 * Returns a Collection of all the player created instances for a
 	 * specific type of CoreAbility.
 	 *
 	 * @param clazz the class for the type of CoreAbilities
@@ -456,7 +436,7 @@ public abstract class CoreAbility implements Ability {
 	 * @return a Collection of real instances
 	 */
 	public static <T extends CoreAbility> Collection<T> getAbilities(final Class<T> clazz) {
-		if (clazz == null || INSTANCES_BY_CLASS.get(clazz) == null || INSTANCES_BY_CLASS.get(clazz).size() == 0) {
+		if (clazz == null || INSTANCES_BY_CLASS.get(clazz) == null || INSTANCES_BY_CLASS.get(clazz).isEmpty()) {
 			return Collections.emptySet();
 		}
 		return (Collection<T>) CoreAbility.INSTANCES_BY_CLASS.get(clazz);
@@ -479,7 +459,7 @@ public abstract class CoreAbility implements Ability {
 	}
 
 	/**
-	 * Returns a Collection of all of the CoreAbilities that are currently
+	 * Returns a Collection of all the CoreAbilities that are currently
 	 * active for a specific player.
 	 * @param player the player that created the instances
 	 * @return The abilities
@@ -500,8 +480,8 @@ public abstract class CoreAbility implements Ability {
 	}
 
 	/**
-	 * Returns a Collection of all of the CoreAbilities that are currently active.
-	 * @return a Collection of all of the CoreAbilities that are currently
+	 * Returns a Collection of all the CoreAbilities that are currently active.
+	 * @return a Collection of all the CoreAbilities that are currently
 	 *         alive. Do not modify this Collection.
 	 */
 	public static Collection<CoreAbility> getAbilitiesByInstances() {
@@ -509,7 +489,7 @@ public abstract class CoreAbility implements Ability {
 	}
 
 	/**
-	 * Returns an List of fake instances that were loaded by
+	 * Returns a List of fake instances that were loaded by
 	 * {@link #registerAbilities()} filtered by Element.
 	 *
 	 * @param element the Element of the loaded abilities
@@ -537,7 +517,7 @@ public abstract class CoreAbility implements Ability {
 	 * for bending reload purposes <br>
 	 * <b>This isn't a simple list, external use isn't recommended</b>
 	 *
-	 * @return a list of entrys with the plugin name and path abilities can be
+	 * @return a list of entries with the plugin name and path abilities can be
 	 *         found at
 	 */
 	public static List<String> getAddonPlugins() {
@@ -567,7 +547,7 @@ public abstract class CoreAbility implements Ability {
 		}
 		final String name = ABILITIES_BY_CLASS.get(clazz).getName();
 		for (final CoreAbility abil : INSTANCES) {
-			if (abil.getName() == name) {
+			if (Objects.equals(abil.getName(), name)) {
 				abil.remove();
 			}
 		}
@@ -577,7 +557,7 @@ public abstract class CoreAbility implements Ability {
 	}
 
 	/**
-	 * Returns a Set of all of the players that currently have an active
+	 * Returns a Set of all the players that currently have an active
 	 * instance of clazz.
 	 *
 	 * @param clazz the clazz for the type of CoreAbility
@@ -601,7 +581,7 @@ public abstract class CoreAbility implements Ability {
 
 	/**
 	 * Scans and loads plugin CoreAbilities, and Addon CoreAbilities that are
-	 * located in a Jar file inside of the /ProjectKorra/Abilities/ folder.
+	 * located in a Jar file inside the /ProjectKorra/Abilities/ folder.
 	 */
 	public static void registerAbilities() {
 		ABILITIES_BY_NAME.clear();
@@ -675,8 +655,8 @@ public abstract class CoreAbility implements Ability {
 	}
 
 	/**
-	 * Scans all of the Jar files inside of /ProjectKorra/folder and registers
-	 * all of the CoreAbility class files that were found.
+	 * Scans all the Jar files inside /ProjectKorra/folder and registers
+	 * all the CoreAbility class files that were found.
 	 *
 	 * @param folder the name of the folder to scan
 	 * @see #getAbilities()
@@ -684,7 +664,7 @@ public abstract class CoreAbility implements Ability {
 	 */
 	public static void registerAddonAbilities(final String folder) {
 		final ProjectKorra plugin = ProjectKorra.plugin;
-		final File path = new File(plugin.getDataFolder().toString() + folder);
+		final File path = new File(plugin.getDataFolder() + folder);
 		if (!path.exists()) {
 			path.mkdir();
 			return;
@@ -821,7 +801,7 @@ public abstract class CoreAbility implements Ability {
 			elementName = ((SubElement) this.getElement()).getParentElement().getName();
 		}
 
-		String tag = null;
+		String tag;
 		if (this instanceof PassiveAbility) {
 			tag = "Abilities." + elementName + ".Passive." + this.getName() + ".Enabled";
 		} else {
@@ -987,7 +967,7 @@ public abstract class CoreAbility implements Ability {
 
 	/**
 	 * Called when this ability instance collides with another. Some abilities
-	 * may want advanced behavior on a Collision; e.g. FireCombos only remove
+	 * may want advanced behavior on a Collision; e.g., FireCombos only remove
 	 * the stream that was hit rather than the entire ability.
 	 * <p>
 	 * collision.getAbilitySecond() - the ability that we are colliding with
@@ -1025,7 +1005,7 @@ public abstract class CoreAbility implements Ability {
 	 */
 	@Deprecated
 	public CoreAbility addAttributeModifier(final String attribute, final Number value, final AttributeModifier modification) {
-		return this;//.addAttributeModifier(attribute, value, modification, AttributePriority.MEDIUM);
+		return this;
 	}
 
 	/**
@@ -1034,7 +1014,7 @@ public abstract class CoreAbility implements Ability {
 	 */
 	@Deprecated
 	public CoreAbility addAttributeModifier(final String attribute, final Number value, final AttributeModifier modificationType, final AttributePriority priority) {
-	    return this;//.addAttributeModifier(attribute, value, modificationType, priority, UUID.randomUUID());
+	    return this;
 	}
 
 	/**
@@ -1058,7 +1038,7 @@ public abstract class CoreAbility implements Ability {
 	/**
 	 * Recalculate what the ability's attributes should be. This is called
 	 * whenever an ability is created, but should be called whenever you want an
-	 * ability to recalculate some of it's values. E.g. day turns to night, AvatarState
+	 * ability to recalculate some of its values. E.g., day turns to night AvatarState
 	 * gets toggled, etc.
 	 */
 	public void recalculateAttributes() {
@@ -1167,10 +1147,10 @@ public abstract class CoreAbility implements Ability {
 			}
 		}
 
-		sb.append("Class->UUID's in memory: " + playerCounter + "\n");
+		sb.append("Class->UUID's in memory: ").append(playerCounter).append("\n");
 		sb.append("Abilities in memory:\n");
 		for (final String className : classCounter.keySet()) {
-			sb.append(className + ": " + classCounter.get(className) + "\n");
+			sb.append(className).append(": ").append(classCounter.get(className)).append("\n");
 		}
 		return sb.toString();
 	}

@@ -59,6 +59,10 @@ public class ChooseCommand extends PKCommand {
 
 			//Don't need to bother with offline players here because the sender is always online
 			BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(sender.getName());
+			if (bPlayer == null) {
+				return;
+			}
+
 			if (bPlayer.isPermaRemoved()) {
 				ChatUtil.sendBrandingMessage(sender, ChatColor.RED + ConfigManager.languageConfig.get().getString("Commands.Preset.BendingPermanentlyRemoved"));
 				return;
@@ -187,13 +191,11 @@ public class ChooseCommand extends PKCommand {
 						bPlayer.addElement(e);
 
 						if (online) {
-							for (final SubElement sub : Element.getSubElements(element)) {
+							for (final SubElement sub : Element.getSubElements(e)) {
 								if (((BendingPlayer) bPlayer).hasSubElementPermission(sub)) {
 									PlayerChangeSubElementEvent subEvent = new PlayerChangeSubElementEvent(sender, target, sub, PlayerChangeSubElementEvent.Result.CHOOSE);
-
 									Bukkit.getServer().getPluginManager().callEvent(subEvent);
 									if (subEvent.isCancelled()) continue; //Do nothing if cancelled
-
 									bPlayer.addSubElement(sub);
 								}
 							}
